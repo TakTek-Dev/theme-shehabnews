@@ -7,27 +7,38 @@
    ============================================================ */
 
 /* ▸ SECTION SHELL --------------------------------------------- */
-.sx-section { padding-block: var(--sp-6); }
+/* Design-review pass: more air between sections (was --sp-6) and a larger
+   section title (was --fs-xl fixed) so the h2 → card-title hierarchy reads
+   at a glance. */
+.sx-section { padding-block: var(--sp-7); }
 .sx-section__head {
   display: flex; align-items: baseline; gap: var(--sp-4);
   margin-block-end: var(--sp-5);
 }
-.sx-section__title { font-size: var(--fs-xl); display: flex; align-items: center; gap: var(--sp-3); }
+.sx-section__title { font-size: clamp(var(--fs-xl), 1rem + 1.6vw, var(--fs-2xl)); display: flex; align-items: center; gap: var(--sp-3); }
 .sx-section__title::before {
   content: ""; inline-size: 4px; block-size: 1.15em; border-radius: var(--r-full);
   background: var(--c-primary); flex: none;
 }
 .sx-section__title a:hover { color: var(--c-primary); }
+/* Design-review pass: the "more" link is now a visible outlined-pill CTA
+   (every section head carries one clear action) instead of a quiet text link. */
 .sx-section__more {
-  margin-inline-start: auto; font-size: var(--fs-sm); font-weight: 600; color: var(--c-primary-ink);
+  margin-inline-start: auto; font-size: var(--fs-sm); font-weight: 700; color: var(--c-primary-ink);
   display: inline-flex; align-items: center; gap: var(--sp-1); white-space: nowrap;
+  border: 1.5px solid var(--c-line-strong); border-radius: var(--r-full); padding: 0.35em 1.1em;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
-.sx-section__more:hover { color: var(--c-primary); }
+.sx-section__more:hover { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
 /* dark band sections */
 .sx-section--band { background: var(--c-band); color: var(--c-band-ink); }
 .sx-section--band .sx-section__title::before { background: var(--c-band-ink); }
 .sx-section--band a:hover, .sx-section--band .sx-section__more { color: var(--c-band-ink); }
-.sx-section--band .sx-section__more:hover { opacity: 0.8; }
+.sx-section--band .sx-section__more:hover { color: var(--c-on-primary); }
+/* CTA pill border on dark surfaces uses the band hairline, not the light one */
+.sx-section--band .sx-section__more, .sx-pulse .sx-section__more, .sx-news--v6 .sx-section__more,
+.sx-video--v1 .sx-section__more, .sx-video--v3 .sx-section__more, .sx-quotes--v3 .sx-section__more,
+.sx-cartoon--v2 .sx-section__more { border-color: var(--c-band-line); }
 
 .sx-card__kicker { color: var(--c-alert); font-weight: 700; font-size: var(--fs-xs); }
 [dir="ltr"] .sx-flip-ltr { transform: scaleX(-1); }
@@ -605,6 +616,10 @@
 /* v1 — poster grid */
 .sx-files--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--sp-5); }
 .sx-files--v1 .sx-card { min-block-size: 19rem; }
+/* Tablet: 4 dossier cards in auto-fit's 3 columns leave a 3+1 hole. Force 2×2. */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  .sx-files--v1 .sx-section__body { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* v2 — horizontal scroller */
 .sx-files--v2 .sx-section__body {
@@ -1118,6 +1133,10 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 
 /* v1 — colored tiles */
 .sx-social--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--sp-4); }
+/* Tablet: 6 platform tiles in auto-fit's 4 columns leave a 4+2 hole. Force 3×2. */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  .sx-social--v1 .sx-section__body { grid-template-columns: repeat(3, 1fr); }
+}
 .sx-social--v1 a {
   display: flex; flex-direction: column; align-items: center; gap: var(--sp-1);
   padding: var(--sp-4); border-radius: var(--r-md); color: var(--c-overlay-ink); text-align: center;
@@ -1144,6 +1163,8 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
    14 ▸ MOST READ / TRENDING  (sx-trending)
    ============================================================= */
 /* v1 — big numerals */
+/* Design-review pass: surface band for background rhythm (text-only section) */
+.sx-trending--v1 { background: var(--c-surface); }
 .sx-trending--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--sp-5) var(--sp-6); counter-reset: none; }
 .sx-trending--v1 .sx-card__num { font-size: 3.2rem; color: transparent; -webkit-text-stroke: 1.5px var(--c-primary); }
 
@@ -1652,9 +1673,19 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 /* =============================================================
    18 ▸ DATA BAND  (sx-numbers) — optional
    ============================================================= */
+/* Design-review pass: light-gray band breaks the white monotony, and each
+   stat carries an icon (v1) above its animated counter (numbers.js). */
+.sx-numbers--v1 { background: var(--c-surface); }
 .sx-numbers .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--sp-5) var(--sp-6); }
+/* Tablet: auto-fit gives 3 columns → 4 stats leave a ragged 3+1 row. Force 2×2. */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  .sx-numbers .sx-section__body { grid-template-columns: repeat(2, 1fr); }
+}
 .sx-numbers__item { border-inline-start: 3px solid var(--c-pale); padding-inline-start: var(--sp-4); display: grid; gap: var(--sp-1); align-content: start; }
 .sx-numbers__item--alert { border-inline-start-color: var(--c-alert); }
+.sx-numbers__ico { inline-size: 1.75rem; block-size: 1.75rem; color: var(--c-primary); margin-block-end: var(--sp-1); }
+.sx-numbers__ico .sx-icon { inline-size: 100%; block-size: 100%; }
+.sx-numbers__item--alert .sx-numbers__ico { color: var(--c-alert); }
 .sx-numbers__val {
   font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 700; line-height: 1.05;
   font-variant-numeric: tabular-nums; color: var(--c-ink); direction: ltr; text-align: start;
@@ -1711,6 +1742,10 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 [dir="ltr"] .sx-swiper::after { background: linear-gradient(to left, var(--sx-rail-fade), transparent); }
 .sx-swiper:not(.is-start)::before { opacity: 1; }
 .sx-swiper:not(.is-end)::after { opacity: 1; }
+/* Pulse is a TEXT rail: widen its edge fades so a headline sliding beneath the
+   nav arrow melts into the band instead of colliding with it (fix: arrows were
+   covering the news text at the rail edges). */
+.sx-pulse .sx-swiper::before, .sx-pulse .sx-swiper::after { inline-size: 5.5rem; }
 
 .sx-rail__btn {
   position: absolute; inset-block-start: 50%; transform: translateY(-50%); z-index: 5;

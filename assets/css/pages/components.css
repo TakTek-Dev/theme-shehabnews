@@ -1,0 +1,36 @@
+/* ============================================================
+   Shehab News — pages/components.css
+   Page-scoped styles for components.html ONLY (atoms reference page):
+   sticky TOC rail, token swatches, type/radius scales, demo canvas.
+   Extracted from the page's former inline <style> block — the theme
+   itself never uses .cx-* classes.
+   ============================================================ */
+.cx-layout { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: var(--sp-7); align-items: start; }
+.cx-toc { position: sticky; inset-block-start: 3.4rem; display: grid; gap: 2px; padding-block-start: var(--sp-2); }
+.cx-toc__label { font-size: var(--fs-xs); font-weight: 700; color: var(--c-ink-3); letter-spacing: .04em; margin-block-end: var(--sp-2); }
+.cx-toc a { font-size: var(--fs-sm); color: var(--c-ink-2); padding: .3em var(--sp-3); border-inline-start: 2px solid var(--c-line); }
+.cx-toc a:hover { color: var(--c-ink); }
+.cx-toc a.is-active { color: var(--c-primary-ink); border-inline-start-color: var(--c-primary); font-weight: 700; background: var(--c-pale); }
+.cx-block { padding-block-end: var(--sp-6); margin-block-end: var(--sp-6); border-block-end: 1px solid var(--c-line); }
+.cx-block:last-of-type { border-block-end: 0; }
+.cx-block__head { display: flex; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap; margin-block-end: var(--sp-3); }
+.cx-block h2 { font-size: var(--fs-xl); margin: 0; }
+.cx-en { color: var(--c-ink-3); font-weight: 400; font-size: var(--fs-sm); }
+.cx-anchor { margin-inline-start: auto; font-family: ui-monospace, monospace; font-size: var(--fs-xs); color: var(--c-ink-3); direction: ltr; background: var(--c-surface); border-radius: var(--r-sm); padding: .15em .6em; }
+.cx-anchor:hover { color: var(--c-primary); }
+.cx-note { color: var(--c-ink-2); font-size: var(--fs-sm); margin-block-end: var(--sp-3); max-inline-size: 75ch; }
+.cx-canvas { display: grid; gap: var(--sp-4); background: var(--c-surface); border: 1px dashed var(--c-line-strong); border-radius: var(--r-lg); padding: var(--sp-5); }
+.cx-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: var(--sp-3); }
+.cx-swatch { border: 1px solid var(--c-line); border-radius: var(--r-md); overflow: hidden; font-size: var(--fs-xs); background: var(--c-bg); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.cx-swatch:hover { transform: translateY(-2px); box-shadow: var(--shadow-1); }
+.cx-swatch > span { display: block; block-size: 3.2rem; }
+.cx-swatch > code { display: block; padding: var(--sp-2) var(--sp-3) 0; direction: ltr; text-align: left; font-family: ui-monospace, monospace; color: var(--c-ink); font-weight: 600; }
+.cx-swatch > small { display: block; padding: 0 var(--sp-3) var(--sp-2); direction: ltr; text-align: left; font-family: ui-monospace, monospace; color: var(--c-ink-3); }
+.cx-type { display: grid; gap: var(--sp-2); }
+.cx-scale { display: flex; align-items: flex-end; gap: var(--sp-2); flex-wrap: wrap; }
+.cx-scale > div { display: grid; gap: var(--sp-1); justify-items: center; font-size: var(--fs-xs); color: var(--c-ink-3); font-family: ui-monospace, monospace; direction: ltr; }
+.cx-scale i { display: block; background: var(--c-pale); border: 1px solid var(--c-primary); border-radius: 2px; }
+.cx-radii { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+.cx-radii > div { display: grid; gap: var(--sp-1); justify-items: center; font-size: var(--fs-xs); color: var(--c-ink-3); font-family: ui-monospace, monospace; direction: ltr; }
+.cx-radii i { display: block; inline-size: 3.4rem; block-size: 3.4rem; background: var(--c-pale); border: 2px solid var(--c-primary); }
+@media (max-width: 64rem) { .cx-layout { grid-template-columns: 1fr; } .cx-toc { position: static; grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; gap: var(--sp-2); padding-block-end: var(--sp-2); } .cx-toc__label { display: none; } .cx-toc a { border-inline-start: 0; border-block-end: 2px solid var(--c-line); white-space: nowrap; } .cx-toc a.is-active { border-block-end-color: var(--c-primary); } }

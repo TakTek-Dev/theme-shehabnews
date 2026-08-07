@@ -26,6 +26,20 @@
       });
     });
   }
+  /* LTR test button (#sg-dir): flips the whole document to dir="ltr"/lang="en"
+     and back — proves the logical-properties layout is RTL/LTR-agnostic.
+     (Moved here from a former inline <script> at the end of styleguide.html.) */
+  function bindDirToggle() {
+    var btn = document.getElementById("sg-dir");
+    if (!btn || btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+    btn.addEventListener("click", function () {
+      var h = document.documentElement, toLtr = h.dir !== "ltr";
+      h.dir = toLtr ? "ltr" : "rtl";
+      h.lang = toLtr ? "en" : "ar";
+      this.textContent = toLtr ? "عودة إلى RTL" : "تجربة LTR (القسم الإنجليزي)";
+    });
+  }
+
   window.SX = window.SX || {}; SX.initVariants = init;
-  document.addEventListener("DOMContentLoaded", function () { init(document); });
+  document.addEventListener("DOMContentLoaded", function () { init(document); bindDirToggle(); });
 })();

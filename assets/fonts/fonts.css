@@ -1,6 +1,6 @@
 /* Shehab News — typeface
    Brand face (matches the current site): Helvetica Neue via the system stack —
-   no webfont download needed. The stack in main.css (--font-sans) falls back to
+   no webfont download needed. The stack in css/style.css (--font-sans) falls back to
    Arabic-capable system faces (Segoe UI, Tahoma, Geeza Pro).
    This file is intentionally empty of @font-face rules; if the client later
    licenses Neue Helvetica Arabic (Monotype), declare it here and it will apply

@@ -1,5 +1,5 @@
 /* ============================================================
-   Shehab News — main.css
+   Shehab News — style.css (entry stylesheet: design tokens + base + header/footer)
    1. Design tokens (:root)  2. Reset & base  3. Utilities
    4. Header  5. Footer  6. Page scaffolding
    All colors live in tokens. Logical properties only (RTL-native).
@@ -284,7 +284,8 @@ time { color: inherit; }
   block-size: 24rem; inline-size: auto; opacity: 0.05; pointer-events: none; user-select: none;
 }
 .sx-footer__cta { background: var(--c-band-2); border-block-end: 1px solid var(--c-band-line); position: relative; }
-.sx-footer__cta-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4) var(--sp-6); flex-wrap: wrap; padding-block: var(--sp-6); }
+/* Design-review pass: tighter footer (CTA + grid paddings reduced one step) */
+.sx-footer__cta-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4) var(--sp-6); flex-wrap: wrap; padding-block: var(--sp-5); }
 .sx-footer__cta-lead { display: grid; gap: var(--sp-1); }
 .sx-footer__cta-lead h3 { color: var(--c-band-ink); font-size: var(--fs-xl); }
 .sx-footer__cta-lead p { max-inline-size: 52ch; }
@@ -297,14 +298,15 @@ time { color: inherit; }
 .sx-footer__form input::placeholder { color: var(--c-band-ink-2); }
 .sx-footer__form input:focus { outline: 2px solid var(--c-primary); outline-offset: 1px; }
 
-.sx-footer__grid { display: grid; grid-template-columns: 1.7fr repeat(4, 1fr); gap: var(--sp-6); padding-block: var(--sp-7); position: relative; }
+.sx-footer__grid { display: grid; grid-template-columns: 1.7fr repeat(4, 1fr); gap: var(--sp-6); padding-block: var(--sp-6); position: relative; }
 .sx-footer__brand { display: grid; gap: var(--sp-4); align-content: start; justify-items: start; }
 .sx-footer__brand img { block-size: 2.9rem; inline-size: auto; }
 .sx-footer__brand p { max-inline-size: 36ch; }
 .sx-footer__stat { display: inline-block; font-size: var(--fs-xs); border: 1px solid var(--c-band-line); border-radius: var(--r-full); padding: 0.35em 1em; text-wrap: balance; text-align: center; }
 .sx-footer__stat strong { color: var(--c-band-ink); }
+/* Design-review pass: pure-white headings separate them clearly from links */
 .sx-footer__col h3 {
-  color: var(--c-band-ink); font-size: var(--fs-sm); margin-block-end: var(--sp-4);
+  color: var(--c-overlay-ink); font-size: var(--fs-sm); margin-block-end: var(--sp-3);
   display: flex; align-items: center; gap: var(--sp-2);
 }
 .sx-footer__col h3::before { content: ""; inline-size: 1.1rem; block-size: 2px; border-radius: var(--r-full); background: var(--c-primary); }

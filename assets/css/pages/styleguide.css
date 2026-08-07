@@ -1,0 +1,29 @@
+/* ============================================================
+   Shehab News — pages/styleguide.css
+   Page-scoped styles for styleguide.html ONLY (section × variant
+   review reference): hero band, TOC chips, variant switcher pills,
+   demo frames, meta rows. Extracted from the page's former inline
+   <style> block — the theme itself never uses .sg-* classes.
+   ============================================================ */
+.sg-hero { background: var(--c-band); color: var(--c-band-ink); padding-block: var(--sp-7); }
+.sg-hero h1 { font-size: var(--fs-3xl); margin-block-end: var(--sp-3); }
+.sg-hero p { color: var(--c-band-ink-2); max-inline-size: 70ch; }
+.sg-toolbar { display: flex; gap: var(--sp-3); margin-block-start: var(--sp-5); flex-wrap: wrap; }
+.sg-toc { display: flex; flex-wrap: wrap; gap: var(--sp-2); padding-block: var(--sp-5); border-block-end: 1px solid var(--c-line); }
+.sg-block { padding-block: var(--sp-7); border-block-end: 1px solid var(--c-line); }
+.sg-block__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-2) var(--sp-4); margin-block-end: var(--sp-2); }
+.sg-block__head h2 { font-size: var(--fs-2xl); }
+.sg-block__head .sg-en { color: var(--c-ink-3); font-size: var(--fs-base); font-weight: 400; }
+.sg-note { color: var(--c-ink-2); font-size: var(--fs-sm); max-inline-size: 80ch; }
+.sg-badge { font-size: var(--fs-xs); font-weight: 700; padding: 0.1em 0.7em; border-radius: var(--r-full); background: var(--c-warning-bg); color: var(--c-warning-ink); border: 1px solid var(--c-warning); }
+.sg-badge--core { background: var(--c-pale); color: var(--c-primary-ink); border-color: var(--c-primary); }
+.sg-switch { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-block: var(--sp-4); align-items: center; }
+.sg-switch button { border: 1px solid var(--c-line-strong); border-radius: var(--r-full); padding: 0.3em 1em; font-size: var(--fs-sm); font-weight: 600; color: var(--c-ink-2); }
+.sg-switch button:hover { border-color: var(--c-primary); color: var(--c-primary); }
+.sg-switch button.is-active { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
+.sg-vname { font-size: var(--fs-sm); color: var(--c-ink-3); }
+.sg-code { display: block; direction: ltr; text-align: left; font-family: ui-monospace, "Courier New", monospace; font-size: var(--fs-xs); background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-md); padding: var(--sp-2) var(--sp-3); overflow-x: auto; white-space: nowrap; margin-block-end: var(--sp-4); color: var(--c-ink-2); }
+.sg-demo { border: 1px dashed var(--c-line-strong); border-radius: var(--r-lg); overflow: hidden; }
+.sg-demo > .sx-section { padding-block: var(--sp-6); }
+.sg-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); font-size: var(--fs-xs); color: var(--c-ink-3); margin-block-start: var(--sp-3); }
+.sg-meta code { font-family: ui-monospace, monospace; direction: ltr; unicode-bidi: embed; }

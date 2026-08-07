@@ -31,11 +31,11 @@ var I = {
 };
 
 var IMG = {
-  wide: function (n) { return 'assets/img/ph-wide-' + ((n % 8) + 1) + '.svg'; },
-  sq: function (n) { return 'assets/img/ph-sq-' + ((n % 4) + 1) + '.svg'; },
-  por: function (n) { return 'assets/img/ph-portrait-' + ((n % 4) + 1) + '.svg'; },
-  poster: function (n) { return 'assets/img/ph-poster-' + ((n % 4) + 1) + '.svg'; },
-  av: function (n) { return 'assets/img/ph-avatar-' + ((n % 6) + 1) + '.svg'; }
+  wide: function (n) { return 'assets/images/ph-wide-' + ((n % 8) + 1) + '.svg'; },
+  sq: function (n) { return 'assets/images/ph-sq-' + ((n % 4) + 1) + '.svg'; },
+  por: function (n) { return 'assets/images/ph-portrait-' + ((n % 4) + 1) + '.svg'; },
+  poster: function (n) { return 'assets/images/ph-poster-' + ((n % 4) + 1) + '.svg'; },
+  av: function (n) { return 'assets/images/ph-avatar-' + ((n % 6) + 1) + '.svg'; }
 };
 
 var POSTS = {
@@ -253,11 +253,11 @@ var B = {
   video: function (v, o) {
     o = o || {};
     var VIDS = [
-      { t: 'شاهد | لحظة استهداف برج سكني وسط مدينة غزة', dur: '10:35', date: 'منذ ساعة', type: 'youtube', id: 'aqz-KE-bpKQ', poster: 'assets/img/real/gaza-city.png' },
-      { t: 'تقرير | كيف يعيش أهالي المخيمات فصل الشتاء؟', dur: '05:47', date: 'منذ 3 ساعات', type: 'file', src: 'assets/video/demo-1.mp4', poster: 'assets/img/real/khan-yunis.png' },
-      { t: 'مقابلة خاصة مع الناطق باسم الأونروا حول أزمة التمويل', dur: '12:30', date: 'منذ 5 ساعات', type: 'youtube', id: 'M7lc1UVf-VE', poster: 'assets/img/real/ramallah.png' },
-      { t: 'عدسة الميدان | جولة في أسواق القدس القديمة قبيل العيد', dur: '04:05', date: 'أمس', type: 'youtube', id: 'jNQXAC9IVRw', poster: 'assets/img/real/old-city.png' },
-      { t: 'توثيق | إعادة افتتاح مستشفى الشفاء بعد الترميم', dur: '03:22', date: 'أمس', type: 'file', src: 'assets/video/demo-2.mp4', poster: 'assets/img/real/port-gaza.png' }
+      { t: 'شاهد | لحظة استهداف برج سكني وسط مدينة غزة', dur: '10:35', date: 'منذ ساعة', type: 'youtube', id: 'aqz-KE-bpKQ', poster: 'assets/images/real/gaza-city.png' },
+      { t: 'تقرير | كيف يعيش أهالي المخيمات فصل الشتاء؟', dur: '05:47', date: 'منذ 3 ساعات', type: 'file', src: 'assets/video/demo-1.mp4', poster: 'assets/images/real/khan-yunis.png' },
+      { t: 'مقابلة خاصة مع الناطق باسم الأونروا حول أزمة التمويل', dur: '12:30', date: 'منذ 5 ساعات', type: 'youtube', id: 'M7lc1UVf-VE', poster: 'assets/images/real/ramallah.png' },
+      { t: 'عدسة الميدان | جولة في أسواق القدس القديمة قبيل العيد', dur: '04:05', date: 'أمس', type: 'youtube', id: 'jNQXAC9IVRw', poster: 'assets/images/real/old-city.png' },
+      { t: 'توثيق | إعادة افتتاح مستشفى الشفاء بعد الترميم', dur: '03:22', date: 'أمس', type: 'file', src: 'assets/video/demo-2.mp4', poster: 'assets/images/real/port-gaza.png' }
     ];
     var player = '<div class="sx-video__player">' +
       '<div class="sx-video__glow" aria-hidden="true"><img src="' + VIDS[0].poster + '" alt=""></div>' +
@@ -309,7 +309,7 @@ var B = {
     ];
     var body = '<div class="sx-cartoon__stage">' +
       '<figure class="sx-cartoon__art"><span class="sx-cartoon__stamp" aria-hidden="true">اليوم<br>4 أغسطس</span>' +
-      '<a href="gallery.html"><img src="assets/img/ph-cartoon.svg" alt="كاريكاتير اليوم: المفاوضات" loading="lazy" width="1200" height="900"></a></figure>' +
+      '<a href="gallery.html"><img src="assets/images/ph-cartoon.svg" alt="كاريكاتير اليوم: المفاوضات" loading="lazy" width="1200" height="900"></a></figure>' +
       '<div class="sx-cartoon__meta"><h3 class="sx-cartoon__title">«المفاوضات»</h3>' +
       '<p class="sx-cartoon__desc">ريشة تختصر المشهد السياسي بضربة واحدة — يرسم نزّال يوميات الحصار والمفاوضات منذ خمسة عشر عامًا.</p>' +
       '<div class="sx-author"><img src="' + IMG.av(4) + '" alt="" loading="lazy" width="240" height="240"><div><div class="sx-author__name">أسامة نزّال</div><div class="sx-author__role">رسام الكاريكاتير — شهاب</div></div></div>' +
@@ -317,7 +317,7 @@ var B = {
       '</div></div>' +
       '<div class="sx-cartoon__archive">' + ARCH.map(function (a) {
         return '<a class="sx-cartoon__item" href="gallery.html">' +
-          '<span class="sx-cartoon__item-art"><img src="assets/img/ph-cartoon.svg" alt="" loading="lazy" width="1200" height="900"></span>' +
+          '<span class="sx-cartoon__item-art"><img src="assets/images/ph-cartoon.svg" alt="" loading="lazy" width="1200" height="900"></span>' +
           '<span class="sx-cartoon__item-title">' + a[0] + '</span><span class="sx-cartoon__item-date">' + a[1] + '</span></a>';
       }).join('') + '</div>';
     return sect('cartoon', v, { title: 'كاريكاتير', url: 'gallery.html', body: body });
@@ -355,8 +355,8 @@ var B = {
 /* ---------- page chrome ---------- */
 function chromeHead(title, desc, extraCss) {
   return '<!DOCTYPE html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>' + title + '</title>\n<meta name="description" content="' + (desc || 'وكالة شهاب للأنباء — آخر أخبار فلسطين لحظة بلحظة') + '">\n' +
-    '<link rel="icon" href="assets/img/logo-blue.png">\n' +
-    '<link rel="stylesheet" href="assets/css/main.css?v=20260806">\n<link rel="stylesheet" href="assets/css/sections.css?v=20260806">\n<link rel="stylesheet" href="assets/css/components.css?v=20260806">\n<link rel="stylesheet" href="assets/css/dark.css?v=20260806">\n' +
+    '<link rel="icon" href="assets/images/logo-blue.png">\n' +
+    '<link rel="stylesheet" href="assets/css/style.css?v=20260806">\n<link rel="stylesheet" href="assets/css/sections.css?v=20260806">\n<link rel="stylesheet" href="assets/css/components.css?v=20260806">\n<link rel="stylesheet" href="assets/css/dark.css?v=20260806">\n' +
     (extraCss || '') +
     '<script>try{var t=localStorage.getItem("sx-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>\n' +
     ['theme', 'menu', 'tabs', 'ticker', 'slider', 'video', 'video-float', 'poll', 'audio', 'lightbox', 'ads', 'numbers', 'swiper-init'].map(function (m) { return '<script src="assets/js/' + m + '.js?v=20260806" defer></script>'; }).join('\n') +
@@ -386,7 +386,7 @@ function chromeHeader(active, opts) {
     '</div></div></div>' +
     '<div class="sx-container sx-masthead">' +
     '<button class="sx-iconbtn sx-header__burger" type="button" data-sx-drawer-open aria-expanded="false" aria-label="فتح القائمة">' + I.menu + '</button>' +
-    '<a class="sx-masthead__logo" href="index.html"><img class="sx-logo-light" src="assets/img/logo-blue.png" alt="وكالة شهاب للأنباء" width="583" height="377"><img class="sx-logo-dark" src="assets/img/logo-white.png" alt="" width="583" height="377"></a>' +
+    '<a class="sx-masthead__logo" href="index.html"><img class="sx-logo-light" src="assets/images/logo-blue.png" alt="وكالة شهاب للأنباء" width="583" height="377"><img class="sx-logo-dark" src="assets/images/logo-white.png" alt="" width="583" height="377"></a>' +
     '<form class="sx-masthead__search" action="search.html" method="get" role="search">' + I.search + '<label class="visually-hidden" for="q-mast">ابحث في الموقع</label><input type="search" id="q-mast" name="q" placeholder="ابحث عن خبر، ملف، برنامج…"></form>' +
     '<div class="sx-masthead__actions">' +
     '<button class="sx-iconbtn sx-masthead__search-toggle" type="button" data-sx-search-toggle aria-expanded="false" aria-label="بحث">' + I.search + '</button>' +
@@ -401,7 +401,7 @@ function chromeHeader(active, opts) {
     '<div class="sx-search" data-sx-search><div class="sx-container"><form action="search.html" role="search" method="get"><label class="visually-hidden" for="q-top">ابحث في الموقع</label><input type="search" id="q-top" name="q" placeholder="ابحث في شهاب…"><button class="sx-btn" type="submit">بحث</button></form><p class="sx-search__hint">اقتراحات: غزة · الأسرى · صفقة التبادل · المسجد الأقصى</p></div></div>' +
     '</header>\n' +
     '<div class="sx-drawer" data-sx-drawer aria-label="القائمة الرئيسية">' +
-    '<div class="sx-drawer__head"><img class="sx-logo-light" src="assets/img/logo-blue.png" alt="وكالة شهاب"><img class="sx-logo-dark" src="assets/img/logo-white.png" alt="وكالة شهاب" hidden>' +
+    '<div class="sx-drawer__head"><img class="sx-logo-light" src="assets/images/logo-blue.png" alt="وكالة شهاب"><img class="sx-logo-dark" src="assets/images/logo-white.png" alt="وكالة شهاب" hidden>' +
     '<button class="sx-iconbtn" type="button" data-sx-drawer-close aria-label="إغلاق القائمة">' + I.x + '</button></div>' +
     '<nav aria-label="تنقل الجوال"><ul>' +
     [['index.html', 'الرئيسية'], ['category.html', 'أخبار فلسطين'], ['category.html', 'القدس'], ['category.html', 'عربي ودولي'], ['category.html', 'اسرائيلي'], ['video.html', 'فيديو'], ['writers.html', 'رأي'], ['special-file.html', 'ملفات خاصة'], ['gallery.html', 'صور'], ['category.html', 'رياضة'], ['category.html', 'منوعات']].map(function (l) { return '<li><a href="' + l[0] + '">' + l[1] + '</a></li>'; }).join('') +
@@ -419,13 +419,13 @@ function chromeFooter() {
     ['خدمات', [['search.html', 'البحث في الأرشيف'], ['writers.html', 'كتّاب شهاب'], ['page.html', 'إشعارات المتصفح'], ['page.html', 'RSS'], ['page.html', 'خريطة الموقع'], ['index.html', 'English']]]
   ];
   return '<footer class="sx-footer">' +
-    '<img class="sx-footer__mark" src="assets/img/logo-white.png" alt="" aria-hidden="true">' +
+    '<img class="sx-footer__mark" src="assets/images/logo-white.png" alt="" aria-hidden="true">' +
     '<div class="sx-footer__cta"><div class="sx-container sx-footer__cta-in">' +
     '<div class="sx-footer__cta-lead"><h3>نشرة شهاب البريدية</h3><p>خلاصة محررينا لأهم أخبار فلسطين — رسالة واحدة كل صباح، بلا ضجيج.</p></div>' +
     '<form class="sx-footer__form" action="#" method="post"><label class="visually-hidden" for="fnl">البريد الإلكتروني</label><input type="email" id="fnl" placeholder="بريدك الإلكتروني" required><button class="sx-btn" type="submit">اشترك</button></form>' +
     '</div></div>' +
     '<div class="sx-container"><div class="sx-footer__grid">' +
-    '<div class="sx-footer__brand"><img src="assets/img/logo-white.png" alt="وكالة شهاب للأنباء" width="583" height="377">' +
+    '<div class="sx-footer__brand"><img src="assets/images/logo-white.png" alt="وكالة شهاب للأنباء" width="583" height="377">' +
     '<p>وكالة فلسطينية مستقلة تأسست في غزة عام 2007، تنقل الخبر من قلب الميدان بمهنية — انحيازنا الوحيد للحقيقة.</p>' +
     '<span class="sx-footer__stat">أكثر من <strong>2.4 مليون</strong> متابع عبر المنصات</span>' +
     '<div class="sx-footer__social">' +
