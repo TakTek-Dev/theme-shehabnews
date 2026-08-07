@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+<rect width="1200" height="900" fill="#FBF8F1"></rect>
+<rect x="42" y="42" width="1116" height="816" fill="none" stroke="#E6DFCE" stroke-width="3"></rect>
+<rect x="58" y="58" width="1084" height="784" fill="none" stroke="#E6DFCE" stroke-width="1"></rect>
+<g stroke="#2C3440" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <path d="M 300 640 C 470 560, 500 700, 680 610 S 860 470, 905 445"></path>
+</g>
+<g fill="#2C3440">
+  <path d="M 255 690 L 310 630 L 328 648 L 272 706 Z"></path>
+  <path d="M 246 700 L 262 716 L 236 726 Z"></path>
+  <circle cx="352" cy="600" r="7"></circle><circle cx="382" cy="628" r="5"></circle><circle cx="330" cy="566" r="4"></circle>
+  <path d="M 905 445 L 985 405 L 955 465 Z"></path>
+  <path d="M 940 430 L 1005 350 L 990 440 Z" opacity="0.85"></path>
+  <path d="M 905 445 L 955 465 L 900 485 Z" opacity="0.65"></path>
+</g>
+<g stroke="#2C3440" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.75">
+  <path d="M 930 780 c 25 -28, 45 8, 68 -14 c 16 -15, 34 -2, 52 -12"></path>
+</g>
+<text x="600" y="812" font-family="Tahoma, sans-serif" font-size="26" fill="#2C3440" opacity="0.45" text-anchor="middle">مساحة الكاريكاتير اليومي — بريشة فنان شهاب</text>
+</svg>

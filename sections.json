@@ -1,0 +1,1037 @@
+{
+  "$schema_note": "Generated from the built theme. Every class/key below resolves to a real block in styleguide.html. optional:true sections are feature-flagged surfaces.",
+  "version": "1.0.0",
+  "generated": "2026-08-04",
+  "sections": [
+    {
+      "key": "hero",
+      "name_ar": "الواجهة الرئيسية",
+      "name_en": "Hero / lead",
+      "data": {
+        "needs": [
+          "posts"
+        ],
+        "posts_min": 3,
+        "posts_max": 6,
+        "posts_default": 5
+      },
+      "markup": {
+        "wrapper": "sx-section sx-hero",
+        "side_wrapper": "sx-hero__side holds posts 2..N"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-hero--v1",
+          "name_ar": "خبر كبير + قائمة جانبية",
+          "name_en": "Big lead + side list",
+          "preview_family": "hero",
+          "posts_default": 5,
+          "notes": "Dark band: overlay lead with red kicker + \"now\" side list with square thumbnails."
+        },
+        {"id":6,"class":"sx-news--v6","name_ar":"باند داكن + لوحة مُدرجة","name_en":"Dark band + inset panel","preview_family":"dark","posts_default":5,"notes":"Faithful to reference: dark navy band with a title tab and inner hairline; lead post as an inset pale split card (rounded inset image + centered text, solid pill category); third post as a tall image-led card on the side; other posts as compact thumb rows on the dark band."},
+        {
+          "id": 2,
+          "class": "sx-hero--v2",
+          "name_ar": "غلاف كامل فوق الصورة",
+          "name_en": "Full-bleed overlay",
+          "preview_family": "single",
+          "posts_default": 4,
+          "notes": "All posts text-over-image; first is a tall cover."
+        },
+        {
+          "id": 3,
+          "class": "sx-hero--v3",
+          "name_ar": "فسيفساء أوفرلاي",
+          "name_en": "Overlay mosaic 2+3",
+          "preview_family": "media",
+          "posts_default": 2,
+          "notes": "Equal large cards; best with 2-3 posts."
+        },
+        {
+          "id": 4,
+          "class": "sx-hero--v4",
+          "name_ar": "فسيفساء المجلة 1+4",
+          "name_en": "Magazine mosaic 1+4",
+          "preview_family": "quad",
+          "posts_default": 5,
+          "notes": "Lead spans 2x2; the rest tile around it, all overlay style."
+        },
+        {"id":5,"class":"sx-hero--v5","name_ar":"لوحة ترحيب + قائمة مميزة","name_en":"Welcome panel + featured list","preview_family":"mixed","posts_default":5,"notes":"Magazine welcome unit: pale container holding a white intro card (title, description, outlined pill CTA) and a dark lead card framed by the same pale border — inset rounded image, centered pill kicker, centered title/date/excerpt. Side: pale panel of text-only featured rows with strong separators. Intro copy comes from section settings."}
+      ]
+    },
+    {
+      "key": "ticker",
+      "name_ar": "شريط عاجل",
+      "name_en": "Breaking ticker",
+      "data": {
+        "needs": [
+          "posts"
+        ],
+        "posts_min": 1,
+        "posts_max": 8,
+        "posts_default": 4
+      },
+      "js": {
+        "module": "assets/js/ticker.js",
+        "init": "SX.initTicker",
+        "binds": "[data-sx-ticker]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-ticker--v1",
+          "name_ar": "شريط متحرك كلاسيكي",
+          "name_en": "Classic marquee bar",
+          "preview_family": "strip",
+          "posts_default": 4,
+          "notes": "Seamless JS marquee (Web Animations API); pause button + hover pause; slower under reduced motion."
+        },
+        {
+          "id": 2,
+          "class": "sx-ticker--v2",
+          "name_ar": "شارة عاجل + عنوان متبدل",
+          "name_en": "Pill + rotating headline",
+          "preview_family": "strip",
+          "posts_default": 4,
+          "notes": "One headline at a time, cross-fades every 4.5s."
+        },
+        {
+          "id": 3,
+          "class": "sx-ticker--v3",
+          "name_ar": "شريط مكدس",
+          "name_en": "Stacked strip",
+          "preview_family": "list",
+          "posts_default": 3,
+          "notes": "Static stacked headlines; no motion."
+        }
+      ]
+    },
+    {
+      "key": "utility",
+      "name_ar": "شريط العملات والطقس",
+      "name_en": "Utility strip",
+      "optional": true,
+      "data": {
+        "needs": [
+          "rates",
+          "weather"
+        ],
+        "posts_min": 2,
+        "posts_max": 8,
+        "posts_default": 5
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-utility--v1",
+          "name_ar": "شريط مضمّن",
+          "name_en": "Inline bar",
+          "preview_family": "strip",
+          "posts_default": 5,
+          "notes": "Single row; weather at the far edge."
+        },
+        {
+          "id": 2,
+          "class": "sx-utility--v2",
+          "name_ar": "بطاقة مدمجة",
+          "name_en": "Compact card",
+          "preview_family": "grid",
+          "posts_default": 5,
+          "notes": "Hairline-grid cells, one per rate."
+        }
+      ]
+    },
+    {
+      "key": "tabs",
+      "name_ar": "المزيد من الأخبار (تبويبات)",
+      "name_en": "Tabbed news feed",
+      "data": {
+        "needs": [
+          "title",
+          "category_url",
+          "tabs",
+          "posts"
+        ],
+        "posts_min": 3,
+        "posts_max": 8,
+        "posts_default": 6
+      },
+      "js": {
+        "module": "assets/js/tabs.js",
+        "init": "SX.initTabs",
+        "binds": "[data-sx-tabs]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-tabs--v1",
+          "name_ar": "تبويبات + قائمة",
+          "name_en": "Tabs + list",
+          "preview_family": "list",
+          "posts_default": 6,
+          "notes": "Two-column thumbnail rows."
+        },
+        {
+          "id": 2,
+          "class": "sx-tabs--v2",
+          "name_ar": "تبويبات + شبكة",
+          "name_en": "Tabs + grid",
+          "preview_family": "grid",
+          "posts_default": 6,
+          "notes": "Equal card grid per tab."
+        },
+        {
+          "id": 3,
+          "class": "sx-tabs--v3",
+          "name_ar": "تبويبات + خبر مصور + قائمة",
+          "name_en": "Tabs + lead + list",
+          "preview_family": "mixed",
+          "posts_default": 5,
+          "notes": "First post large; the rest stack beside it."
+        }
+      ]
+    },
+    {
+      "key": "news",
+      "name_ar": "بلوك تصنيف",
+      "name_en": "Category block",
+      "data": {
+        "needs": [
+          "title",
+          "category_url",
+          "posts"
+        ],
+        "posts_min": 3,
+        "posts_max": 8,
+        "posts_default": 5
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-news--v1",
+          "name_ar": "خبر كبير + أربعة صغار",
+          "name_en": "One big + four small",
+          "preview_family": "hero",
+          "posts_default": 5,
+          "notes": "First post uses the large image; the rest are image cards in two columns."
+        },
+        {
+          "id": 2,
+          "class": "sx-news--v2",
+          "name_ar": "شبكة بطاقات متساوية",
+          "name_en": "Equal card grid",
+          "preview_family": "grid",
+          "posts_default": 4,
+          "notes": "Uniform cards; auto-fills 2-4 columns."
+        },
+        {
+          "id": 3,
+          "class": "sx-news--v3",
+          "name_ar": "قائمة مرقمة",
+          "name_en": "Ranked numbered list",
+          "preview_family": "list",
+          "posts_default": 6,
+          "notes": "Text-only rows with ordinal numerals; images ignored."
+        },
+        {
+          "id": 4,
+          "class": "sx-news--v4",
+          "name_ar": "صفوف عريضة بصور جانبية",
+          "name_en": "Wide rows, side thumbnails",
+          "preview_family": "wide",
+          "posts_default": 4,
+          "notes": "Full-width rows, thumbnail at inline start, larger headline."
+        },
+        {"id":5,"class":"sx-news--v5","name_ar":"بلوك لوني منقسم","name_en":"Split color block","preview_family":"wide","posts_default":5,"notes":"Lead post as a half-and-half split: pale text panel (pill category, large title, excerpt) beside its image; remaining posts as quiet text cards on a surface row."}
+      ]
+    },
+    {
+      "key": "opinion",
+      "name_ar": "رأي وكتّاب",
+      "name_en": "Opinion / writers",
+      "data": {
+        "needs": [
+          "title",
+          "category_url",
+          "posts.author"
+        ],
+        "posts_min": 2,
+        "posts_max": 6,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-opinion--v1",
+          "name_ar": "صف بطاقات الكتّاب",
+          "name_en": "Author-card row",
+          "preview_family": "people",
+          "posts_default": 4,
+          "notes": "Surface-tinted cards; headline then author chip."
+        },
+        {
+          "id": 2,
+          "class": "sx-opinion--v2",
+          "name_ar": "بطاقات باقتباس",
+          "name_en": "Quote-led cards",
+          "preview_family": "grid",
+          "posts_default": 3,
+          "notes": "Headline as pulled quote with large mark; author at foot."
+        },
+        {
+          "id": 3,
+          "class": "sx-opinion--v3",
+          "name_ar": "قائمة مدمجة بصور دائرية",
+          "name_en": "Compact avatar list",
+          "preview_family": "list",
+          "posts_default": 6,
+          "notes": "Rows led by a circular avatar column."
+        },
+        {"id":4,"class":"sx-opinion--v4","name_ar":"صف هادئ بزاوية مقصوصة","name_en":"Quiet cut-corner row","preview_family":"cards2","posts_default":4,"notes":"Surface-gray cards with one squared corner; headline on top, author row pinned to the bottom rule; hover tints pale blue and lifts."}
+      ]
+    },
+    {
+      "key": "quotes",
+      "name_ar": "تصريحات خاصة",
+      "name_en": "Exclusive statements",
+      "data": {
+        "needs": [
+          "title",
+          "posts.quote",
+          "posts.speaker"
+        ],
+        "posts_min": 2,
+        "posts_max": 6,
+        "posts_default": 3
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-quotes--v1",
+          "name_ar": "بطاقات اقتباس",
+          "name_en": "Quote cards",
+          "preview_family": "grid",
+          "posts_default": 3,
+          "notes": "Pale-blue cards: badge, quote, speaker. Portrait ignored."
+        },
+        {
+          "id": 2,
+          "class": "sx-quotes--v2",
+          "name_ar": "قائمة بصورة بورتريه",
+          "name_en": "Portrait-led list",
+          "preview_family": "media",
+          "posts_default": 2,
+          "notes": "Bordered rows with a 3:4 portrait at inline start."
+        },
+        {
+          "id": 3,
+          "class": "sx-quotes--v3",
+          "name_ar": "شريط داكن",
+          "name_en": "Dark band",
+          "preview_family": "dark",
+          "posts_default": 3,
+          "notes": "Full-width dark section; quotes on accent rules. Portrait ignored."
+        }
+      ]
+    },
+    {
+      "key": "files",
+      "name_ar": "ملفات خاصة",
+      "name_en": "Special files / dossiers",
+      "data": {
+        "needs": [
+          "title",
+          "posts.cover"
+        ],
+        "posts_min": 3,
+        "posts_max": 8,
+        "posts_default": 5
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-files--v1",
+          "name_ar": "شبكة ملصقات",
+          "name_en": "Poster grid",
+          "preview_family": "grid",
+          "posts_default": 5,
+          "notes": "Overlay poster cards, auto-fill."
+        },
+        {
+          "id": 2,
+          "class": "sx-files--v2",
+          "name_ar": "شريط تمرير أفقي",
+          "name_en": "Horizontal scroller",
+          "preview_family": "slider",
+          "posts_default": 6,
+          "notes": "Scroll-snap poster rail."
+        },
+        {
+          "id": 3,
+          "class": "sx-files--v3",
+          "name_ar": "ملف بارز + قائمة مصغرات",
+          "name_en": "Feature + thumbnail rail",
+          "preview_family": "mixed",
+          "posts_default": 4,
+          "notes": "First dossier as tall overlay feature; the rest as compact rows."
+        }
+      ]
+    },
+    {
+      "key": "programs",
+      "name_ar": "برامج",
+      "name_en": "Programs",
+      "data": {
+        "needs": [
+          "title",
+          "posts.artwork"
+        ],
+        "posts_min": 3,
+        "posts_max": 10,
+        "posts_default": 6
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-programs--v1",
+          "name_ar": "شريط صور دائرية",
+          "name_en": "Circular avatars rail",
+          "preview_family": "people",
+          "posts_default": 6,
+          "notes": "Story-style circles; horizontal scroll."
+        },
+        {
+          "id": 2,
+          "class": "sx-programs--v2",
+          "name_ar": "بطاقات ملصق",
+          "name_en": "Poster cards",
+          "preview_family": "grid",
+          "posts_default": 5,
+          "notes": "3:4 artwork cards, auto-fill."
+        },
+        {
+          "id": 3,
+          "class": "sx-programs--v3",
+          "name_ar": "لافتات عريضة",
+          "name_en": "Wide banners",
+          "preview_family": "wide",
+          "posts_default": 4,
+          "notes": "Two-column overlay banners with large titles."
+        }
+      ]
+    },
+    {
+      "key": "video",
+      "name_ar": "مركز الفيديو",
+      "name_en": "Video hub",
+      "data": {
+        "needs": [
+          "title",
+          "posts.video"
+        ],
+        "posts_min": 2,
+        "posts_max": 8,
+        "posts_default": 5
+      },
+      "js": {
+        "module": "assets/js/video.js",
+        "init": "SX.initVideo",
+        "binds": "[data-sx-video]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-video--v1",
+          "name_ar": "غرفة التحكم — جدار الشاشات",
+          "name_en": "Control room — monitor wall",
+          "preview_family": "dark",
+          "posts_default": 5,
+          "notes": "Broadcast control-room: bezeled main monitor with ON-AIR status bar and lower-third caption; side wall of dimmed monitor tiles (scanlines, SHB channel codes) that light up when playing. One custom control bar drives YouTube (IFrame API) and local MP4 alike; auto-advance."
+        },
+        {
+          "id": 2,
+          "class": "sx-video--v2",
+          "name_ar": "شبكة مصغرات",
+          "name_en": "Thumbnail grid",
+          "preview_family": "grid",
+          "posts_default": 6,
+          "notes": "Player hidden; duration-badged thumbnails."
+        },
+        {
+          "id": 3,
+          "class": "sx-video--v3",
+          "name_ar": "مشغل + قائمة جانبية",
+          "name_en": "Player + side playlist",
+          "preview_family": "mixed",
+          "posts_default": 5,
+          "notes": "Classic layout: player beside a vertical playlist; same unified player engine."
+        }
+      ]
+    },
+    {
+      "key": "gallery",
+      "name_ar": "ألبومات الصور",
+      "name_en": "Photo gallery / infographic",
+      "data": {
+        "needs": [
+          "title",
+          "posts.album"
+        ],
+        "posts_min": 3,
+        "posts_max": 10,
+        "posts_default": 6
+      },
+      "js": {
+        "module": "assets/js/slider.js",
+        "init": "SX.initSlider",
+        "binds": "[data-sx-slider]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-gallery--v1",
+          "name_ar": "ترتيب حر (ماسونري)",
+          "name_en": "Masonry",
+          "preview_family": "grid",
+          "posts_default": 6,
+          "notes": "Natural aspect ratios in CSS columns."
+        },
+        {
+          "id": 2,
+          "class": "sx-gallery--v2",
+          "name_ar": "سلايدر بعدّاد",
+          "name_en": "Slider with counter",
+          "preview_family": "slider",
+          "posts_default": 5,
+          "notes": "One frame at a time; prev/next + n/total counter."
+        },
+        {
+          "id": 3,
+          "class": "sx-gallery--v3",
+          "name_ar": "صورة كبيرة + شريط",
+          "name_en": "One big + strip",
+          "preview_family": "mixed",
+          "posts_default": 5,
+          "notes": "Lead album spans 2x2; the rest tile beside it."
+        }
+      ]
+    },
+    {
+      "key": "cartoon",
+      "name_ar": "كاريكاتير",
+      "name_en": "Cartoon",
+      "data": {
+        "needs": [
+          "image",
+          "caption"
+        ],
+        "posts_min": 1,
+        "posts_max": 1,
+        "posts_default": 1
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-cartoon--v1",
+          "name_ar": "جدار المعرض",
+          "name_en": "Gallery wall",
+          "preview_family": "media",
+          "posts_default": 4,
+          "notes": "Surface band; today's cartoon in a matted white frame with meta column; previous days hang below on wires as small framed pieces with centered caption plates."
+        },
+        {
+          "id": 2,
+          "class": "sx-cartoon--v2",
+          "name_ar": "طاولة الرسام",
+          "name_en": "Cartoonist's desk",
+          "preview_family": "dark",
+          "posts_default": 4,
+          "notes": "Dark desk band; the artwork is a tilted paper sheet held by two tape strips; archive pieces are scattered sheets with alternating tilts that straighten on hover."
+        },
+        {
+          "id": 3,
+          "class": "sx-cartoon--v3",
+          "name_ar": "صفحة الجريدة",
+          "name_en": "Newspaper page",
+          "preview_family": "wide",
+          "posts_default": 4,
+          "notes": "Newsprint look: double rules above/below, inked frames, meta as a ruled side column, archive as three ruled columns like comic panels."
+        }
+      ]
+    },
+    {
+      "key": "social",
+      "name_ar": "شريط المتابعين",
+      "name_en": "Social follower bar",
+      "data": {
+        "needs": [
+          "networks.count"
+        ],
+        "posts_min": 2,
+        "posts_max": 8,
+        "posts_default": 6
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-social--v1",
+          "name_ar": "بلاطات ملونة",
+          "name_en": "Colored tiles row",
+          "preview_family": "strip",
+          "posts_default": 6,
+          "notes": "Brand-colored tiles with counts (tokens --c-facebook etc.)."
+        },
+        {
+          "id": 2,
+          "class": "sx-social--v2",
+          "name_ar": "عدّادات مضمنة",
+          "name_en": "Minimal inline counters",
+          "preview_family": "list",
+          "posts_default": 6,
+          "notes": "Quiet single-row counters between hairlines."
+        }
+      ]
+    },
+    {
+      "key": "trending",
+      "name_ar": "الأكثر قراءة",
+      "name_en": "Most read / trending",
+      "data": {
+        "needs": [
+          "title",
+          "posts"
+        ],
+        "posts_min": 3,
+        "posts_max": 10,
+        "posts_default": 6
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-trending--v1",
+          "name_ar": "أرقام كبيرة",
+          "name_en": "Big numerals",
+          "preview_family": "grid",
+          "posts_default": 6,
+          "notes": "Outlined display numerals; two-column flow."
+        },
+        {
+          "id": 2,
+          "class": "sx-trending--v2",
+          "name_ar": "خط زمني",
+          "name_en": "Timeline",
+          "preview_family": "list",
+          "posts_default": 5,
+          "notes": "Single column on a vertical rule with node dots."
+        },
+        {
+          "id": 3,
+          "class": "sx-trending--v3",
+          "name_ar": "قائمة جانبية مدمجة",
+          "name_en": "Compact sidebar list",
+          "preview_family": "list",
+          "posts_default": 5,
+          "notes": "Boxed surface list — designed for sidebars."
+        }
+      ]
+    },
+    {
+      "key": "newsletter",
+      "name_ar": "النشرة البريدية",
+      "name_en": "Newsletter signup",
+      "data": {
+        "needs": [
+          "title",
+          "text"
+        ],
+        "posts_min": 0,
+        "posts_max": 0,
+        "posts_default": 0
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-newsletter--v1",
+          "name_ar": "شريط مضمّن",
+          "name_en": "Inline band",
+          "preview_family": "strip",
+          "posts_default": 0,
+          "notes": "Pale-blue band; lead + form on one line."
+        },
+        {
+          "id": 2,
+          "class": "sx-newsletter--v2",
+          "name_ar": "بطاقة معلبة",
+          "name_en": "Boxed card",
+          "preview_family": "single",
+          "posts_default": 0,
+          "notes": "Dark centered card."
+        },
+        {"id":3,"class":"sx-newsletter--v3","name_ar":"بطاقة على باند متدرج","name_en":"Card on gradient band","preview_family":"single","posts_default":0,"notes":"Deep-blue gradient band with decorative outlined circles; white subscription card sits inline-start with underline-style email field."}
+      ]
+    },
+    {
+      "key": "ad",
+      "name_ar": "مواضع إعلانية",
+      "name_en": "Ad slots",
+      "optional": true,
+      "data": {
+        "needs": [
+          "placement"
+        ],
+        "posts_min": 0,
+        "posts_max": 0,
+        "posts_default": 0
+      },
+      "js": {
+        "module": "assets/js/ads.js",
+        "init": "SX.initAds",
+        "binds": "[data-sx-ad-close]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-ad--leaderboard",
+          "name_ar": "ليدربورد",
+          "name_en": "Leaderboard 970x90",
+          "preview_family": "strip",
+          "posts_default": 0,
+          "notes": "Top of page; fixed aspect, zero layout shift."
+        },
+        {
+          "id": 2,
+          "class": "sx-ad--infeed",
+          "name_ar": "داخل التدفق",
+          "name_en": "In-feed 728x90",
+          "preview_family": "strip",
+          "posts_default": 0,
+          "notes": "Between sections."
+        },
+        {
+          "id": 3,
+          "class": "sx-ad--box",
+          "name_ar": "صندوق جانبي",
+          "name_en": "Sidebar box 300x250",
+          "preview_family": "single",
+          "posts_default": 0,
+          "notes": "Sidebar placement; sx-ad--tall = 300x600."
+        },
+        {
+          "id": 4,
+          "class": "sx-ad-sticky",
+          "name_ar": "شريط سفلي مثبت",
+          "name_en": "Sticky footer 640x60",
+          "preview_family": "strip",
+          "posts_default": 0,
+          "notes": "Fixed to viewport bottom; dismissable via [data-sx-ad-close]."
+        }
+      ]
+    },
+    {
+      "key": "live",
+      "name_ar": "مدونة حية",
+      "name_en": "Live blog",
+      "optional": true,
+      "data": {
+        "needs": [
+          "title",
+          "entries.pinned",
+          "entries.time"
+        ],
+        "posts_min": 1,
+        "posts_max": 10,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-live--v1",
+          "name_ar": "مدونة حية",
+          "name_en": "Live blog",
+          "preview_family": "list",
+          "posts_default": 4,
+          "notes": "Pinned first entry; CMS prepends updates."
+        }
+      ]
+    },
+    {
+      "key": "stream",
+      "name_ar": "بث مباشر",
+      "name_en": "Live stream",
+      "optional": true,
+      "data": {
+        "needs": [
+          "stream_url",
+          "title",
+          "viewers"
+        ],
+        "posts_min": 1,
+        "posts_max": 10,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-stream--v1",
+          "name_ar": "بث مباشر",
+          "name_en": "Live stream",
+          "preview_family": "dark",
+          "posts_default": 4,
+          "notes": "On-air state via .sx-badge--live; hide section when off air."
+        }
+      ]
+    },
+    {
+      "key": "poll",
+      "name_ar": "استفتاء",
+      "name_en": "Poll",
+      "optional": true,
+      "data": {
+        "needs": [
+          "question",
+          "options.pct"
+        ],
+        "posts_min": 1,
+        "posts_max": 10,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-poll--v1",
+          "name_ar": "غرفة تصويت منقسمة",
+          "name_en": "Split voting room",
+          "preview_family": "dark",
+          "posts_default": 3,
+          "notes": "Dark band: oversized question + big participant counter on one half, glassy option buttons with pale result bars on the other. No dead space at any width."
+        },
+        {
+          "id": 2,
+          "class": "sx-poll--v2",
+          "name_ar": "استفتاء + في السياق",
+          "name_en": "Poll + context rail",
+          "preview_family": "mixed",
+          "posts_default": 3,
+          "notes": "Bordered unit: poll on the main side, and a tinted «في السياق» column of related coverage links fills the second column — pairs the vote with the story behind it."
+        },
+        {
+          "id": 3,
+          "class": "sx-poll--v3",
+          "name_ar": "شريط سؤال سريع",
+          "name_en": "Quick-question strip",
+          "preview_family": "strip",
+          "posts_default": 3,
+          "notes": "Compact single-row pale strip: kicker + question inline, options as pill chips, participants at the end; after voting the percentages appear inline beside each pill."
+        }
+      ]) reveals result bars from data-pct."
+        }
+      ]
+    },
+    {
+      "key": "audio",
+      "name_ar": "بودكاست / استمع للمقال",
+      "name_en": "Podcast & TTS player",
+      "optional": true,
+      "data": {
+        "needs": [
+          "episodes"
+        ],
+        "posts_min": 1,
+        "posts_max": 10,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-audio--v1",
+          "name_ar": "الاستوديو الصوتي",
+          "name_en": "Audio studio",
+          "preview_family": "dark",
+          "posts_default": 4,
+          "notes": "Dark studio band: featured episode with big cover, pill kicker, animated waveform player; side list of previous episodes with square thumbs. Waveform animates while playing (audio.js demo; CMS wires the real player)."
+        },
+        {
+          "id": 2,
+          "class": "sx-audio--v2",
+          "name_ar": "شريط الإذاعة",
+          "name_en": "Radio strip",
+          "preview_family": "strip",
+          "posts_default": 4,
+          "notes": "Pale broadcast bar: play button + full-width waveform + title/time in one row; other episodes as compact rows in a responsive grid below."
+        },
+        {
+          "id": 3,
+          "class": "sx-audio--v3",
+          "name_ar": "شبكة الحلقات",
+          "name_en": "Episode grid",
+          "preview_family": "grid",
+          "posts_default": 4,
+          "notes": "Podcast-app grid: every episode a cover card with title and its own mini player; the featured episode is simply the first card."
+        }
+      ]
+    },
+    {
+      "key": "reels",
+      "name_ar": "ريلز",
+      "name_en": "Reels / short vertical video",
+      "optional": true,
+      "data": {
+        "needs": [
+          "posts.vertical"
+        ],
+        "posts_min": 1,
+        "posts_max": 10,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-reels--v1",
+          "name_ar": "شريط انزلاقي",
+          "name_en": "Snap rail",
+          "preview_family": "slider",
+          "posts_default": 5,
+          "notes": "9:16 overlay cards in a Swiper rail with arrows and edge fades."
+        },
+        {
+          "id": 2,
+          "class": "sx-reels--v2",
+          "name_ar": "هواتف العرض",
+          "name_en": "Phone frames",
+          "preview_family": "dark",
+          "posts_default": 5,
+          "notes": "Dark band; each reel sits in a phone bezel (notch + story progress hairline), red live play badge, lift on hover. Rail scrolls with hidden scrollbar."
+        },
+        {
+          "id": 3,
+          "class": "sx-reels--v3",
+          "name_ar": "ريل مميز + شبكة",
+          "name_en": "Featured + grid",
+          "preview_family": "mixed",
+          "posts_default": 5,
+          "notes": "First reel spans two rows as the featured tile; the rest fill a 2x2 grid beside it. Needs 5 posts to fill; degrades to fewer with even rows."
+        }
+      ]
+    },
+    {
+      "key": "push",
+      "name_ar": "إشعارات المتصفح",
+      "name_en": "Push opt-in prompt",
+      "optional": true,
+      "data": {
+        "needs": [
+          "text"
+        ],
+        "posts_min": 1,
+        "posts_max": 10,
+        "posts_default": 4
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-push--v1",
+          "name_ar": "مع معاينة الإشعار",
+          "name_en": "With notification preview",
+          "preview_family": "cards2",
+          "posts_default": 2,
+          "notes": "Split panel: pitch + actions on one side; a stacked mock of two real notifications (logo, source line, headline, time) shows exactly what subscribers get."
+        },
+        {
+          "id": 2,
+          "class": "sx-push--v2",
+          "name_ar": "شريط رفيع",
+          "name_en": "Slim bar",
+          "preview_family": "strip",
+          "posts_default": 0,
+          "notes": "One-line dismissable bar on white: bell, inline copy, actions at the end. Preview hidden."
+        }
+      ]
+    },
+    {
+      "key": "pulse",
+      "name_ar": "نبض التغطية",
+      "name_en": "Live pulse rail",
+      "optional": true,
+      "data": {
+        "needs": [
+          "entries.time",
+          "entries.title"
+        ],
+        "posts_min": 3,
+        "posts_max": 10,
+        "posts_default": 6
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-pulse--v1",
+          "name_ar": "خط زمني أفقي",
+          "name_en": "Horizontal timeline",
+          "preview_family": "strip",
+          "posts_default": 6,
+          "notes": "Dark rail of timestamped updates on a timeline; latest entry pulses red. Scroll-snap."
+        }
+      ]
+    },
+    {
+      "key": "numbers",
+      "name_ar": "اليوم بالأرقام",
+      "name_en": "Data band",
+      "optional": true,
+      "data": {
+        "needs": [
+          "items.value",
+          "items.label",
+          "items.source"
+        ],
+        "posts_min": 2,
+        "posts_max": 6,
+        "posts_default": 4
+      },
+      "js": {
+        "module": "assets/js/numbers.js",
+        "init": "SX.initNumbers",
+        "binds": "[data-sx-count]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-numbers--v1",
+          "name_ar": "شريط إحصائي",
+          "name_en": "Stat cells",
+          "preview_family": "grid",
+          "posts_default": 4,
+          "notes": "Large count-up numerals with source attribution; is-alert modifier turns a cell red."
+        }
+      ]
+    },
+    {
+      "key": "lens",
+      "name_ar": "عدسة شهاب — صورة اليوم",
+      "name_en": "Photo of the day",
+      "optional": true,
+      "data": {
+        "needs": [
+          "image",
+          "title",
+          "credit"
+        ],
+        "posts_min": 1,
+        "posts_max": 1,
+        "posts_default": 1
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-lens--v1",
+          "name_ar": "صورة بعرض كامل",
+          "name_en": "Full-bleed photo",
+          "preview_family": "single",
+          "posts_default": 1,
+          "notes": "Edge-to-edge photograph with lens badge, caption and photographer credit; slow zoom on hover."
+        }
+      ]
+    }
+  ]
+}
