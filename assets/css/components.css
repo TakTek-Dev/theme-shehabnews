@@ -18,7 +18,7 @@
 .sx-textarea { min-block-size: 8rem; resize: vertical; }
 .sx-check { display: flex; align-items: flex-start; gap: var(--sp-2); font-size: var(--fs-sm); }
 .sx-check input { inline-size: 1.05rem; block-size: 1.05rem; margin-block-start: 0.35em; accent-color: var(--c-primary); }
-.sx-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--sp-4); }
+.sx-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: var(--sp-4); }
 
 /* ▸ PAGINATION -------------------------------------------------- */
 .sx-pagination { display: flex; flex-wrap: wrap; gap: var(--sp-2); justify-content: center; padding-block: var(--sp-6); }
@@ -345,7 +345,7 @@
 .sx-about-prose p + p { margin-block-start: var(--sp-3); }
 .sx-about-values { padding-block-end: var(--sp-6); }
 .sx-about-values h2 { font-size: var(--fs-xl); margin-block-end: var(--sp-4); }
-.sx-value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sp-4); }
+.sx-value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr)); gap: var(--sp-4); }
 /* Tablet: auto-fit gives 3 columns → the 4 value cards leave a 3+1 hole. Force 2×2. */
 @media (min-width: 40.0625rem) and (max-width: 64rem) {
   .sx-value-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -417,7 +417,10 @@
 @media (max-width: 40rem) { .sx-contact-card { padding: var(--sp-5); } .sx-contact-card__icon { position: static; margin-block-end: var(--sp-3); } .sx-contact-card h2 { max-inline-size: none; } }
 
 /* ▸ SINGLE VIDEO PAGE (video-single.html) -------------------------- */
+/* Grid items default to min-width:auto, so the player's min-content became the
+   column floor and the page scrolled sideways on phones. */
 .sx-vsingle { display: grid; gap: var(--sp-5); }
+.sx-vsingle > * { min-inline-size: 0; }
 .sx-vsingle__head { display: grid; gap: var(--sp-2); }
 .sx-vsingle__head h1 { font-size: clamp(1.6rem, 3vw, var(--fs-2xl)); }
 .sx-vsingle .sx-video__player { margin: 0; }
@@ -444,7 +447,7 @@
 .sx-filter-check input { accent-color: var(--c-primary); inline-size: 1rem; block-size: 1rem; flex: none; }
 .sx-search-main { min-inline-size: 0; }
 @media (max-width: 64rem) {
-  .sx-layout--search { grid-template-columns: 1fr; }
+  .sx-layout--search { grid-template-columns: minmax(0, 1fr); }
   .sx-search-filters { position: static; }
   .sx-filter-group { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
   .sx-filter-group legend { inline-size: 100%; }
@@ -476,7 +479,7 @@
 .sx-archive.is-list .sx-card__title { font-size: var(--fs-lg); }
 .sx-archive.is-list .sx-card__title a { -webkit-line-clamp: 2; }
 
-.sx-archive.is-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: var(--sp-5); }
+.sx-archive.is-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr)); gap: var(--sp-5); }
 .sx-archive.is-grid .sx-card { flex-direction: column; align-items: stretch; }
 .sx-archive.is-grid .sx-card__media { inline-size: 100%; aspect-ratio: 16 / 10; }
 .sx-archive.is-grid .sx-card__excerpt { display: none; }
@@ -496,4 +499,51 @@
   .sx-archive-bar { position: static; }
   .sx-archive.is-list .sx-card__media { inline-size: 7rem; aspect-ratio: 4 / 3; }
   .sx-archive.is-compact .sx-card__meta { margin-inline-start: 0; }
+}
+
+/* =============================================================
+   TOUCH TARGETS — phones/tablets and any coarse pointer
+   WCAG 2.5.8 asks for a 24×24 CSS-px minimum on interactive
+   controls. Desktop density is untouched: these rules apply only
+   below 64rem or when the primary pointer is coarse (touch laptop).
+   Everything here grows the HIT AREA, never the visual weight.
+   ============================================================= */
+@media (max-width: 64rem), (pointer: coarse) {
+  /* standalone category / tag links above card titles */
+  .sx-card__cat,
+  .sx-brief__cite,
+  .sx-footer__col a,
+  .sx-footer__contact a,
+  .sx-footer__legal-links a,
+  .sx-breadcrumb a,
+  .sx-prevnext a span,
+  .sx-topbar__links a {
+    padding-block: 0.35rem; /* ≈24px total with the 12–13px line box */
+    /* short Arabic labels («غزة», «RSS») are narrower than 24px, so widen the
+       hit box and pull it back with a negative margin — nothing moves */
+    padding-inline: 0.4rem; margin-inline: -0.4rem;
+  }
+  /* the card category is align-self:flex-start, so padding must not
+     push the title down — pull the box back by the same amount */
+  .sx-card__cat { margin-block-end: -0.35rem; }
+
+  /* theme toggle in the top bar ships as a bare <button> at 15×15 */
+  .sx-topbar__links button { min-inline-size: 2.25rem; min-block-size: 2.25rem; padding-inline: var(--sp-2); }
+
+  /* filter checkboxes: bigger box AND a taller row to press */
+  .sx-filter-check { min-block-size: 2.25rem; padding-block: 0.35rem; }
+  .sx-filter-check input { inline-size: 1.5rem; block-size: 1.5rem; }
+
+  /* icon-only controls inside the brief masthead */
+  .sx-brief__dl { min-inline-size: 2.25rem; min-block-size: 2.25rem; align-items: center; justify-content: center; }
+
+  /* icon buttons that sit close to the 24px floor */
+  .sx-share a, .sx-share button,
+  .sx-footer__social a,
+  .sx-ad-sticky__close { min-inline-size: 2.5rem; min-block-size: 2.5rem; }
+
+  /* pagination + chips are already ≥2.4rem tall; just widen the gap so
+     neighbouring targets are not adjacent (2.5.8 spacing exception) */
+  .sx-pagination { gap: var(--sp-3); }
+  .sx-chip { padding-block: 0.4em; }
 }

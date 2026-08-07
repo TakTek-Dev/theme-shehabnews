@@ -433,5 +433,10 @@ time { color: inherit; }
 .sx-page-head__desc { color: var(--c-ink-2); max-inline-size: 60ch; }
 
 .sx-layout { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; gap: var(--sp-6); align-items: start; }
-.sx-sidebar { display: flex; flex-direction: column; gap: var(--sp-6); position: sticky; inset-block-start: var(--sp-4); }
-@media (max-width: 64rem) { .sx-layout { grid-template-columns: 1fr; } .sx-sidebar { position: static; } }
+/* min-inline-size:0 is load-bearing: without it the sidebar's min-content
+   (its widest nested section) becomes the track's floor and the page scrolls
+   sideways on phones. Same reason the collapsed track below is minmax(0,1fr)
+   and not a bare 1fr — `1fr` means `minmax(auto,1fr)`, and auto = min-content. */
+.sx-sidebar { display: flex; flex-direction: column; gap: var(--sp-6); position: sticky; inset-block-start: var(--sp-4); min-inline-size: 0; }
+.sx-layout > * { min-inline-size: 0; }
+@media (max-width: 64rem) { .sx-layout { grid-template-columns: minmax(0, 1fr); } .sx-sidebar { position: static; } }

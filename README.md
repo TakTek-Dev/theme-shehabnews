@@ -25,10 +25,11 @@ Blade templates of the Laravel/Livewire CMS. Fully self-contained: no CDN depend
 │   │   └── pages/             ← page-only scripts (archive, search-filters, gallery-filter,
 │   │                            video-wall, variants, components)
 │   ├── images/                ← logos + placeholder SVGs (+ images/real/ CC press photos)
-│   ├── fonts/fonts.css        ← @font-face slot (system stack today — see Fonts)
+│   ├── fonts/                 ← fonts.css + files/ (IBM Plex Sans Arabic, Readex Pro)
 │   ├── vendor/swiper/         ← Swiper 11 (MIT), vendored — no CDN at runtime
-│   └── video/                 ← drop demo-1.mp4 / demo-2.mp4 here (player copes while absent)
-├── tools/                     ← dev-only: chrome.js generator, support.js, font-fallback.js,
+│   ├── video/                 ← drop demo-1.mp4 / demo-2.mp4 here (player copes while absent)
+│   └── audio/                 ← drop brief-YYYY-MM-DD.mp3 here (brief copes while absent)
+├── tools/                     ← dev-only: chrome.js generator, support.js,
 │                                build-main-js.sh (rebuilds assets/js/main.js)
 ├── uploads/, screenshots/     ← client reference material — NOT part of the theme runtime
 ```
@@ -119,21 +120,62 @@ data-attribute, and can be re-initialized after DOM injection: `SX.initTabs(root
 The tiny inline `<script>` at the top of every head is the anti-FOUC theme guard
 (applies the saved dark mode before first paint) — it stays inline deliberately.
 
+## موجز الأخبار — the AI daily brief (`brief`)
+
+A dated, numbered **wire memo**, not a media player. The briefing is published as a
+sheet — masthead with wire slug + dateline, numbered "takes" with hanging numerals,
+and a margin rail linking every figure back to the agency's own article — and the
+audio is a layer painted over it:
+
+- **Works with no audio at all.** If `audio_url` is null *or* the mp3 404s, the listen
+  box is replaced by a short notice and the written brief is untouched. There is no
+  amputated player to design around on the days the TTS job doesn't run.
+- **Every take is seekable** via its numeral (`data-at` in seconds); a take with no
+  `data-at` simply isn't seekable and nothing else changes.
+- **Severity is triple-encoded** — token colour + a distinct shape marker + the word
+  itself in the seek button's accessible name — so it survives greyscale and colour blindness.
+- **Position is remembered per edition** (`localStorage`, keyed to `data-edition`), offered
+  as a "تابع من ٠٢:١٤" button. Pre-seek only, never autoplay.
+- Square corners are deliberate: it reuses the newspaper idiom `sx-cartoon--v3`
+  already establishes (double rule, ink frame). No looping animation anywhere in the section.
+
+Three variants: full sheet with rail (v1) · no rail (v2) · compact lede (v3).
+Audio goes in `assets/audio/brief-YYYY-MM-DD.mp3`. Module: `SX.initBrief`.
+
 ## Vendored libraries & media
 
 - **Swiper 11.2.10** (MIT) powers all horizontal rails — vendored at
   `assets/vendor/swiper/swiper-bundle.min.{js,css}`. No CDN at runtime.
+  Rails that carry *text* (the pulse timeline) declare `[data-sx-rail-nav]` in their
+  section header and the arrows are rendered there, statically — an arrow floating over
+  a rail always lands on a headline at some scroll position.
 - **Video hub** plays YouTube (youtube-nocookie embeds) and local MP4s with custom
   controls. Drop real files as `assets/video/demo-1.mp4` / `demo-2.mp4` — the player
   shows a styled notice while they are missing.
+- **One newsletter form site-wide** (in the footer). The standalone homepage newsletter
+  section was removed as a duplicate; it still exists in styleguide.html + sections.json
+  for anyone who wants it on an interior page.
 
 ## Fonts
 
-Brand face kept from the current site: **Helvetica Neue** through the system stack
-(`--font-sans` token in style.css), with Arabic-capable fallbacks (Segoe UI, Tahoma,
-Geeza Pro). No webfont is loaded — zero font bytes, zero FOIT. If the client later
-licenses Neue Helvetica Arabic, declare it in assets/fonts/fonts.css and the token
-picks it up site-wide.
+Two self-hosted open-source faces (SIL OFL), declared in `assets/fonts/fonts.css`,
+files in `assets/fonts/files/` — no CDN, no Google Fonts call, no tracking:
+
+| Token | Face | Used for |
+|---|---|---|
+| `--font-sans` | **IBM Plex Sans Arabic** 400/500/600/700 | body copy, UI, meta, forms |
+| `--font-display` | **Readex Pro** 600/700 | h1–h6, section titles, card titles |
+
+Chosen against the Cairo/Tajawal default: Plex Arabic has the open counters and tall
+x-height that keep 13–15px Arabic UI text legible, and Readex Pro's shorter descenders
+are what let a stacked Arabic headline hold together. Each `@font-face` carries a
+per-script `unicode-range`, so an Arabic page never downloads the Latin files
+(~55KB for a typical Arabic page load), plus `font-display: swap` and a `<link rel=preload>`
+on the two first-paint files. The old system stack remains as the fallback, so the theme
+still renders correctly if the webfonts are removed.
+
+To swap a face: drop new woff2 files in `assets/fonts/files/`, keep the family names —
+or repoint `--font-sans` / `--font-display` in `assets/css/style.css`.
 
 ## Dark mode
 

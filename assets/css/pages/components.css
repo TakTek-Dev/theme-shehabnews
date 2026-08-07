@@ -20,6 +20,9 @@
 .cx-anchor:hover { color: var(--c-primary); }
 .cx-note { color: var(--c-ink-2); font-size: var(--fs-sm); margin-block-end: var(--sp-3); max-inline-size: 75ch; }
 .cx-canvas { display: grid; gap: var(--sp-4); background: var(--c-surface); border: 1px dashed var(--c-line-strong); border-radius: var(--r-lg); padding: var(--sp-5); }
+/* Demo grids inside the canvas are grid items, so their default
+   min-width:auto (= min-content) would push past the canvas on phones. */
+.cx-canvas > * { min-inline-size: 0; }
 /* 12 swatches, and the column count is PINNED per band (4 / 3 / 2) rather than
    left to auto-fill — 12 divides evenly by all three, so the last row is never
    ragged at any width. Add tokens in pairs to keep that property. */
@@ -38,4 +41,7 @@
 .cx-radii { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
 .cx-radii > div { display: grid; gap: var(--sp-1); justify-items: center; font-size: var(--fs-xs); color: var(--c-ink-3); font-family: ui-monospace, monospace; direction: ltr; }
 .cx-radii i { display: block; inline-size: 3.4rem; block-size: 3.4rem; background: var(--c-pale); border: 2px solid var(--c-primary); }
-@media (max-width: 64rem) { .cx-layout { grid-template-columns: 1fr; } .cx-toc { position: static; grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; gap: var(--sp-2); padding-block-end: var(--sp-2); } .cx-toc__label { display: none; } .cx-toc a { border-inline-start: 0; border-block-end: 2px solid var(--c-line); white-space: nowrap; } .cx-toc a.is-active { border-block-end-color: var(--c-primary); } }
+/* minmax(0,1fr) + min-inline-size:0, or the horizontal TOC rail's min-content
+   (all chips laid end to end) becomes the page's minimum width. */
+.cx-layout > * { min-inline-size: 0; }
+@media (max-width: 64rem) { .cx-layout { grid-template-columns: minmax(0, 1fr); } .cx-toc { position: static; grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; gap: var(--sp-2); padding-block-end: var(--sp-2); } .cx-toc__label { display: none; } .cx-toc a { border-inline-start: 0; border-block-end: 2px solid var(--c-line); white-space: nowrap; } .cx-toc a.is-active { border-block-end-color: var(--c-primary); } }
