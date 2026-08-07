@@ -2,7 +2,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-ad-close]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundAds) return; btn.dataset.sxBoundAds = "1";
       btn.addEventListener("click", function () {
         var bar = btn.closest(".sx-ad-sticky");
         if (bar) bar.remove();

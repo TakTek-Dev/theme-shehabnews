@@ -111,7 +111,7 @@ with rails, followed by an optional `assets/js/pages/*.js`). The bundle is a pla
 concatenation of `assets/js/modules/*` — edit the modules, then rebuild with
 `bash tools/build-main-js.sh` (order is defined inside the script; `node --check` validates).
 
-Each module is isolated, self-initializing, idempotent (`data-sx-bound` guard), binds by
+Each module is isolated, self-initializing, idempotent (per-module `data-sx-bound-*` guard), binds by
 data-attribute, and can be re-initialized after DOM injection: `SX.initTabs(root)`,
 `initTicker`, `initSlider`, `initVideo`, `initMenu`, `initTheme`, `initPoll`, `initLightbox`,
 `initAds`, `initSwipers`, `initNumbers`. `pages/variants.js` is styleguide-only.

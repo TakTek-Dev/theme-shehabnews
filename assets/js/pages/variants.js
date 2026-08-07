@@ -3,7 +3,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sg-demo]").forEach(function (demo) {
-      if (demo.dataset.sxBound) return; demo.dataset.sxBound = "1";
+      if (demo.dataset.sxBoundVariants) return; demo.dataset.sxBoundVariants = "1";
       var key = demo.dataset.sgDemo;
       var buttons = demo.querySelectorAll("[data-sg-variant]");
       buttons.forEach(function (btn) {
@@ -31,7 +31,7 @@
      (Moved here from a former inline <script> at the end of styleguide.html.) */
   function bindDirToggle() {
     var btn = document.getElementById("sg-dir");
-    if (!btn || btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+    if (!btn || btn.dataset.sxBoundVariants) return; btn.dataset.sxBoundVariants = "1";
     btn.addEventListener("click", function () {
       var h = document.documentElement, toLtr = h.dir !== "ltr";
       h.dir = toLtr ? "ltr" : "rtl";

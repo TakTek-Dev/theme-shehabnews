@@ -2,7 +2,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-lightbox]").forEach(function (gal) {
-      if (gal.dataset.sxBound) return; gal.dataset.sxBound = "1";
+      if (gal.dataset.sxBoundLightbox) return; gal.dataset.sxBoundLightbox = "1";
       var dlg = document.querySelector("dialog.sx-lightbox");
       if (!dlg) return;
       var items = Array.prototype.slice.call(gal.querySelectorAll("[data-sx-lightbox-item]"));

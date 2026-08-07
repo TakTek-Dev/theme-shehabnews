@@ -21,6 +21,8 @@
 .cx-note { color: var(--c-ink-2); font-size: var(--fs-sm); margin-block-end: var(--sp-3); max-inline-size: 75ch; }
 .cx-canvas { display: grid; gap: var(--sp-4); background: var(--c-surface); border: 1px dashed var(--c-line-strong); border-radius: var(--r-lg); padding: var(--sp-5); }
 .cx-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: var(--sp-3); }
+/* Narrow: auto-fill squeezes 3 columns and the 10 token rows end ragged (3+3+3+1) — 2 columns divide evenly and read better. */
+@media (max-width: 48rem) { .cx-swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .cx-swatch { border: 1px solid var(--c-line); border-radius: var(--r-md); overflow: hidden; font-size: var(--fs-xs); background: var(--c-bg); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
 .cx-swatch:hover { transform: translateY(-2px); box-shadow: var(--shadow-1); }
 .cx-swatch > span { display: block; block-size: 3.2rem; }

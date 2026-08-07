@@ -103,7 +103,12 @@ h1, h2, h3, h4, h5, h6 { margin: 0; line-height: var(--lh-tight); font-weight: 7
 p { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 img, svg, video { display: block; max-inline-size: 100%; block-size: auto; }
-[hidden] { display: none; }
+/* !important is required: component rules like `.sx-card { display: flex }` and
+   `.sx-gtile { display: block }` live in later stylesheets at equal specificity,
+   so a plain `[hidden]` loses and JS-hidden cards stay visible (this broke the
+   archive / search / gallery filters). The one intentional exception — the
+   dark-theme logo swap — re-asserts itself in dark.css. */
+[hidden] { display: none !important; }
 figure { margin: 0; }
 a { color: inherit; text-decoration: none; }
 a:hover { color: var(--c-primary); }

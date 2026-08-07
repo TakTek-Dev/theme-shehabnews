@@ -616,10 +616,6 @@
 /* v1 — poster grid */
 .sx-files--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--sp-5); }
 .sx-files--v1 .sx-card { min-block-size: 19rem; }
-/* Tablet: 4 dossier cards in auto-fit's 3 columns leave a 3+1 hole. Force 2×2. */
-@media (min-width: 40.0625rem) and (max-width: 64rem) {
-  .sx-files--v1 .sx-section__body { grid-template-columns: repeat(2, 1fr); }
-}
 
 /* v2 — horizontal scroller */
 .sx-files--v2 .sx-section__body {
@@ -1680,6 +1676,55 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 /* Tablet: auto-fit gives 3 columns → 4 stats leave a ragged 3+1 row. Force 2×2. */
 @media (min-width: 40.0625rem) and (max-width: 64rem) {
   .sx-numbers .sx-section__body { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =============================================================
+   NO-HOLE COLUMN COUNTS — tablet band (40rem … 64rem)
+   auto-fit picks the column count from available width, so at
+   in-between widths a section's post count stops dividing evenly
+   and the last row ends with visibly empty cells. Each rule below
+   pins a column count that divides that section's designed post
+   count (see posts_default in sections.json), so every row is full.
+   Change the count in the CMS → revisit the matching rule here.
+   ============================================================= */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  .sx-quotes--v1 .sx-section__body,          /* 4 posts → 2×2 */
+  .sx-opinion--v1 .sx-section__body,         /* 4 posts → 2×2 */
+  .sx-news--v2 .sx-section__body,            /* 4 posts → 2×2 (article "related") */
+  .sx-vwall-trending__list,                  /* 4 ranked rows → 2×2 */
+  .sx-files--v1 .sx-section__body,           /* 5 dossiers → 2+2+full (see odd rule) */
+  .sx-trending--v1 .sx-section__body {       /* 8 ranked rows → 4×2 */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sx-programs--v2 .sx-section__body {       /* 6 programs → 2×3 */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Odd post count in any 2-column layout strands the last card in a half-empty
+   row — let it span the full width instead. Count-agnostic, so it keeps working
+   whatever the CMS returns within posts_min…posts_max. Covers phone widths too
+   (where these grids also land on 2 columns); in a 1-column grid it is a no-op. */
+@media (max-width: 64rem) {
+  .sx-quotes--v1 .sx-section__body > :last-child:nth-child(odd),
+  .sx-opinion--v1 .sx-section__body > :last-child:nth-child(odd),
+  .sx-news--v2 .sx-section__body > :last-child:nth-child(odd),
+  .sx-vwall-trending__list > :last-child:nth-child(odd),
+  .sx-files--v1 .sx-section__body > :last-child:nth-child(odd),
+  .sx-trending--v1 .sx-section__body > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* quotes v3 ships 3 quotes, so any 2-column width strands one. Pin the count
+   instead of letting auto-fit drift: 3 abreast on tablet+, stacked on phones. */
+@media (min-width: 48.0625rem) { .sx-quotes--v3 .sx-section__body { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 48rem) { .sx-quotes--v3 .sx-section__body { grid-template-columns: 1fr; } }
+
+/* gallery v3 opens with a full-width lead tile, so in its 2-column phone/tablet
+   layout the parity flips: an EVEN total is what leaves the last photo alone. */
+@media (max-width: 48rem) {
+  .sx-gallery--v3 .sx-gallery__slides > :last-child:nth-child(even) { grid-column: 1 / -1; }
 }
 .sx-numbers__item { border-inline-start: 3px solid var(--c-pale); padding-inline-start: var(--sp-4); display: grid; gap: var(--sp-1); align-content: start; }
 .sx-numbers__item--alert { border-inline-start-color: var(--c-alert); }

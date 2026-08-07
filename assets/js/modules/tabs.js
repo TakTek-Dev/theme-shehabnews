@@ -2,7 +2,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-tabs]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundTabs) return; el.dataset.sxBoundTabs = "1";
       var tabs = Array.prototype.slice.call(el.querySelectorAll("[role=tab]"));
       var panels = Array.prototype.slice.call(el.querySelectorAll("[role=tabpanel]"));
       function select(i) {

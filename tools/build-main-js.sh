@@ -18,7 +18,7 @@ OUT=assets/js/main.js
      (or run: bash tools/build-main-js.sh)
 
    Every module is an isolated IIFE: self-initializing on
-   DOMContentLoaded, idempotent (data-sx-bound guard), binds by
+   DOMContentLoaded, idempotent (per-module data-sx-bound-* guard), binds by
    data-attribute, exposes SX.init* for re-init after DOM injection.
    Loading: ONE deferred file per page + vendor Swiper before it.
    ============================================================ */

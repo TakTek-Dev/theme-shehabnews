@@ -3,7 +3,7 @@
   function init(root) {
     root = root || document;
     root.querySelectorAll("[data-sx-drawer-open]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundMenu) return; btn.dataset.sxBoundMenu = "1";
       var drawer = document.querySelector("[data-sx-drawer]");
       var scrim = document.querySelector("[data-sx-scrim]");
       if (!drawer) return;
@@ -24,7 +24,7 @@
       });
     });
     root.querySelectorAll("[data-sx-dropdown]").forEach(function (item) {
-      if (item.dataset.sxBound) return; item.dataset.sxBound = "1";
+      if (item.dataset.sxBoundMenu) return; item.dataset.sxBoundMenu = "1";
       var btn = item.querySelector("button");
       if (!btn) return;
       btn.addEventListener("click", function () {
@@ -36,7 +36,7 @@
       });
     });
     root.querySelectorAll("[data-sx-search-toggle]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundMenu) return; btn.dataset.sxBoundMenu = "1";
       var panel = document.querySelector("[data-sx-search]");
       if (!panel) return;
       btn.addEventListener("click", function () {

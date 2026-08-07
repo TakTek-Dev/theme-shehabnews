@@ -29,7 +29,15 @@
           "posts_default": 5,
           "notes": "Dark band: overlay lead with red kicker + \"now\" side list with square thumbnails."
         },
-        {"id":6,"class":"sx-news--v6","name_ar":"باند داكن + لوحة مُدرجة","name_en":"Dark band + inset panel","preview_family":"dark","posts_default":5,"notes":"Faithful to reference: dark navy band with a title tab and inner hairline; lead post as an inset pale split card (rounded inset image + centered text, solid pill category); third post as a tall image-led card on the side; other posts as compact thumb rows on the dark band."},
+        {
+          "id": 6,
+          "class": "sx-news--v6",
+          "name_ar": "باند داكن + لوحة مُدرجة",
+          "name_en": "Dark band + inset panel",
+          "preview_family": "dark",
+          "posts_default": 5,
+          "notes": "Faithful to reference: dark navy band with a title tab and inner hairline; lead post as an inset pale split card (rounded inset image + centered text, solid pill category); third post as a tall image-led card on the side; other posts as compact thumb rows on the dark band."
+        },
         {
           "id": 2,
           "class": "sx-hero--v2",
@@ -57,7 +65,15 @@
           "posts_default": 5,
           "notes": "Lead spans 2x2; the rest tile around it, all overlay style."
         },
-        {"id":5,"class":"sx-hero--v5","name_ar":"لوحة ترحيب + قائمة مميزة","name_en":"Welcome panel + featured list","preview_family":"mixed","posts_default":5,"notes":"Magazine welcome unit: pale container holding a white intro card (title, description, outlined pill CTA) and a dark lead card framed by the same pale border — inset rounded image, centered pill kicker, centered title/date/excerpt. Side: pale panel of text-only featured rows with strong separators. Intro copy comes from section settings."}
+        {
+          "id": 5,
+          "class": "sx-hero--v5",
+          "name_ar": "لوحة ترحيب + قائمة مميزة",
+          "name_en": "Welcome panel + featured list",
+          "preview_family": "mixed",
+          "posts_default": 5,
+          "notes": "Magazine welcome unit: pale container holding a white intro card (title, description, outlined pill CTA) and a dark lead card framed by the same pale border — inset rounded image, centered pill kicker, centered title/date/excerpt. Side: pale panel of text-only featured rows with strong separators. Intro copy comes from section settings."
+        }
       ]
     },
     {
@@ -243,7 +259,15 @@
           "posts_default": 4,
           "notes": "Full-width rows, thumbnail at inline start, larger headline."
         },
-        {"id":5,"class":"sx-news--v5","name_ar":"بلوك لوني منقسم","name_en":"Split color block","preview_family":"wide","posts_default":5,"notes":"Lead post as a half-and-half split: pale text panel (pill category, large title, excerpt) beside its image; remaining posts as quiet text cards on a surface row."}
+        {
+          "id": 5,
+          "class": "sx-news--v5",
+          "name_ar": "بلوك لوني منقسم",
+          "name_en": "Split color block",
+          "preview_family": "wide",
+          "posts_default": 5,
+          "notes": "Lead post as a half-and-half split: pale text panel (pill category, large title, excerpt) beside its image; remaining posts as quiet text cards on a surface row."
+        }
       ]
     },
     {
@@ -288,7 +312,15 @@
           "posts_default": 6,
           "notes": "Rows led by a circular avatar column."
         },
-        {"id":4,"class":"sx-opinion--v4","name_ar":"صف هادئ بزاوية مقصوصة","name_en":"Quiet cut-corner row","preview_family":"cards2","posts_default":4,"notes":"Surface-gray cards with one squared corner; headline on top, author row pinned to the bottom rule; hover tints pale blue and lifts."}
+        {
+          "id": 4,
+          "class": "sx-opinion--v4",
+          "name_ar": "صف هادئ بزاوية مقصوصة",
+          "name_en": "Quiet cut-corner row",
+          "preview_family": "cards2",
+          "posts_default": 4,
+          "notes": "Surface-gray cards with one squared corner; headline on top, author row pinned to the bottom rule; hover tints pale blue and lifts."
+        }
       ]
     },
     {
@@ -432,7 +464,7 @@
         ],
         "posts_min": 2,
         "posts_max": 8,
-        "posts_default": 5
+        "posts_default": 6
       },
       "js": {
         "module": "assets/js/video.js",
@@ -446,7 +478,7 @@
           "name_ar": "غرفة التحكم — جدار الشاشات",
           "name_en": "Control room — monitor wall",
           "preview_family": "dark",
-          "posts_default": 5,
+          "posts_default": 6,
           "notes": "Broadcast control-room: bezeled main monitor with ON-AIR status bar and lower-third caption; side wall of dimmed monitor tiles (scanlines, SHB channel codes) that light up when playing. One custom control bar drives YouTube (IFrame API) and local MP4 alike; auto-advance."
         },
         {
@@ -604,7 +636,7 @@
         ],
         "posts_min": 3,
         "posts_max": 10,
-        "posts_default": 6
+        "posts_default": 8
       },
       "variants": [
         {
@@ -613,7 +645,7 @@
           "name_ar": "أرقام كبيرة",
           "name_en": "Big numerals",
           "preview_family": "grid",
-          "posts_default": 6,
+          "posts_default": 8,
           "notes": "Outlined display numerals; two-column flow."
         },
         {
@@ -668,7 +700,15 @@
           "posts_default": 0,
           "notes": "Dark centered card."
         },
-        {"id":3,"class":"sx-newsletter--v3","name_ar":"بطاقة على باند متدرج","name_en":"Card on gradient band","preview_family":"single","posts_default":0,"notes":"Deep-blue gradient band with decorative outlined circles; white subscription card sits inline-start with underline-style email field."}
+        {
+          "id": 3,
+          "class": "sx-newsletter--v3",
+          "name_ar": "بطاقة على باند متدرج",
+          "name_en": "Card on gradient band",
+          "preview_family": "single",
+          "posts_default": 0,
+          "notes": "Deep-blue gradient band with decorative outlined circles; white subscription card sits inline-start with underline-style email field."
+        }
       ]
     },
     {
@@ -823,8 +863,6 @@
           "preview_family": "strip",
           "posts_default": 3,
           "notes": "Compact single-row pale strip: kicker + question inline, options as pill chips, participants at the end; after voting the percentages appear inline beside each pill."
-        }
-      ]) reveals result bars from data-pct."
         }
       ]
     },

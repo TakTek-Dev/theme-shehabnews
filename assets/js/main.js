@@ -7,7 +7,7 @@
      (or run: bash tools/build-main-js.sh)
 
    Every module is an isolated IIFE: self-initializing on
-   DOMContentLoaded, idempotent (data-sx-bound guard), binds by
+   DOMContentLoaded, idempotent (per-module data-sx-bound-* guard), binds by
    data-attribute, exposes SX.init* for re-init after DOM injection.
    Loading: ONE deferred file per page + vendor Swiper before it.
    ============================================================ */
@@ -25,7 +25,7 @@
   }
   function init(root) {
     (root || document).querySelectorAll("[data-sx-theme-toggle]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundTheme) return; btn.dataset.sxBoundTheme = "1";
       btn.addEventListener("click", function () {
         apply(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
       });
@@ -41,7 +41,7 @@
   function init(root) {
     root = root || document;
     root.querySelectorAll("[data-sx-drawer-open]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundMenu) return; btn.dataset.sxBoundMenu = "1";
       var drawer = document.querySelector("[data-sx-drawer]");
       var scrim = document.querySelector("[data-sx-scrim]");
       if (!drawer) return;
@@ -62,7 +62,7 @@
       });
     });
     root.querySelectorAll("[data-sx-dropdown]").forEach(function (item) {
-      if (item.dataset.sxBound) return; item.dataset.sxBound = "1";
+      if (item.dataset.sxBoundMenu) return; item.dataset.sxBoundMenu = "1";
       var btn = item.querySelector("button");
       if (!btn) return;
       btn.addEventListener("click", function () {
@@ -74,7 +74,7 @@
       });
     });
     root.querySelectorAll("[data-sx-search-toggle]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundMenu) return; btn.dataset.sxBoundMenu = "1";
       var panel = document.querySelector("[data-sx-search]");
       if (!panel) return;
       btn.addEventListener("click", function () {
@@ -106,7 +106,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-tabs]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundTabs) return; el.dataset.sxBoundTabs = "1";
       var tabs = Array.prototype.slice.call(el.querySelectorAll("[role=tab]"));
       var panels = Array.prototype.slice.call(el.querySelectorAll("[role=tabpanel]"));
       function select(i) {
@@ -235,7 +235,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-slider]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundSlider) return; el.dataset.sxBoundSlider = "1";
       var slides = Array.prototype.slice.call(el.querySelectorAll("[data-sx-slide]"));
       var counter = el.querySelector("[data-sx-counter]");
       if (!slides.length) return;
@@ -288,7 +288,7 @@
   }
 
   function setup(el) {
-    if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+    if (el.dataset.sxBoundVideo) return; el.dataset.sxBoundVideo = "1";
     var frame = el.querySelector("[data-sx-video-frame]");
     if (!frame) return;
     var poster = frame.querySelector(".sx-video__poster");
@@ -637,7 +637,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-poll]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundPoll) return; el.dataset.sxBoundPoll = "1";
       el.querySelectorAll(".sx-poll__opt button").forEach(function (btn) {
         btn.addEventListener("click", function () {
           el.classList.add("is-voted");
@@ -667,7 +667,7 @@
   var PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6v12M15 6v12"></path></svg>';
   function init(root) {
     (root || document).querySelectorAll("[data-sx-audio]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundAudio) return; el.dataset.sxBoundAudio = "1";
       var btn = el.querySelector(".sx-audio__play");
       var bar = el.querySelector(".sx-audio__track span");
       if (!btn) return;
@@ -695,7 +695,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-lightbox]").forEach(function (gal) {
-      if (gal.dataset.sxBound) return; gal.dataset.sxBound = "1";
+      if (gal.dataset.sxBoundLightbox) return; gal.dataset.sxBoundLightbox = "1";
       var dlg = document.querySelector("dialog.sx-lightbox");
       if (!dlg) return;
       var items = Array.prototype.slice.call(gal.querySelectorAll("[data-sx-lightbox-item]"));
@@ -730,7 +730,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-ad-close]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundAds) return; btn.dataset.sxBoundAds = "1";
       btn.addEventListener("click", function () {
         var bar = btn.closest(".sx-ad-sticky");
         if (bar) bar.remove();
@@ -846,8 +846,8 @@
   }
   function init(root) {
     (root || document).querySelectorAll("[data-sx-count]").forEach(function (el) {
-      if (el.dataset.sxBound || el.dataset.sxCount === "" || isNaN(parseFloat(el.dataset.sxCount))) return;
-      el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundNumbers || el.dataset.sxCount === "" || isNaN(parseFloat(el.dataset.sxCount))) return;
+      el.dataset.sxBoundNumbers = "1";
       if (!("IntersectionObserver" in window)) { el.textContent = fmt(parseFloat(el.dataset.sxCount || "0")) + (el.dataset.sxSuffix || ""); return; }
       var io = new IntersectionObserver(function (en) {
         en.forEach(function (e) { if (e.isIntersecting) { io.unobserve(el); animate(el); } });

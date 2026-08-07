@@ -2,7 +2,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-poll]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundPoll) return; el.dataset.sxBoundPoll = "1";
       el.querySelectorAll(".sx-poll__opt button").forEach(function (btn) {
         btn.addEventListener("click", function () {
           el.classList.add("is-voted");

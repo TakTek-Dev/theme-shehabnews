@@ -5,7 +5,7 @@
   var PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6v12M15 6v12"></path></svg>';
   function init(root) {
     (root || document).querySelectorAll("[data-sx-audio]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundAudio) return; el.dataset.sxBoundAudio = "1";
       var btn = el.querySelector(".sx-audio__play");
       var bar = el.querySelector(".sx-audio__track span");
       if (!btn) return;

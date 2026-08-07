@@ -39,10 +39,12 @@
   --overlay-grad: linear-gradient(to top, rgba(4, 9, 16, 0.92) 0%, rgba(4, 9, 16, 0.5) 55%, rgba(4, 9, 16, 0.1) 100%);
 }
 
-/* Logo swap */
+/* Logo swap — the dark mark ships with the `hidden` attribute in the markup,
+   so it needs !important to out-rank the reset's `[hidden] { display: none !important }`
+   (see the note in style.css). This is the ONE deliberate exception. */
 [data-theme="dark"] .sx-logo-light { display: none; }
 [data-theme="dark"] .sx-masthead__logo .sx-logo-dark,
-[data-theme="dark"] .sx-drawer__head .sx-logo-dark { display: block; }
+[data-theme="dark"] .sx-drawer__head .sx-logo-dark { display: block !important; }
 
 /* Media sits calmer on dark */
 [data-theme="dark"] .sx-card__media img,

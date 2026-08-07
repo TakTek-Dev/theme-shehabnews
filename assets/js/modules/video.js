@@ -31,7 +31,7 @@
   }
 
   function setup(el) {
-    if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+    if (el.dataset.sxBoundVideo) return; el.dataset.sxBoundVideo = "1";
     var frame = el.querySelector("[data-sx-video-frame]");
     if (!frame) return;
     var poster = frame.querySelector(".sx-video__poster");

@@ -156,7 +156,8 @@
 .sx-writer--row h3 { font-size: var(--fs-base); }
 .sx-writer--row:hover h3 { color: var(--c-primary); }
 .sx-writer--row p { font-size: var(--fs-sm); color: var(--c-ink-3); }
-@media (max-width: 64rem) { .sx-writers-feature { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* The featured row holds exactly 3 writers, so 2 columns would strand the third
+   in a half-empty row — keep all 3 abreast until the single-column phone layout. */
 @media (max-width: 40rem) {
   .sx-writers-feature { grid-template-columns: 1fr; }
   .sx-writer__info { flex-direction: column; gap: 0; }
@@ -345,6 +346,10 @@
 .sx-about-values { padding-block-end: var(--sp-6); }
 .sx-about-values h2 { font-size: var(--fs-xl); margin-block-end: var(--sp-4); }
 .sx-value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sp-4); }
+/* Tablet: auto-fit gives 3 columns → the 4 value cards leave a 3+1 hole. Force 2×2. */
+@media (min-width: 40.0625rem) and (max-width: 64rem) {
+  .sx-value-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .sx-value-card { background: var(--c-surface); border-radius: var(--r-lg); padding: var(--sp-5); border-inline-start: 3px solid var(--c-primary); }
 .sx-value-card h3 { font-size: var(--fs-base); margin-block-end: var(--sp-2); }
 .sx-value-card p { font-size: var(--fs-sm); color: var(--c-ink-2); }

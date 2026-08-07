@@ -10,7 +10,7 @@
   }
   function init(root) {
     (root || document).querySelectorAll("[data-sx-theme-toggle]").forEach(function (btn) {
-      if (btn.dataset.sxBound) return; btn.dataset.sxBound = "1";
+      if (btn.dataset.sxBoundTheme) return; btn.dataset.sxBoundTheme = "1";
       btn.addEventListener("click", function () {
         apply(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
       });

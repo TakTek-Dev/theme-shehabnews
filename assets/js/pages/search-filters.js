@@ -5,7 +5,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-search-page]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundSearchFilters) return; el.dataset.sxBoundSearchFilters = "1";
       var list = el.querySelector("[data-sx-search-list]");
       var empty = el.querySelector("[data-sx-search-empty]");
       var count = el.querySelector("[data-sx-search-count]");

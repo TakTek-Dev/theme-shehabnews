@@ -2,7 +2,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-slider]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundSlider) return; el.dataset.sxBoundSlider = "1";
       var slides = Array.prototype.slice.call(el.querySelectorAll("[data-sx-slide]"));
       var counter = el.querySelector("[data-sx-counter]");
       if (!slides.length) return;

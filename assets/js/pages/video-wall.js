@@ -21,7 +21,7 @@
 
   function init(root) {
     (root || document).querySelectorAll("[data-sx-video-wall]").forEach(function (wall) {
-      if (wall.dataset.sxBound) return; wall.dataset.sxBound = "1";
+      if (wall.dataset.sxBoundVideoWall) return; wall.dataset.sxBoundVideoWall = "1";
       var active = null; // currently playing card
       var io = null;
 

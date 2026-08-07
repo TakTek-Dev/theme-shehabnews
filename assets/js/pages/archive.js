@@ -5,7 +5,7 @@
 (function () {
   function init(root) {
     (root || document).querySelectorAll("[data-sx-archive]").forEach(function (el) {
-      if (el.dataset.sxBound) return; el.dataset.sxBound = "1";
+      if (el.dataset.sxBoundArchive) return; el.dataset.sxBoundArchive = "1";
       var list = el.querySelector("[data-sx-archive-list]");
       var empty = el.querySelector("[data-sx-archive-empty]");
       var count = el.querySelector("[data-sx-archive-count]");
