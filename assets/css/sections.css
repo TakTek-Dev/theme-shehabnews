@@ -2017,8 +2017,11 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-brief__imprint::after { content: "▪"; margin-inline-start: auto; color: var(--c-ink); }
 .sx-brief__stamp { font-weight: 700; color: var(--c-ink); }
 
-/* ▸ Silent state — no audio file today; the sheet is otherwise untouched */
-.sx-brief__silent { display: none; }
+/* ▸ Silent state — no audio file today; the sheet is otherwise untouched.
+   Two-class selectors on purpose: .sx-alert sets `display: flex` from
+   components.css, which loads after this file, so a single-class rule here
+   would lose the cascade and the notice would show permanently. */
+.sx-brief .sx-brief__silent { display: none; }
 .sx-brief.is-silent .sx-brief__listen { display: none; }
 .sx-brief.is-silent .sx-brief__silent { display: flex; margin-inline-start: auto; max-inline-size: 32rem; }
 

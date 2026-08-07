@@ -750,6 +750,10 @@
       // No audio source → silent state. The sheet itself is unchanged.
       var src = audio && (audio.getAttribute("src") || (audio.querySelector("source") || {}).src);
       if (!audio || !src) { el.classList.add("is-silent"); return; }
+      /* A declared src can still 404 (the TTS job didn't run). Treat a load
+         failure exactly like "no audio today" rather than leaving a dead
+         play button on the page. */
+      audio.addEventListener("error", function () { el.classList.add("is-silent", "is-error"); el.classList.remove("is-playing"); });
 
       var savedRate = parseFloat(read(RATE_KEY));
       if (RATES.indexOf(savedRate) > -1) { audio.playbackRate = savedRate; if (rateBtn) rateBtn.textContent = "×" + savedRate; }

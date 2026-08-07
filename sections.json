@@ -1013,6 +1013,67 @@
       ]
     },
     {
+      "key": "brief",
+      "name_ar": "موجز الأخبار",
+      "name_en": "AI daily brief",
+      "optional": true,
+      "data": {
+        "needs": [
+          "brief.date",
+          "brief.edition",
+          "brief.lede",
+          "brief.takes",
+          "brief.sources",
+          "brief.audio_url",
+          "brief.audio_duration_sec"
+        ],
+        "posts_min": 3,
+        "posts_max": 8,
+        "posts_default": 6
+      },
+      "notes_data": "takes[].audio_at (seconds) MAY be null per take — that take renders identically but is not seekable, and the section is unaffected. audio_duration_sec is REQUIRED whenever audio_url is non-null (the sheet states its length before the visitor commits). If audio_url is null OR the file fails to load, the section switches to its silent state: the listen box is replaced by a notice and the written brief is unchanged.",
+      "markup": {
+        "wrapper": "sx-section sx-brief",
+        "sheet": "sx-brief__sheet holds masthead + body + rail + imprint",
+        "take": "sx-brief__take[data-at][data-severity=critical|developing|context]",
+        "cite": "sx-brief__cite anchors to #brief-src-N in the margin rail"
+      },
+      "js": {
+        "module": "assets/js/modules/brief.js",
+        "init": "SX.initBrief",
+        "binds": "[data-sx-brief]"
+      },
+      "variants": [
+        {
+          "id": 1,
+          "class": "sx-brief--v1",
+          "name_ar": "الورقة الكاملة",
+          "name_en": "Full sheet with margin rail",
+          "preview_family": "sheet",
+          "posts_default": 6,
+          "notes": "Dated, numbered wire memo: masthead with wire slug + dateline + listen box, numbered takes with hanging ghost numerals, and a margin rail of the sources from the agency own coverage. Square corners on purpose (newspaper mode, same weights as sx-cartoon--v3)."
+        },
+        {
+          "id": 2,
+          "class": "sx-brief--v2",
+          "name_ar": "بلا عمود جانبي",
+          "name_en": "No margin rail",
+          "preview_family": "sheet",
+          "posts_default": 6,
+          "notes": "Same sheet in a narrow slot: the rail drops under the takes as a small source grid. Use inside two-column pages."
+        },
+        {
+          "id": 3,
+          "class": "sx-brief--v3",
+          "name_ar": "مختصر",
+          "name_en": "Compact lede only",
+          "preview_family": "strip",
+          "posts_default": 6,
+          "notes": "Masthead + lede + listen box, then the archive link. No partial takes and no expander — a shortened sheet is still a whole artefact."
+        }
+      ]
+    },
+    {
       "key": "numbers",
       "name_ar": "اليوم بالأرقام",
       "name_en": "Data band",

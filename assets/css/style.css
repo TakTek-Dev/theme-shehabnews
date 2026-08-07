@@ -60,7 +60,11 @@
   --c-whatsapp: #25D366;
 
   /* Type */
-  --font-sans: "Helvetica Neue", HelveticaNeue, Helvetica, -apple-system, "Segoe UI", Tahoma, "Geeza Pro", Arial, sans-serif;
+  /* Text face + display face — declared in assets/fonts/fonts.css (self-hosted).
+     The system stack stays as the fallback, so the theme still renders
+     correctly if the webfonts are ever dropped. */
+  --font-sans: "IBM Plex Sans Arabic", "Helvetica Neue", HelveticaNeue, Helvetica, -apple-system, "Segoe UI", Tahoma, "Geeza Pro", Arial, sans-serif;
+  --font-display: "Readex Pro", var(--font-sans);
   --fs-xs: 0.75rem;    /* 12 */
   --fs-sm: 0.8125rem;  /* 13 */
   --fs-base: 0.9375rem;/* 15 */
@@ -99,7 +103,12 @@ body {
   background: var(--c-bg);
   text-rendering: optimizeLegibility;
 }
-h1, h2, h3, h4, h5, h6 { margin: 0; line-height: var(--lh-tight); font-weight: 700; text-wrap: pretty; }
+/* Headlines take the display face; body copy, UI and meta stay on the text
+   face. Arabic headlines also want slightly tighter leading than body copy. */
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); line-height: var(--lh-tight); font-weight: 700; text-wrap: pretty; }
+.sx-card__title, .sx-section__title, .sx-brief__date { font-family: var(--font-display); }
+/* …but never on running prose, quotes, forms or numerals */
+.sx-card__excerpt, .sx-card__meta, .sx-prose p, .sx-brief__take p, input, select, textarea, button { font-family: var(--font-sans); }
 p { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 img, svg, video { display: block; max-inline-size: 100%; block-size: auto; }
