@@ -537,6 +537,12 @@
   /* icon-only controls inside the brief masthead */
   .sx-brief__dl { min-inline-size: 2.25rem; min-block-size: 2.25rem; align-items: center; justify-content: center; }
 
+  /* author bylines and contact rows are standalone links, not prose */
+  .sx-author__name a,
+  .sx-contact-info__item a { display: inline-block; padding-block: 0.3rem; }
+  /* the contact form's consent checkbox */
+  .sx-check input { inline-size: 1.5rem; block-size: 1.5rem; }
+
   /* icon buttons that sit close to the 24px floor */
   .sx-share a, .sx-share button,
   .sx-footer__social a,
