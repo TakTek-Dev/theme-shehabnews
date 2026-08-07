@@ -281,20 +281,44 @@ time { color: inherit; }
   .sx-topbar__links > :nth-child(n+3) { display: none; } /* utility trim only, never content */
 }
 
-/* 5 ▸ FOOTER --------------------------------------------------- */
-.sx-footer { background: var(--c-band); color: var(--c-band-ink-2); margin-block-start: var(--sp-8); font-size: var(--fs-sm); position: relative; overflow: hidden; }
-.sx-footer a:hover { color: var(--c-band-ink); }
-.sx-footer__mark {
-  position: absolute; inset-block-end: -4rem; inset-inline-start: -3rem;
-  block-size: 24rem; inline-size: auto; opacity: 0.05; pointer-events: none; user-select: none;
+/* 5 ▸ FOOTER ---------------------------------------------------
+   Layout: a raised newsletter card straddling the top edge (the site's ONLY
+   subscribe form — the standalone homepage section was removed as a duplicate),
+   then a 5-column link grid led by the brand block, then the legal bar.
+   The extra padding-block-start on .sx-footer is what the card rises into.
+   --------------------------------------------------------------- */
+.sx-footer {
+  background: var(--c-band); color: var(--c-band-ink-2);
+  margin-block-start: var(--sp-8); padding-block-start: var(--sp-6);
+  font-size: var(--fs-sm); position: relative; overflow: hidden;
 }
-.sx-footer__cta { background: var(--c-band-2); border-block-end: 1px solid var(--c-band-line); position: relative; }
-/* Design-review pass: tighter footer (CTA + grid paddings reduced one step) */
-.sx-footer__cta-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4) var(--sp-6); flex-wrap: wrap; padding-block: var(--sp-5); }
-.sx-footer__cta-lead { display: grid; gap: var(--sp-1); }
+.sx-footer a:hover { color: var(--c-band-ink); }
+/* Brand watermark — bled off the inline-start corner, barely there */
+.sx-footer__mark {
+  position: absolute; inset-block-end: -5rem; inset-inline-start: -4rem;
+  block-size: 26rem; inline-size: auto; opacity: 0.045; pointer-events: none; user-select: none;
+}
+
+/* ▸ Newsletter card */
+.sx-footer__cta {
+  position: relative; margin-block-start: calc(-1 * var(--sp-7) - var(--sp-2));
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--sp-4) var(--sp-6); align-items: center;
+  background: var(--c-band-2); border: 1px solid var(--c-band-line);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-2);
+  padding: clamp(var(--sp-4), 3vw, var(--sp-6));
+}
+.sx-footer__cta-lead { display: grid; gap: var(--sp-2); justify-items: start; }
+.sx-footer__cta-badge {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--fs-xs); font-weight: 700; color: var(--c-pale);
+  background: var(--c-glass); border-radius: var(--r-full); padding: 0.3em 0.9em;
+}
+.sx-footer__cta-badge .sx-icon { inline-size: 0.95em; block-size: 0.95em; }
 .sx-footer__cta-lead h3 { color: var(--c-band-ink); font-size: var(--fs-xl); }
 .sx-footer__cta-lead p { max-inline-size: 52ch; }
-.sx-footer__form { display: flex; gap: var(--sp-2); flex: 0 1 26rem; min-inline-size: min(100%, 18rem); }
+.sx-footer__form { display: grid; gap: var(--sp-2); }
+.sx-footer__field { display: flex; gap: var(--sp-2); }
 .sx-footer__form input {
   flex: 1; min-inline-size: 0; padding: var(--sp-3) var(--sp-4);
   background: var(--c-band); border: 1px solid var(--c-band-line);
@@ -302,30 +326,67 @@ time { color: inherit; }
 }
 .sx-footer__form input::placeholder { color: var(--c-band-ink-2); }
 .sx-footer__form input:focus { outline: 2px solid var(--c-primary); outline-offset: 1px; }
+.sx-footer__form-note { font-size: var(--fs-xs); color: var(--c-band-ink-2); }
 
-.sx-footer__grid { display: grid; grid-template-columns: 1.7fr repeat(4, 1fr); gap: var(--sp-6); padding-block: var(--sp-6); position: relative; }
+/* ▸ Link grid */
+/* 1.9fr on the brand column so the six social pills stay on ONE row */
+.sx-footer__grid {
+  display: grid; grid-template-columns: 1.9fr repeat(4, 1fr); gap: var(--sp-5) var(--sp-5);
+  padding-block: var(--sp-7) var(--sp-6); position: relative;
+}
 .sx-footer__brand { display: grid; gap: var(--sp-4); align-content: start; justify-items: start; }
 .sx-footer__brand img { block-size: 2.9rem; inline-size: auto; }
 .sx-footer__brand p { max-inline-size: 36ch; }
-.sx-footer__stat { display: inline-block; font-size: var(--fs-xs); border: 1px solid var(--c-band-line); border-radius: var(--r-full); padding: 0.35em 1em; text-wrap: balance; text-align: center; }
-.sx-footer__stat strong { color: var(--c-band-ink); }
-/* Design-review pass: pure-white headings separate them clearly from links */
-.sx-footer__col h3 {
-  color: var(--c-overlay-ink); font-size: var(--fs-sm); margin-block-end: var(--sp-3);
-  display: flex; align-items: center; gap: var(--sp-2);
+.sx-footer__contact { display: grid; gap: var(--sp-2); font-size: var(--fs-xs); }
+.sx-footer__contact li { display: flex; align-items: center; gap: var(--sp-2); }
+.sx-footer__contact .sx-icon { color: var(--c-band-ink-2); flex: none; }
+.sx-footer__contact a { direction: ltr; unicode-bidi: isolate; }
+.sx-footer__stat {
+  display: inline-block; font-size: var(--fs-xs); border: 1px solid var(--c-band-line);
+  border-radius: var(--r-full); padding: 0.35em 1em; text-wrap: balance;
 }
-.sx-footer__col h3::before { content: ""; inline-size: 1.1rem; block-size: 2px; border-radius: var(--r-full); background: var(--c-primary); }
-.sx-footer__col li { margin-block-end: var(--sp-2); }
-.sx-footer__col a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
+.sx-footer__stat strong { color: var(--c-band-ink); }
+
+/* Column heads: a full-width hairline above each list reads as a masthead rule
+   and gives the four columns a shared baseline. No letter-spacing — it would
+   break Arabic cursive joining. */
+.sx-footer__col h3 {
+  color: var(--c-overlay-ink); font-size: var(--fs-sm); font-weight: 700;
+  padding-block-end: var(--sp-3); margin-block-end: var(--sp-3);
+  border-block-end: 1px solid var(--c-band-line); position: relative;
+}
+.sx-footer__col h3::after {
+  content: ""; position: absolute; inset-block-end: -1px; inset-inline-start: 0;
+  inline-size: 2.25rem; block-size: 1px; background: var(--c-primary);
+}
+.sx-footer__col li + li { margin-block-start: var(--sp-2); }
+/* Links brighten and step toward the reader instead of underlining — quieter
+   at rest, clearer on hover, and the shift keeps the column edge legible. */
+.sx-footer__col a {
+  display: inline-block; color: var(--c-band-ink-2);
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.sx-footer__col a:hover { color: var(--c-band-ink); transform: translateX(-3px); }
+[dir="ltr"] .sx-footer__col a:hover { transform: translateX(3px); }
+
+/* ▸ Social — each platform hovers to its own brand token */
 .sx-footer__social { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
 .sx-footer__social a {
   display: inline-flex; align-items: center; justify-content: center;
-  inline-size: 2.25rem; block-size: 2.25rem; border-radius: var(--r-full);
+  inline-size: 2.2rem; block-size: 2.2rem; border-radius: var(--r-full);
   background: var(--c-band-2); border: 1px solid var(--c-band-line); color: var(--c-band-ink);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.sx-footer__social a:hover { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
+.sx-footer__social a:hover { color: var(--c-on-primary); transform: translateY(-2px); }
+.sx-footer__social a[data-platform="facebook"]:hover { background: var(--c-facebook); border-color: var(--c-facebook); }
+.sx-footer__social a[data-platform="x"]:hover { background: var(--c-x); border-color: var(--c-x); }
+.sx-footer__social a[data-platform="instagram"]:hover { background: var(--c-instagram); border-color: var(--c-instagram); }
+.sx-footer__social a[data-platform="telegram"]:hover { background: var(--c-telegram); border-color: var(--c-telegram); }
+.sx-footer__social a[data-platform="youtube"]:hover { background: var(--c-youtube); border-color: var(--c-youtube); }
+.sx-footer__social a[data-platform="whatsapp"]:hover { background: var(--c-whatsapp); border-color: var(--c-whatsapp); }
 
-.sx-footer__legal { border-block-start: 1px solid var(--c-band-line); position: relative; }
+/* ▸ Legal bar */
+.sx-footer__legal { border-block-start: 1px solid var(--c-band-line); background: var(--c-band-2); position: relative; }
 .sx-footer__legal-in { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-5); align-items: center; padding-block: var(--sp-4); font-size: var(--fs-xs); }
 .sx-footer__legal-links { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
 .sx-footer__legal-links a { color: var(--c-band-ink-2); }
@@ -333,10 +394,21 @@ time { color: inherit; }
   margin-inline-start: auto; display: inline-flex; align-items: center; justify-content: center;
   inline-size: 2.4rem; block-size: 2.4rem; border-radius: var(--r-full);
   border: 1px solid var(--c-band-line); color: var(--c-band-ink);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
-.sx-footer__totop:hover { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
-@media (max-width: 64rem) { .sx-footer__grid { grid-template-columns: repeat(2, 1fr); } .sx-footer__brand { grid-column: span 2; } }
-@media (max-width: 40rem) { .sx-footer__grid { grid-template-columns: 1fr; } .sx-footer__brand { grid-column: auto; } .sx-footer__cta-in { flex-direction: column; align-items: stretch; } }
+.sx-footer__totop:hover { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); transform: translateY(-2px); }
+
+@media (max-width: 64rem) {
+  .sx-footer__cta { grid-template-columns: 1fr; }
+  .sx-footer__grid { grid-template-columns: repeat(2, 1fr); }
+  .sx-footer__brand { grid-column: span 2; }
+}
+@media (max-width: 40rem) {
+  .sx-footer__grid { grid-template-columns: 1fr; }
+  .sx-footer__brand { grid-column: auto; }
+  .sx-footer__field { flex-direction: column; }
+  .sx-footer__cta { margin-block-start: calc(-1 * var(--sp-6)); }
+}
 
 /* 6 ▸ PAGE SCAFFOLDING ----------------------------------------- */
 .sx-main { padding-block-start: var(--sp-6); }

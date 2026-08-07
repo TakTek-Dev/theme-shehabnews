@@ -1787,10 +1787,18 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 [dir="ltr"] .sx-swiper::after { background: linear-gradient(to left, var(--sx-rail-fade), transparent); }
 .sx-swiper:not(.is-start)::before { opacity: 1; }
 .sx-swiper:not(.is-end)::after { opacity: 1; }
-/* Pulse is a TEXT rail: widen its edge fades so a headline sliding beneath the
-   nav arrow melts into the band instead of colliding with it (fix: arrows were
-   covering the news text at the rail edges). */
-.sx-pulse .sx-swiper::before, .sx-pulse .sx-swiper::after { inline-size: 5.5rem; }
+
+/* Pulse is a TEXT rail: an arrow floating over it lands on a headline at some
+   scroll position no matter how the edges are padded (Swiper's overflow clip
+   includes the container padding, so slides still travel under it). So the
+   pulse header offers [data-sx-rail-nav] and swiper-init.js puts the arrows
+   THERE — static, beside the section link, never over the content. */
+.sx-rail__nav { display: flex; align-items: center; gap: var(--sp-2); }
+.sx-rail__nav .sx-rail__btn {
+  position: static; transform: none; inline-size: 2.2rem; block-size: 2.2rem;
+  box-shadow: none; inset-inline: auto;
+}
+.sx-rail__nav:empty { display: none; }
 
 .sx-rail__btn {
   position: absolute; inset-block-start: 50%; transform: translateY(-50%); z-index: 5;
@@ -1845,3 +1853,195 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-newsletter--v3 .sx-newsletter__note { font-size: var(--fs-xs); color: var(--c-ink-3); }
 
 
+
+/* =============================================================
+   HOVER ON DARK / OVERLAY SURFACES
+   The reset sets `a:hover { color: var(--c-primary) }`, which is a DARK
+   blue — unreadable when the link sits on a photo or a --c-band panel
+   (the hero overlay headline went navy-on-photo). Anywhere the text is
+   already light, hover goes lighter instead, never darker.
+   ============================================================= */
+.sx-card--overlay a:hover,
+.sx-hero--v1 .sx-card--lead a:hover,
+.sx-hero--v2 .sx-card a:hover,
+.sx-hero--v3 .sx-card a:hover,
+.sx-hero--v4 .sx-card a:hover,
+.sx-files--v1 .sx-card a:hover,
+.sx-files--v2 .sx-card a:hover,
+.sx-files--v3 .sx-card--lead a:hover,
+.sx-programs--v3 .sx-card a:hover,
+.sx-reels .sx-card a:hover,
+.sx-gallery .sx-card--overlay a:hover,
+.sx-news--v6 .sx-card:nth-of-type(4) a:hover,
+.sx-section--band a:hover,
+.sx-pulse a:hover,
+.sx-video--v1 a:hover,
+.sx-video--v3 a:hover,
+.sx-quotes--v3 a:hover,
+.sx-cartoon--v2 a:hover,
+.sx-trending--v3 a:hover,
+.sx-lens a:hover { color: var(--c-pale); }
+
+/* =============================================================
+   26 ▸ AI DAILY BRIEF  (sx-brief) — «موجز الأخبار» — optional
+   -------------------------------------------------------------
+   NOT a media player with a chapter list. The briefing is published
+   as a WIRE MEMO — a dated, numbered, cited sheet — and the audio is
+   a layer painted over it. Everything reads and works with no audio
+   file at all; the listen box simply becomes a notice.
+
+   Deliberate idiom: square corners + rules instead of the theme's
+   rounded cards. That is not a break — .sx-cartoon--v3 already
+   establishes "newspaper mode" in this codebase (3px double rule,
+   2px ink frame); this section reuses the same weights so the two
+   read as one voice.
+
+   Motion contract: the section has NO looping animation, so there is
+   nothing for prefers-reduced-motion to stop. If a progress indicator
+   is ever added it must KEEP moving under `reduce` — a position
+   readout is state, not decoration.
+
+   Coupling note: reuses .sx-btn, .sx-alert--info, .visually-hidden and
+   the --c-* token set only. No new keyframes.
+   ============================================================= */
+.sx-brief { background: var(--c-surface); }
+.sx-brief .sx-section__head { margin-block-end: var(--sp-4); }
+
+/* ▸ The sheet */
+.sx-brief__sheet {
+  background: var(--c-bg); color: var(--c-ink);
+  border: 1px solid var(--c-line); border-block-start: 4px solid var(--c-ink);
+  border-radius: 0;                     /* newspaper mode — see header note */
+  box-shadow: var(--shadow-1);
+  padding: clamp(var(--sp-4), 3vw, var(--sp-6));
+  display: grid; gap: var(--sp-5);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 15rem);
+  grid-template-areas: "masthead masthead" "body rail" "imprint imprint";
+}
+
+/* ▸ Masthead: wire slug, dateline, listen box */
+.sx-brief__masthead {
+  grid-area: masthead; display: flex; flex-wrap: wrap; align-items: end;
+  gap: var(--sp-3) var(--sp-5); padding-block-end: var(--sp-3);
+  border-block-end: 3px double var(--c-line-strong);
+}
+.sx-brief__slug { display: grid; gap: var(--sp-1); }
+.sx-brief__wire { font-size: var(--fs-xs); font-weight: 700; color: var(--c-ink-3); }
+.sx-brief__wire b { color: var(--c-alert); }
+.sx-brief__date { font-size: var(--fs-xl); font-weight: 700; line-height: 1.2; }
+.sx-brief__scope { font-size: var(--fs-xs); color: var(--c-ink-3); }
+.sx-brief__scope span { direction: ltr; unicode-bidi: isolate; }
+
+/* ▸ Listen box — the audio layer, baseline-aligned to the dateline */
+.sx-brief__listen {
+  margin-inline-start: auto; display: flex; align-items: center; gap: var(--sp-2);
+  border: 1px solid var(--c-line); padding: var(--sp-2) var(--sp-3); flex-wrap: wrap;
+}
+.sx-brief__play {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  background: var(--c-primary); color: var(--c-on-primary);
+  padding: 0.45em 1em; font-size: var(--fs-sm); font-weight: 700;
+}
+.sx-brief__play:hover { background: var(--c-primary-deep); color: var(--c-on-primary); }
+.sx-brief__play svg { inline-size: 1em; block-size: 1em; }
+.sx-brief__play .sx-brief__pause-i { display: none; }
+.sx-brief.is-playing .sx-brief__play .sx-brief__play-i { display: none; }
+.sx-brief.is-playing .sx-brief__play .sx-brief__pause-i { display: inline-flex; }
+.sx-brief__clock { font-size: var(--fs-xs); color: var(--c-ink-2); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+/* Speed only appears once playback starts — keeps the box a byline at rest */
+.sx-brief__rate { display: none; font-size: var(--fs-xs); font-weight: 700; color: var(--c-ink-2); border: 1px solid var(--c-line); padding: 0.15em 0.55em; direction: ltr; }
+.sx-brief.is-playing .sx-brief__rate { display: inline-block; }
+.sx-brief__rate:hover { border-color: var(--c-primary); color: var(--c-primary); }
+.sx-brief__dl { color: var(--c-ink-3); display: inline-flex; }
+.sx-brief__dl:hover { color: var(--c-primary); }
+.sx-brief__resume { flex-basis: 100%; font-size: var(--fs-xs); color: var(--c-primary-ink); font-weight: 700; text-align: start; }
+
+/* ▸ Takes — hanging ghost numerals in a gutter */
+.sx-brief__body { grid-area: body; display: grid; gap: var(--sp-4); align-content: start; }
+.sx-brief__lede { font-size: var(--fs-md); font-weight: 700; color: var(--c-ink); text-wrap: pretty; }
+.sx-brief__takes { display: grid; gap: var(--sp-4); }
+.sx-brief__take {
+  display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--sp-3);
+  align-items: start; padding-inline-start: var(--sp-2);
+  border-inline-start: 2px solid transparent;
+}
+.sx-brief__seek {
+  font-size: var(--fs-2xl); font-weight: 700; line-height: 1;
+  color: var(--c-line-strong); font-variant-numeric: tabular-nums;
+  text-align: center; align-self: start;
+}
+.sx-brief__seek:hover { color: var(--c-primary); }
+/* Severity: colour is never the only channel — the numeral also gains a shape
+   marker, and the word itself is in the seek button accessible name. */
+.sx-brief__take[data-severity="critical"] .sx-brief__seek { color: var(--c-alert); }
+.sx-brief__take[data-severity="critical"] .sx-brief__seek::after {
+  content: ""; display: block; inline-size: 0.5rem; block-size: 0.5rem;
+  background: var(--c-alert); margin: var(--sp-1) auto 0;
+}
+.sx-brief__take[data-severity="developing"] .sx-brief__seek::after {
+  content: ""; display: block; inline-size: 0.5rem; block-size: 0.5rem;
+  border: 1.5px solid var(--c-ink-3); border-radius: var(--r-full); margin: var(--sp-1) auto 0;
+}
+.sx-brief__take p { color: var(--c-ink-2); text-wrap: pretty; }
+.sx-brief__take p b { color: var(--c-ink); font-weight: 700; }
+.sx-brief__take.is-on-air { border-inline-start-color: var(--c-primary); }
+.sx-brief__take.is-on-air p { color: var(--c-ink); }
+.sx-brief__take.is-on-air .sx-brief__seek { color: var(--c-primary); }
+/* Footnote markers must be isolated or "[3]" reorders inside Arabic prose */
+.sx-brief__cite {
+  font-size: var(--fs-xs); font-weight: 700; color: var(--c-primary);
+  vertical-align: super; direction: ltr; unicode-bidi: isolate; padding-inline: 0.15em;
+}
+.sx-brief__cite:hover { color: var(--c-primary-deep); }
+
+/* ▸ Margin rail — the agency own coverage behind each figure */
+.sx-brief__rail {
+  grid-area: rail; border-inline-start: 1px solid var(--c-line);
+  padding-inline-start: var(--sp-4); display: grid; gap: var(--sp-2); align-content: start;
+}
+.sx-brief__rail-head { font-size: var(--fs-xs); font-weight: 700; color: var(--c-ink-3); }
+.sx-brief__srcs { display: grid; }
+.sx-brief__src { display: grid; gap: var(--sp-1); font-size: var(--fs-xs); padding-block: var(--sp-2); border-block-start: 1px solid var(--c-line); }
+.sx-brief__src-n { font-weight: 700; color: var(--c-primary); direction: ltr; unicode-bidi: isolate; }
+.sx-brief__src a { color: var(--c-ink); font-weight: 600; line-height: 1.6; }
+.sx-brief__src a:hover { color: var(--c-primary); }
+.sx-brief__src time { color: var(--c-ink-3); }
+.sx-brief__src:target { background: var(--c-pale); }
+
+/* ▸ Imprint — provenance + printer end mark */
+.sx-brief__imprint {
+  grid-area: imprint; display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4);
+  align-items: center; font-size: var(--fs-sm); color: var(--c-ink-2);
+  border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-3);
+}
+.sx-brief__imprint::after { content: "▪"; margin-inline-start: auto; color: var(--c-ink); }
+.sx-brief__stamp { font-weight: 700; color: var(--c-ink); }
+
+/* ▸ Silent state — no audio file today; the sheet is otherwise untouched */
+.sx-brief__silent { display: none; }
+.sx-brief.is-silent .sx-brief__listen { display: none; }
+.sx-brief.is-silent .sx-brief__silent { display: flex; margin-inline-start: auto; max-inline-size: 32rem; }
+
+/* v2 — no margin rail: sources sit under the takes in a small grid */
+.sx-brief--v2 .sx-brief__sheet { grid-template-columns: minmax(0, 1fr); grid-template-areas: "masthead" "body" "rail" "imprint"; }
+.sx-brief--v2 .sx-brief__rail { border-inline-start: 0; padding-inline-start: 0; border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-3); }
+.sx-brief--v2 .sx-brief__srcs { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--sp-3); }
+.sx-brief--v2 .sx-brief__src { border-block-start: 0; }
+
+/* v3 — compact: masthead + lede + listen box, then a link to the full brief.
+   No partial takes and no expander: a shortened sheet is still a whole thing. */
+.sx-brief--v3 .sx-brief__sheet { grid-template-columns: minmax(0, 1fr); grid-template-areas: "masthead" "body" "imprint"; }
+.sx-brief--v3 .sx-brief__takes, .sx-brief--v3 .sx-brief__rail { display: none; }
+.sx-brief--v3 .sx-brief__lede { font-size: var(--fs-lg); }
+
+@media (max-width: 64rem) {
+  .sx-brief__sheet { grid-template-columns: minmax(0, 1fr); grid-template-areas: "masthead" "body" "rail" "imprint"; }
+  .sx-brief__rail { border-inline-start: 0; padding-inline-start: 0; border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-3); }
+  .sx-brief__srcs { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--sp-3); }
+  .sx-brief__src { border-block-start: 0; }
+}
+@media (max-width: 40rem) {
+  .sx-brief__listen { margin-inline-start: 0; }
+  .sx-brief__take { grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-2); }
+  .sx-brief__seek { font-size: var(--fs-xl); }
+}

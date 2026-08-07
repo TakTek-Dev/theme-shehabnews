@@ -6,17 +6,18 @@
 (function () {
   var CH_IN = '<svg class="sx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"></path></svg>';
   var CH_OUT = '<svg class="sx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"></path></svg>';
-  /* [selector, gap(px), edgeOffset(px)] — edgeOffset reserves space at both rail
-     ends (desktop only) so the resting first/last item never sits under the
-     absolute nav arrows (text rails need it; image rails read fine without). */
+  /* [selector, gap(px)] — the arrow-vs-content collision on the pulse rail is
+     solved in CSS with a real gutter (.sx-pulse .sx-swiper padding-inline),
+     not with slide offsets, so the arrows never sit over a headline at any
+     scroll position. See "SWIPER RAILS" in sections.css. */
   var TARGETS = [
-    ['.sx-pulse__rail', 0, 56],
-    ['.sx-files--v2 .sx-section__body', 16, 0],
-    ['.sx-programs--v1 .sx-section__body', 24, 0],
-    ['.sx-reels--v1 .sx-section__body', 16, 0]
+    ['.sx-pulse__rail', 0],
+    ['.sx-files--v2 .sx-section__body', 16],
+    ['.sx-programs--v1 .sx-section__body', 24],
+    ['.sx-reels--v1 .sx-section__body', 16]
   ];
 
-  function enhance(el, gap, edge) {
+  function enhance(el, gap) {
     if (el.dataset.sxSwiper || typeof Swiper === "undefined") return;
     el.dataset.sxSwiper = "1";
     Array.prototype.forEach.call(el.children, function (c) { c.classList.add("swiper-slide"); });
@@ -27,11 +28,18 @@
     sw.dir = rtl ? "rtl" : "ltr";
     el.parentNode.insertBefore(sw, el);
     sw.appendChild(el);
+    /* Arrow host: a section may offer [data-sx-rail-nav] in its header (see the
+       pulse section) — then the arrows live there, statically, and can never
+       cover a headline. Without that slot they fall back to floating over the
+       rail, which is fine for image rails. */
+    var sec = el.closest(".sx-section");
+    var navHost = sec && sec.querySelector("[data-sx-rail-nav]");
+    if (navHost) navHost.innerHTML = "";
     function mkBtn(cls, label, svg) {
       var b = document.createElement("button");
       b.type = "button"; b.className = "sx-rail__btn " + cls;
       b.setAttribute("aria-label", label); b.innerHTML = svg;
-      sw.appendChild(b); return b;
+      (navHost || sw).appendChild(b); return b;
     }
     var prev = mkBtn("sx-rail__btn--prev", "السابق", rtl ? CH_IN : CH_OUT);
     var next = mkBtn("sx-rail__btn--next", "التالي", rtl ? CH_OUT : CH_IN);
@@ -39,7 +47,7 @@
       sw.classList.toggle("is-start", s.isBeginning);
       sw.classList.toggle("is-end", s.isEnd);
     }
-    var cfg = {
+    el.sxSwiperInst = new Swiper(sw, {
       slidesPerView: "auto",
       spaceBetween: gap,
       grabCursor: true,
@@ -47,11 +55,7 @@
       keyboard: { enabled: true, onlyInViewport: true },
       navigation: { prevEl: prev, nextEl: next, disabledClass: "is-hidden" },
       on: { init: u, progress: u, resize: u }
-    };
-    /* Arrows are display:none under 48rem (sections.css), so the edge offset
-       only applies from 768px up — no dead lead-in gap on mobile. */
-    if (edge) cfg.breakpoints = { 768: { slidesOffsetBefore: edge, slidesOffsetAfter: edge } };
-    el.sxSwiperInst = new Swiper(sw, cfg);
+    });
   }
 
   function reset(root) {
@@ -73,7 +77,7 @@
 
   function init(root) {
     TARGETS.forEach(function (t) {
-      (root || document).querySelectorAll(t[0]).forEach(function (el) { enhance(el, t[1], t[2]); });
+      (root || document).querySelectorAll(t[0]).forEach(function (el) { enhance(el, t[1]); });
     });
   }
   window.SX = window.SX || {};

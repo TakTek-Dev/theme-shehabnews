@@ -4,7 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ORDER=(theme menu tabs ticker slider video video-float poll audio lightbox ads swiper-init numbers)
+ORDER=(theme menu tabs ticker slider video video-float poll audio brief lightbox ads swiper-init numbers)
 OUT=assets/js/main.js
 
 {
@@ -14,7 +14,7 @@ OUT=assets/js/main.js
    GENERATED: concatenation of assets/js/modules/* in load order.
    Source of truth = the individual modules; edit THEM, then rebuild:
 
-     cat assets/js/modules/{theme,menu,tabs,ticker,slider,video,video-float,poll,audio,lightbox,ads,swiper-init,numbers}.js >> main.js
+     cat assets/js/modules/{theme,menu,tabs,ticker,slider,video,video-float,poll,audio,brief,lightbox,ads,swiper-init,numbers}.js >> main.js
      (or run: bash tools/build-main-js.sh)
 
    Every module is an isolated IIFE: self-initializing on
