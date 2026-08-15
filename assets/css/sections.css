@@ -749,7 +749,6 @@
 }
 .sx-video__onair { display: inline-flex; align-items: center; gap: var(--sp-2); }
 .sx-video__onair .sx-live-dot { background: var(--c-alert); }
-.sx-video__chan { letter-spacing: 0.2em; color: var(--c-overlay-ink-2); direction: ltr; }
 .sx-video__lower { display: flex; align-items: stretch; gap: var(--sp-3); position: relative; z-index: 2; margin-block-start: calc(-1 * var(--sp-6)); padding-inline: var(--sp-5); align-items: center; flex-wrap: wrap; }
 .sx-video__lower-tag {
   display: inline-flex; align-items: center; background: var(--c-alert); color: var(--c-on-alert);

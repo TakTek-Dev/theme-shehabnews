@@ -262,7 +262,7 @@ var B = {
     var player = '<div class="sx-video__player">' +
       '<div class="sx-video__glow" aria-hidden="true"><img src="' + VIDS[0].poster + '" alt=""></div>' +
       '<div class="sx-video-frame is-poster" data-sx-video-frame>' +
-      '<div class="sx-video__statusbar" aria-hidden="true"><span class="sx-video__onair"><span class="sx-live-dot"></span>على الهواء</span><span class="sx-video__chan">SHB•01</span></div>' +
+      '<div class="sx-video__statusbar" aria-hidden="true"><span class="sx-video__onair"><span class="sx-live-dot"></span>على الهواء</span></div>' +
       '<img class="sx-video__poster" src="' + VIDS[0].poster + '" alt="" width="1280" height="720">' +
       '<video playsinline preload="metadata" hidden></video>' +
       '<div class="sx-video__embed" hidden></div>' +
@@ -285,7 +285,7 @@ var B = {
         '<span class="sx-card__media"><img src="' + vd.poster + '" alt="" loading="lazy" width="1280" height="720">' +
         '<span class="sx-card__dur">' + vd.dur + '</span>' +
         '<span class="sx-eq" aria-hidden="true"><i></i><i></i><i></i></span>' +
-        '<span class="sx-nowbadge">على الهواء</span><span class="sx-video__idx">SHB•0' + (i + 1) + '</span></span>' +
+        '<span class="sx-nowbadge">على الهواء</span></span>' +
         '<div class="sx-card__body">' +
         '<h3 class="sx-card__title"><a href="video.html">' + vd.t + '</a></h3>' +
         '<div class="sx-card__meta"><time datetime="2026-08-04">' + vd.date + '</time><span>·</span><span>' + (vd.type === 'youtube' ? 'يوتيوب' : 'فيديو محلي') + '</span></div>' +

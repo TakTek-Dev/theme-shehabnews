@@ -418,7 +418,12 @@ time { color: inherit; }
   .sx-footer__grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5) var(--sp-4); }
   .sx-footer__brand { grid-column: span 2; }
   .sx-footer__field { flex-direction: column; }
-  .sx-footer__cta { margin-block-start: calc(-1 * var(--sp-6)); }
+  /* The CTA card deliberately straddles the footer's top edge on desktop.
+     On a phone the pull (-2rem) exactly cancelled the footer's top padding
+     (2rem), so the newsletter ended up glued to the edge. Drop the pull and
+     let the padding do its job — the card sits fully inside with air above. */
+  .sx-footer__cta { margin-block-start: 0; }
+  .sx-footer { padding-block-start: var(--sp-6); margin-block-start: var(--sp-7); }
 }
 
 /* 6 ▸ PAGE SCAFFOLDING ----------------------------------------- */
