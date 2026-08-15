@@ -413,8 +413,10 @@ time { color: inherit; }
   .sx-footer__brand { grid-column: span 2; }
 }
 @media (max-width: 40rem) {
-  .sx-footer__grid { grid-template-columns: 1fr; }
-  .sx-footer__brand { grid-column: auto; }
+  /* keep TWO link columns on phones — one column per section made the footer
+     an endless scroll; the brand block still spans the full width */
+  .sx-footer__grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5) var(--sp-4); }
+  .sx-footer__brand { grid-column: span 2; }
   .sx-footer__field { flex-direction: column; }
   .sx-footer__cta { margin-block-start: calc(-1 * var(--sp-6)); }
 }

@@ -11,6 +11,13 @@
    section title (was --fs-xl fixed) so the h2 → card-title hierarchy reads
    at a glance. */
 .sx-section { padding-block: var(--sp-7); }
+/* 3rem between sections reads as dead space on a phone screen — step the
+   rhythm down so more content is visible per scroll, and tighten the gap
+   under section heads to match. */
+@media (max-width: 40rem) {
+  .sx-section { padding-block: var(--sp-6); }
+  .sx-section__head { margin-block-end: var(--sp-4); }
+}
 /* wrap so the title + meta + "more" CTA stack instead of overflowing on
    narrow phones (the row is title | optional meta | CTA pushed to the end) */
 .sx-section__head {
@@ -731,12 +738,6 @@
 .sx-video__glow img { inline-size: 100%; block-size: 100% !important; object-fit: cover; filter: blur(48px) saturate(1.5); transform: scale(1.15); }
 .sx-video__player .sx-video-frame, .sx-video__caption-row { position: relative; z-index: 1; }
 .sx-video__metaline { font-size: var(--fs-xs); color: var(--c-band-ink-2); }
-.sx-video__idx {
-  position: absolute; inset-inline-start: var(--sp-2); inset-block-start: var(--sp-2); z-index: 1;
-  font-size: var(--fs-xs); font-weight: 700; font-variant-numeric: tabular-nums;
-  background: var(--c-media-shade-2); color: var(--c-overlay-ink);
-  inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--r-sm); display: grid; place-items: center;
-}
 
 /* broadcast furniture */
 .sx-video__statusbar {
@@ -798,10 +799,6 @@
 .sx-video--v1 .sx-card__title a { -webkit-line-clamp: 2; }
 .sx-video--v1 .sx-card__title a:hover { color: var(--c-pale); }
 .sx-video--v1 .sx-card__meta { display: none; }
-.sx-video--v1 .sx-video__idx {
-  inset-inline-start: var(--sp-2); inset-block-start: var(--sp-2); inline-size: auto; block-size: auto;
-  padding: 0.1em 0.5em; letter-spacing: 0.12em; font-size: var(--fs-xs); direction: ltr;
-}
 
 /* PiP floating player (video-float.js) */
 .sx-videohub .sx-video-frame.is-poster::after { opacity: 0; }
@@ -906,7 +903,7 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-video--v2 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: var(--sp-5); }
 .sx-video--v2 .sx-video__player { display: none; }
 .sx-video--v2 .sx-video__playlist { display: contents; }
-.sx-video--v2 .sx-eq, .sx-video--v2 .sx-nowbadge, .sx-video--v2 .sx-video__idx { display: none; }
+.sx-video--v2 .sx-eq, .sx-video--v2 .sx-nowbadge { display: none; }
 .sx-video--v2 .sx-card.is-active .sx-card__dur { display: inline-flex; }
 
 /* v3 — player + side playlist (classic) */
@@ -923,7 +920,6 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-video--v3 .sx-card__title a { -webkit-line-clamp: 2; }
 .sx-video--v3 .sx-card__title a:hover { color: var(--c-pale); }
 .sx-video--v3 .sx-card__meta { color: var(--c-band-ink-2); }
-.sx-video--v3 .sx-video__idx { display: none; }
 @media (max-width: 48rem) { .sx-video--v3 .sx-section__body { grid-template-columns: 1fr; } .sx-video--v3 .sx-video__playlist { max-block-size: none; } }
 
 /* =============================================================
@@ -1246,11 +1242,22 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
    640px box that overflowed narrow phones. The slot still reserves its
    height (zero CLS) — it just can no longer exceed the viewport. */
 .sx-ad-sticky .sx-ad { border: 0; background: transparent; margin-inline: auto; inline-size: 100%; max-inline-size: min(40rem, 100%); aspect-ratio: 640 / 60; min-block-size: 3.75rem; }
+/* the close button is centred on the bar's inline edge and the ad slot is
+   inset by its width, so the two never overlap (they did on phones, where
+   the button covered the "إعلان" label) */
+/* 3.25rem clears the button at BOTH sizes: 1.75rem on desktop and the
+   2.5rem touch target, plus its 0.5rem inset. */
+.sx-ad-sticky { padding-inline-end: 3.25rem; }
 .sx-ad-sticky__close {
-  position: absolute; inset-block-start: var(--sp-2); inset-inline-end: var(--sp-2);
+  position: absolute; inset-block-start: 50%; transform: translateY(-50%);
+  inset-inline-end: var(--sp-2);
   inline-size: 1.75rem; block-size: 1.75rem; border-radius: var(--r-full);
-  background: var(--c-surface-2); display: grid; place-items: center;
+  background: var(--c-surface-2); color: var(--c-ink-2);
+  display: grid; place-items: center;
+  transition: background 0.15s ease, color 0.15s ease;
 }
+.sx-ad-sticky__close:hover { background: var(--c-alert); color: var(--c-on-alert); }
+.sx-ad-sticky__close .sx-icon { inline-size: 0.95rem; block-size: 0.95rem; }
 .sx-section--ad { padding-block: var(--sp-4); }
 
 /* =============================================================

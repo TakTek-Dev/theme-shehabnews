@@ -37,7 +37,7 @@
         }
         if (empty) empty.hidden = shown.length > 0;
         if (pag) pag.style.display = shown.length ? "" : "none";
-        if (count) count.textContent = shown.length ? shown.length + " نتيجة من 214 (٠٫١٤ ثانية)" : "0 نتيجة";
+        if (count) count.textContent = shown.length ? shown.length + " نتيجة من 214 (0.14 ثانية)" : "0 نتيجة";
         var activeN = types.length + cats.length + (age && age !== "all" ? 1 : 0);
         resetBtns.forEach(function (b) { b.hidden = activeN === 0; });
         if (activeCountEl) { activeCountEl.textContent = activeN ? "(" + activeN + ")" : ""; }
