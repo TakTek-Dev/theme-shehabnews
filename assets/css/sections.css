@@ -192,7 +192,8 @@
   padding-inline-start: var(--sp-6); min-inline-size: 0; counter-reset: sx-top;
 }
 .sx-hero--v1 .sx-hero__side-head { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); font-weight: 700; margin-block-end: var(--sp-1); }
-.sx-hero--v1 .sx-hero__side-head .sx-live-dot { background: var(--c-alert); inline-size: 0.55rem; block-size: 0.55rem; }
+/* «الأبرز الآن» يرصد الترتيب لا البث — مربع أزرق ساكن؛ الأحمر محجوز للحي فقط */
+.sx-hero--v1 .sx-hero__side-head .sx-live-dot { background: var(--c-primary); border-radius: 0; animation: none; inline-size: 0.5rem; block-size: 0.5rem; }
 .sx-hero--v1 .sx-card:not(.sx-card--lead) {
   counter-increment: sx-top;
   flex-direction: row; align-items: flex-start; gap: var(--sp-3);
@@ -658,11 +659,12 @@
 }
 .sx-quotes .sx-card__quote a:hover { color: var(--c-primary); }
 
-/* v1 — quote cards */
-.sx-quotes--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); gap: var(--sp-5); }
-.sx-quotes--v1 .sx-card { background: var(--c-pale); border-radius: var(--r-lg); padding: var(--sp-5); gap: var(--sp-4); }
+/* v1 — بطاقات تصريح مسطّرة: أبيض + مسطرة علوية بدل حشوة pale — فقرة اقتباس
+   صحفية، وتفك تلاصق سطحين باهتين متتاليين في إيقاع الصفحة */
+.sx-quotes--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); gap: var(--sp-5) var(--sp-6); }
+.sx-quotes--v1 .sx-card { border-block-start: 2px solid var(--c-rule); padding-block-start: var(--sp-4); gap: var(--sp-4); }
 .sx-quotes--v1 .sx-card__media { display: none; }
-.sx-quotes--v1 .sx-badge { align-self: flex-start; background: var(--c-primary); color: var(--c-on-primary); }
+.sx-quotes--v1 .sx-badge { align-self: flex-start; }
 .sx-quotes--v1 .sx-author { margin-block-start: auto; }
 
 /* v2 — portrait-led list */
@@ -1825,7 +1827,7 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 }
 .sx-numbers__item { border-block-start: 2px solid var(--c-rule); padding-block-start: var(--sp-3); display: grid; gap: var(--sp-1); align-content: start; }
 .sx-numbers__item--alert { border-block-start-color: var(--c-alert); }
-.sx-numbers__ico { inline-size: 1.75rem; block-size: 1.75rem; color: var(--c-primary); margin-block-end: var(--sp-1); }
+.sx-numbers__ico { inline-size: 1.75rem; block-size: 1.75rem; color: var(--c-ink-2); margin-block-end: var(--sp-1); }
 .sx-numbers__ico .sx-icon { inline-size: 100%; block-size: 100%; }
 .sx-numbers__item--alert .sx-numbers__ico { color: var(--c-alert); }
 .sx-numbers__val {
@@ -2024,7 +2026,7 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 }
 .sx-brief__slug { display: grid; gap: var(--sp-1); }
 .sx-brief__wire { font-size: var(--fs-xs); font-weight: 700; color: var(--c-ink-3); }
-.sx-brief__wire b { color: var(--c-alert); }
+.sx-brief__wire b { color: var(--c-primary-ink); }
 .sx-brief__date { font-size: var(--fs-xl); font-weight: 700; line-height: 1.2; }
 .sx-brief__scope { font-size: var(--fs-xs); color: var(--c-ink-3); }
 .sx-brief__scope span { direction: ltr; unicode-bidi: isolate; }

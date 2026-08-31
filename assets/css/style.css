@@ -38,7 +38,7 @@
   /* Neutrals */
   --c-ink: #171C24;
   --c-ink-2: #4A5464;
-  --c-ink-3: #6E7887;
+  --c-ink-3: #5E6C7E;   /* muted floor: >=4.6:1 on every light surface (white/surface/surface-2/pale) */
   --c-line: #E3E7EC;
   --c-line-strong: #C9D0D9;
   --c-bg: #FFFFFF;
