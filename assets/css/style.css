@@ -23,11 +23,17 @@
   --c-media-shade: rgba(7, 16, 28, 0.72); --c-media-shade-2: rgba(7, 16, 28, 0.8);
   --shadow-up: 0 -4px 16px rgba(16, 35, 58, 0.08);
 
-  /* Navbar */
-  --c-nav-bg: #00579A;
-  --c-nav-ink: #FFFFFF;
-  --c-nav-ink-2: rgba(255, 255, 255, 0.85);
-  --c-nav-hover: rgba(255, 255, 255, 0.12);
+  /* Header brand block (masthead + nav share one blue field) */
+  --c-head-bg: #00579A;
+  --c-head-bg-2: #004A87;
+  --c-head-ink: #FFFFFF;
+  --c-head-ink-2: rgba(255, 255, 255, 0.82);
+  --c-head-line: rgba(255, 255, 255, 0.22);
+  --c-head-hover: rgba(255, 255, 255, 0.13);
+  --c-head-weave: rgba(255, 255, 255, 0.22);   /* arc motif — wide sweep */
+  --c-head-weave-2: rgba(255, 255, 255, 0.15); /* arc motif — counter sweep */
+  --c-band-weave: rgba(255, 255, 255, 0.06);   /* footer echo — wide sweep */
+  --c-band-weave-2: rgba(255, 255, 255, 0.035);/* footer echo — counter sweep */
 
   /* Neutrals */
   --c-ink: #171C24;
@@ -63,7 +69,7 @@
   /* Text face + display face — declared in assets/fonts/fonts.css (self-hosted).
      The system stack stays as the fallback, so the theme still renders
      correctly if the webfonts are ever dropped. */
-  --font-sans: "IBM Plex Sans Arabic", "Helvetica Neue", HelveticaNeue, Helvetica, -apple-system, "Segoe UI", Tahoma, "Geeza Pro", Arial, sans-serif;
+  --font-sans: "Noto Sans Arabic", "Helvetica Neue", HelveticaNeue, Helvetica, -apple-system, "Segoe UI", Tahoma, "Geeza Pro", Arial, sans-serif;
   --font-display: "Readex Pro", var(--font-sans);
   --fs-xs: 0.75rem;    /* 12 */
   --fs-sm: 0.8125rem;  /* 13 */
@@ -155,9 +161,17 @@ time { color: inherit; }
 @keyframes sx-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 .sx-icon { inline-size: 1.15em; block-size: 1.15em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
-/* 4 ▸ HEADER --------------------------------------------------- */
-.sx-header { background: var(--c-bg); position: relative; z-index: 90; }
+/* 4 ▸ HEADER ---------------------------------------------------
+   Shehab's masthead is ONE saturated brand-blue block: the calligraphic mark
+   centred, utilities split to either side, the primary nav riding the block's
+   bottom edge. Behind it sits the agency's concentric-arc motif — hairline
+   rings drawn with repeating-radial-gradient, so the watermark stays crisp at
+   any width, costs no request, and re-tints itself from a token in dark mode.
+   The dark utility strip above it stays for the date + secondary links.
+   --------------------------------------------------------------- */
+.sx-header { background: var(--c-head-bg); position: relative; z-index: 90; }
 
+/* ▸ Utility strip */
 .sx-topbar { background: var(--c-band); color: var(--c-band-ink-2); font-size: var(--fs-sm); }
 .sx-topbar__in { display: flex; align-items: center; gap: var(--sp-4); min-block-size: 2.25rem; }
 .sx-topbar__date { display: flex; align-items: center; gap: var(--sp-2); }
@@ -166,29 +180,77 @@ time { color: inherit; }
 .sx-topbar a:hover, .sx-topbar button:hover { color: var(--c-band-ink); }
 .sx-topbar button { display: inline-flex; align-items: center; gap: var(--sp-1); color: inherit; }
 
-.sx-masthead { display: flex; align-items: center; gap: var(--sp-5); min-block-size: 5rem; padding-block: var(--sp-3); }
-.sx-masthead__logo img { block-size: 3rem; inline-size: auto; }
-.sx-masthead__logo .sx-logo-dark { display: none; }
-
-.sx-masthead__search {
-  flex: 1; max-inline-size: 26rem; margin-inline: auto;
-  display: flex; align-items: center; gap: var(--sp-2);
-  background: var(--c-surface); border: 1px solid var(--c-line);
-  border-radius: var(--r-full); padding: 0.5rem 1.1rem; color: var(--c-ink-3);
+/* ▸ Brand block */
+.sx-brandbar {
+  position: relative; isolation: isolate; color: var(--c-head-ink);
+  background: linear-gradient(180deg, var(--c-head-bg) 0%, var(--c-head-bg-2) 100%);
 }
-.sx-masthead__search:focus-within { border-color: var(--c-primary); background: var(--c-bg); box-shadow: 0 0 0 3px var(--c-pale); }
-.sx-masthead__search input { flex: 1; min-inline-size: 0; border: 0; background: none; font-size: var(--fs-sm); color: var(--c-ink); }
-.sx-masthead__search input:focus { outline: none; }
-.sx-masthead__search input::placeholder { color: var(--c-ink-3); }
+/* The arc motif. Two ring systems struck from off-canvas centres — a wide one
+   sweeping up from below the inline-start corner, a tighter one raking down
+   from the far side — then a soft crown of light behind the mark. z-index:-1
+   inside the block's own stacking context keeps the rings above the fill and
+   below the content. Masked out before the nav row so the links stay clean. */
+.sx-brandbar__weave {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  background:
+    repeating-radial-gradient(circle at 88% 210%, transparent 0 4.6rem, var(--c-head-weave) 4.6rem calc(4.6rem + 1.5px)),
+    repeating-radial-gradient(circle at 2% -150%, transparent 0 4rem, var(--c-head-weave-2) 4rem calc(4rem + 1px)),
+    radial-gradient(70% 120% at 50% -10%, rgba(255, 255, 255, 0.10), transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
+}
+[dir="ltr"] .sx-brandbar__weave { transform: scaleX(-1); }
 
-.sx-masthead__actions { display: flex; align-items: center; gap: var(--sp-2); }
+/* ▸ Masthead — 1fr | mark | 1fr so the mark sits on the true page centre */
+.sx-masthead {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center; gap: var(--sp-4); min-block-size: 6.25rem; padding-block: var(--sp-4);
+}
+.sx-masthead__side { display: flex; align-items: center; gap: var(--sp-2); min-inline-size: 0; }
+.sx-masthead__side--end { justify-content: flex-end; }
+.sx-masthead__logo { justify-self: center; display: block; }
+.sx-masthead__logo img { block-size: 3.6rem; inline-size: auto; transition: transform 0.25s ease; }
+.sx-masthead__logo:hover img { transform: scale(1.03); }
+
+/* ▸ Controls on the brand fill */
+.sx-headchip {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--fs-sm); font-weight: 600; color: var(--c-head-ink-2);
+  border: 1px solid var(--c-head-line); border-radius: var(--r-full);
+  padding: 0.42em 1.05em; white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.sx-headchip:hover { background: var(--c-head-hover); border-color: var(--c-head-ink-2); color: var(--c-head-ink); }
+.sx-headchip .sx-icon { inline-size: 1em; block-size: 1em; }
+
+/* Sun in dark, moon in light — the toggle shows the mode it switches TO */
+.sx-theme-toggle .sx-t-sun { display: none; }
+[data-theme="dark"] .sx-theme-toggle .sx-t-sun { display: block; }
+[data-theme="dark"] .sx-theme-toggle .sx-t-moon { display: none; }
+
 .sx-live-chip {
   display: inline-flex; align-items: center; gap: var(--sp-2);
   background: var(--c-alert); color: var(--c-on-alert);
   font-weight: 700; font-size: var(--fs-sm);
-  border-radius: var(--r-full); padding: 0.4em 1em; white-space: nowrap;
+  border-radius: var(--r-full); padding-block: 0.3em; padding-inline: 0.32em 1.05em;
+  white-space: nowrap;
 }
 .sx-live-chip:hover { background: var(--c-alert-deep); color: var(--c-on-alert); }
+/* white disc + bolt with a breathing ring — reads as "on air" from across the
+   page, and survives the red pill sitting on a blue field */
+.sx-live-chip__badge {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  inline-size: 1.7em; block-size: 1.7em; border-radius: var(--r-full);
+  /* --c-overlay-ink is white in BOTH themes; --c-on-alert flips to near-black
+     in dark and would turn the disc into a hole in the pill */
+  background: var(--c-overlay-ink); color: var(--c-alert);
+  animation: sx-ring 2.4s ease-out infinite;
+}
+.sx-live-chip__badge .sx-icon { inline-size: 0.95em; block-size: 0.95em; }
+@keyframes sx-ring {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55); }
+  70%, 100% { box-shadow: 0 0 0 0.5em rgba(255, 255, 255, 0); }
+}
 .sx-live-dot { inline-size: 0.5em; block-size: 0.5em; border-radius: var(--r-full); background: currentColor; animation: sx-pulse 1.4s ease-in-out infinite; flex: none; }
 
 .sx-iconbtn {
@@ -197,6 +259,13 @@ time { color: inherit; }
   color: var(--c-ink-2); background: transparent;
 }
 .sx-iconbtn:hover { background: var(--c-surface); color: var(--c-primary); }
+.sx-iconbtn--onbrand {
+  color: var(--c-head-ink); background: var(--c-head-hover);
+  border: 1px solid var(--c-head-line);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.sx-iconbtn--onbrand:hover { background: rgba(255, 255, 255, 0.24); color: var(--c-head-ink); border-color: var(--c-head-ink-2); }
+
 .sx-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
   padding: 0.55em 1.2em; border-radius: var(--r-md); font-weight: 600; font-size: var(--fs-base);
@@ -209,26 +278,46 @@ time { color: inherit; }
 .sx-btn--alert { background: var(--c-alert); color: var(--c-on-alert); }
 .sx-btn--alert:hover { background: var(--c-alert-deep); }
 .sx-btn--sm { font-size: var(--fs-sm); padding: 0.4em 0.9em; }
-.sx-header__burger, .sx-masthead__search-toggle { display: none; }
+/* outlined pill for the brand fill — the CTA must not compete with the mark */
+.sx-btn--onbrand {
+  background: transparent; color: var(--c-head-ink);
+  border-color: var(--c-head-line); border-radius: var(--r-full);
+  font-size: var(--fs-sm); padding: 0.5em 1.15em;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.sx-btn--onbrand:hover { background: var(--c-head-hover); color: var(--c-head-ink); border-color: var(--c-head-ink-2); }
+.sx-header__burger { display: none; }
+.sx-brandbar :focus-visible { outline-color: var(--c-head-ink); }
 
 .sx-userchip { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); font-weight: 600; color: var(--c-ink-2); }
 .sx-userchip img { inline-size: 1.9rem; block-size: 1.9rem; border-radius: var(--r-full); object-fit: cover; }
 
-/* Primary nav bar — sticky */
-.sx-navbar { background: var(--c-nav-bg); position: sticky; inset-block-start: 0; z-index: 94; box-shadow: var(--shadow-1); }
-.sx-navbar__in { display: flex; align-items: center; gap: var(--sp-2); }
-.sx-navbar .sx-nav__list { display: flex; align-items: stretch; flex: 1; min-inline-size: 0; }
+/* ▸ Primary nav — same blue block, hairline above, links centred.
+   1fr | list | 1fr keeps the list on the page centre while «آخر الأخبار»
+   holds the inline-end column, exactly like the masthead grid above. */
+.sx-navbar { position: sticky; inset-block-start: 0; z-index: 94; border-block-start: 1px solid var(--c-head-line); }
+.sx-navbar__in { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; }
+.sx-navbar .sx-nav__list { grid-column: 2; display: flex; align-items: stretch; justify-content: center; flex-wrap: wrap; }
 .sx-navbar .sx-nav__item { position: relative; display: flex; }
 .sx-nav__link {
-  display: inline-flex; align-items: center; gap: var(--sp-1);
-  padding: 0.85rem var(--sp-4); font-size: var(--fs-base); font-weight: 600;
-  color: var(--c-nav-ink-2); white-space: nowrap;
+  position: relative; display: inline-flex; align-items: center; gap: var(--sp-1);
+  padding: 0.8rem var(--sp-4); font-size: var(--fs-base); font-weight: 600;
+  color: var(--c-head-ink-2); white-space: nowrap; transition: color 0.15s ease;
 }
-.sx-nav__link:hover { color: var(--c-nav-ink); background: var(--c-nav-hover); }
-.sx-nav__link[aria-current="page"] { color: var(--c-nav-ink); box-shadow: inset 0 -3px 0 var(--c-nav-ink); }
-.sx-navbar :focus-visible { outline-color: var(--c-nav-ink); outline-offset: -3px; border-radius: 0; }
-.sx-nav__item.is-open > .sx-nav__link { color: var(--c-nav-ink); background: var(--c-nav-hover); }
-.sx-nav__caret { inline-size: 0.85em; block-size: 0.85em; }
+/* an underline that grows from the centre instead of a hover slab — quieter at
+   rest, and it holds up on a flat blue field where a tint barely registers */
+.sx-nav__link::after {
+  content: ""; position: absolute; inset-inline: var(--sp-4); inset-block-end: 0.4rem;
+  block-size: 2px; border-radius: 2px; background: currentColor;
+  transform: scaleX(0); transition: transform 0.18s ease;
+}
+.sx-nav__link:hover, .sx-nav__link[aria-current="page"] { color: var(--c-head-ink); }
+.sx-nav__link:hover::after, .sx-nav__link[aria-current="page"]::after { transform: scaleX(1); }
+.sx-navbar :focus-visible { outline-color: var(--c-head-ink); outline-offset: -3px; border-radius: 0; }
+.sx-nav__item.is-open > .sx-nav__link { color: var(--c-head-ink); }
+.sx-nav__item.is-open > .sx-nav__link::after { transform: scaleX(1); }
+.sx-nav__caret { inline-size: 0.85em; block-size: 0.85em; transition: transform 0.18s ease; }
+.sx-nav__item.is-open .sx-nav__caret { transform: rotate(180deg); }
 .sx-nav__menu {
   position: absolute; inset-inline-start: 0; inset-block-start: 100%;
   min-inline-size: 13rem; padding: var(--sp-2);
@@ -240,10 +329,11 @@ time { color: inherit; }
 .sx-nav__menu a { display: block; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); font-size: var(--fs-base); color: var(--c-ink); }
 .sx-nav__menu a:hover { background: var(--c-surface); color: var(--c-primary); }
 .sx-navbar__latest {
-  margin-inline-start: auto; display: inline-flex; align-items: center; gap: var(--sp-2);
-  color: var(--c-nav-ink); font-size: var(--fs-sm); font-weight: 700; white-space: nowrap; padding-inline: var(--sp-2);
+  grid-column: 3; justify-self: end;
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  color: var(--c-head-ink); font-size: var(--fs-sm); font-weight: 700; white-space: nowrap; padding-inline: var(--sp-2);
 }
-.sx-navbar__latest:hover { color: var(--c-nav-ink); opacity: 0.85; }
+.sx-navbar__latest:hover { color: var(--c-head-ink); opacity: 0.85; }
 
 /* Search overlay */
 .sx-search {
@@ -280,14 +370,30 @@ time { color: inherit; }
 }
 .sx-scrim.is-open { opacity: 1; visibility: visible; }
 
+/* Narrow desktop: the eight nav items outrun 1220px before the layout does */
+@media (max-width: 78rem) {
+  .sx-nav__link { padding-inline: var(--sp-3); }
+  .sx-nav__link::after { inset-inline: var(--sp-3); }
+}
 @media (max-width: 64rem) {
-  .sx-navbar, .sx-masthead__search { display: none; }
-  .sx-header__burger, .sx-masthead__search-toggle { display: inline-flex; }
-  .sx-masthead { min-block-size: 4rem; gap: var(--sp-3); }
-  .sx-masthead__logo { margin-inline-end: auto; }
-  .sx-masthead__logo img { block-size: 2.4rem; }
-  .sx-masthead__actions .sx-btn--cta { display: none; }
+  /* Nav, CTA and the secondary chips fold into the drawer; what stays is the
+     mark, the way in (burger), and the two controls people actually reach for. */
+  .sx-navbar { display: none; }
+  .sx-header__burger { display: inline-flex; }
+  .sx-masthead { min-block-size: 4.5rem; padding-block: var(--sp-3); gap: var(--sp-2); }
+  .sx-masthead__logo img { block-size: 2.6rem; }
+  .sx-masthead .sx-btn--cta, .sx-headchip, .sx-masthead__save { display: none; }
   .sx-topbar__links > :nth-child(n+3) { display: none; } /* utility trim only, never content */
+}
+@media (max-width: 30rem) {
+  /* The live pill's label is what breaks true centring on a phone — with it,
+     the start side runs ~150px against the end side's ~85 and the 1fr|auto|1fr
+     grid can no longer fit 375px. Collapse the pill to its disc instead of
+     dropping it: the mark stays on the real centre and nothing is lost.
+     The anchor carries aria-label, so hiding the text costs no accessible name. */
+  .sx-live-chip__label { display: none; }
+  .sx-live-chip { padding-inline: 0.3em; }
+  .sx-masthead__logo img { block-size: 2.3rem; }
 }
 
 /* 5 ▸ FOOTER ---------------------------------------------------
@@ -295,12 +401,28 @@ time { color: inherit; }
    subscribe form — the standalone homepage section was removed as a duplicate),
    then a 5-column link grid led by the brand block, then the legal bar.
    The extra padding-block-start on .sx-footer is what the card rises into.
+
+   Brand fingerprint — the footer answers the header: the newsletter card is
+   the same saturated brand-blue field (same gradient, same arc motif, drawn
+   by the card's ::before), and the navy band behind it carries a fainter
+   echo of the concentric rings (the footer's own ::before) rising from the
+   bottom corner, under the calligraphic watermark. All of it is CSS —
+   no extra requests, re-tinted per theme from tokens.
    --------------------------------------------------------------- */
 .sx-footer {
   background: var(--c-band); color: var(--c-band-ink-2);
   margin-block-start: var(--sp-8); padding-block-start: var(--sp-6);
   font-size: var(--fs-sm); position: relative; overflow: hidden;
 }
+.sx-footer::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-radial-gradient(circle at 10% 130%, transparent 0 5rem, var(--c-band-weave) 5rem calc(5rem + 1.5px)),
+    repeating-radial-gradient(circle at 98% -60%, transparent 0 4.2rem, var(--c-band-weave-2) 4.2rem calc(4.2rem + 1px));
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 45%, transparent 95%);
+          mask-image: linear-gradient(to top, #000 0%, #000 45%, transparent 95%);
+}
+[dir="ltr"] .sx-footer::before { transform: scaleX(-1); }
 .sx-footer a:hover { color: var(--c-band-ink); }
 /* Brand watermark — bled off the inline-start corner, barely there */
 .sx-footer__mark {
@@ -308,34 +430,50 @@ time { color: inherit; }
   block-size: 26rem; inline-size: auto; opacity: 0.045; pointer-events: none; user-select: none;
 }
 
-/* ▸ Newsletter card */
+/* ▸ Newsletter card — the header's blue block, restated */
 .sx-footer__cta {
-  position: relative; margin-block-start: calc(-1 * var(--sp-7) - var(--sp-2));
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-block-start: calc(-1 * var(--sp-7) - var(--sp-2));
   display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: var(--sp-4) var(--sp-6); align-items: center;
-  background: var(--c-band-2); border: 1px solid var(--c-band-line);
+  background: linear-gradient(135deg, var(--c-head-bg) 0%, var(--c-head-bg-2) 100%);
+  border: 1px solid var(--c-head-line);
   border-radius: var(--r-lg); box-shadow: var(--shadow-2);
   padding: clamp(var(--sp-4), 3vw, var(--sp-6));
+  color: var(--c-overlay-ink-2);
 }
+.sx-footer__cta::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    repeating-radial-gradient(circle at 6% 240%, transparent 0 2.8rem, var(--c-head-weave) 2.8rem calc(2.8rem + 1.5px)),
+    repeating-radial-gradient(circle at 97% -160%, transparent 0 2.3rem, var(--c-head-weave-2) 2.3rem calc(2.3rem + 1px));
+  -webkit-mask-image: linear-gradient(105deg, #000 25%, transparent 60%, #000 92%);
+          mask-image: linear-gradient(105deg, #000 25%, transparent 60%, #000 92%);
+}
+[dir="ltr"] .sx-footer__cta::before { transform: scaleX(-1); }
 .sx-footer__cta-lead { display: grid; gap: var(--sp-2); justify-items: start; }
 .sx-footer__cta-badge {
   display: inline-flex; align-items: center; gap: var(--sp-2);
-  font-size: var(--fs-xs); font-weight: 700; color: var(--c-pale);
+  font-size: var(--fs-xs); font-weight: 700; color: var(--c-overlay-ink);
   background: var(--c-glass); border-radius: var(--r-full); padding: 0.3em 0.9em;
 }
 .sx-footer__cta-badge .sx-icon { inline-size: 0.95em; block-size: 0.95em; }
-.sx-footer__cta-lead h3 { color: var(--c-band-ink); font-size: var(--fs-xl); }
+.sx-footer__cta-lead h3 { color: var(--c-overlay-ink); font-size: var(--fs-xl); }
 .sx-footer__cta-lead p { max-inline-size: 52ch; }
 .sx-footer__form { display: grid; gap: var(--sp-2); }
 .sx-footer__field { display: flex; gap: var(--sp-2); }
+/* glass input on the blue field — the card supplies the contrast */
 .sx-footer__form input {
   flex: 1; min-inline-size: 0; padding: var(--sp-3) var(--sp-4);
-  background: var(--c-band); border: 1px solid var(--c-band-line);
-  border-radius: var(--r-md); color: var(--c-band-ink);
+  background: var(--c-glass); border: 1px solid var(--c-head-line);
+  border-radius: var(--r-md); color: var(--c-overlay-ink);
 }
-.sx-footer__form input::placeholder { color: var(--c-band-ink-2); }
-.sx-footer__form input:focus { outline: 2px solid var(--c-primary); outline-offset: 1px; }
-.sx-footer__form-note { font-size: var(--fs-xs); color: var(--c-band-ink-2); }
+.sx-footer__form input::placeholder { color: var(--c-overlay-ink-3); }
+.sx-footer__form input:focus { outline: 2px solid var(--c-overlay-ink); outline-offset: 1px; }
+/* the submit inverts: white pill, brand-blue label — the one loud thing here */
+.sx-footer__form .sx-btn { background: var(--c-overlay-ink); color: var(--c-head-bg); }
+.sx-footer__form .sx-btn:hover { background: var(--c-glass-strong); color: var(--c-head-bg); }
+.sx-footer__form-note { font-size: var(--fs-xs); color: var(--c-overlay-ink-3); }
 
 /* ▸ Link grid */
 /* 1.9fr on the brand column so the six social pills stay on ONE row */

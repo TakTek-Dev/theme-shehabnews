@@ -26,10 +26,17 @@
   --c-band-ink-2: #93A4B6;
   --c-band-line: #24405F;
 
-  --c-nav-bg: #14212F;
-  --c-nav-ink: #E9EEF4;
-  --c-nav-ink-2: #ADB9C7;
-  --c-nav-hover: rgba(255, 255, 255, 0.07);
+  /* the brand block keeps its blue in dark — deepened, not neutralised */
+  --c-head-bg: #0A2B48;
+  --c-head-bg-2: #071E33;
+  --c-head-ink: #E9EEF4;
+  --c-head-ink-2: #A6B6C7;
+  --c-head-line: rgba(255, 255, 255, 0.13);
+  --c-head-hover: rgba(255, 255, 255, 0.08);
+  --c-head-weave: rgba(255, 255, 255, 0.13);
+  --c-head-weave-2: rgba(255, 255, 255, 0.08);
+  --c-band-weave: rgba(255, 255, 255, 0.045);
+  --c-band-weave-2: rgba(255, 255, 255, 0.025);
 
   --c-on-primary: #06121D;
   --c-on-alert: #1A0508;
@@ -43,7 +50,6 @@
    so it needs !important to out-rank the reset's `[hidden] { display: none !important }`
    (see the note in style.css). This is the ONE deliberate exception. */
 [data-theme="dark"] .sx-logo-light { display: none; }
-[data-theme="dark"] .sx-masthead__logo .sx-logo-dark,
 [data-theme="dark"] .sx-drawer__head .sx-logo-dark { display: block !important; }
 
 /* Media sits calmer on dark */
@@ -60,3 +66,8 @@
 /* Buttons keep white text on saturated fills in dark */
 [data-theme="dark"] .sx-btn { color: #06121D; }
 [data-theme="dark"] .sx-btn--ghost { color: var(--c-primary-ink); }
+/* …but the outlined CTA on the brand block has no fill to read against, so the
+   dark-ink rule above would erase it. Keep it on the header's own ink. */
+[data-theme="dark"] .sx-btn--onbrand { color: var(--c-head-ink); }
+/* same story for the footer’s inverted subscribe pill — white fill, blue label */
+[data-theme="dark"] .sx-footer__form .sx-btn { color: var(--c-head-bg); }

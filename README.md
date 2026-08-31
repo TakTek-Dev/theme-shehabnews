@@ -25,7 +25,7 @@ Blade templates of the Laravel/Livewire CMS. Fully self-contained: no CDN depend
 │   │   └── pages/             ← page-only scripts (archive, search-filters, gallery-filter,
 │   │                            video-wall, variants, components)
 │   ├── images/                ← logos + placeholder SVGs (+ images/real/ CC press photos)
-│   ├── fonts/                 ← fonts.css + files/ (IBM Plex Sans Arabic, Readex Pro)
+│   ├── fonts/                 ← fonts.css + files/ (Noto Sans Arabic, Readex Pro)
 │   ├── vendor/swiper/         ← Swiper 11 (MIT), vendored — no CDN at runtime
 │   ├── video/                 ← drop demo-1.mp4 / demo-2.mp4 here (player copes while absent)
 │   └── audio/                 ← drop brief-YYYY-MM-DD.mp3 here (brief copes while absent)
@@ -163,12 +163,14 @@ files in `assets/fonts/files/` — no CDN, no Google Fonts call, no tracking:
 
 | Token | Face | Used for |
 |---|---|---|
-| `--font-sans` | **IBM Plex Sans Arabic** 400/500/600/700 | body copy, UI, meta, forms |
+| `--font-sans` | **Noto Sans Arabic** 400/500/600/700 | body copy, UI, meta, forms |
 | `--font-display` | **Readex Pro** 600/700 | h1–h6, section titles, card titles |
 
-Chosen against the Cairo/Tajawal default: Plex Arabic has the open counters and tall
-x-height that keep 13–15px Arabic UI text legible, and Readex Pro's shorter descenders
-are what let a stacked Arabic headline hold together. Each `@font-face` carries a
+Noto Sans Arabic is the quiet one on purpose: open counters and a tall x-height keep
+13–15px Arabic UI text legible, its naskh-leaning skeleton reads calmly over long body
+copy, and it stays out of the way so Readex Pro carries the voice in the headlines —
+whose shorter descenders are what let a stacked Arabic headline hold together.
+(IBM Plex Sans Arabic is ruled out for this project — do not reinstate it.) Each `@font-face` carries a
 per-script `unicode-range`, so an Arabic page never downloads the Latin files
 (~55KB for a typical Arabic page load), plus `font-display: swap` and a `<link rel=preload>`
 on the two first-paint files. The old system stack remains as the fallback, so the theme
