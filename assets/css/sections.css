@@ -1154,12 +1154,13 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-cartoon__stage { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: var(--sp-6); align-items: center; }
 .sx-cartoon__art { position: relative; }
 .sx-cartoon__art img { inline-size: 100%; block-size: auto; display: block; }
+/* طابع العدد — نفس عائلة طوابع الملفات: أبيض حاد بلا دوران */
 .sx-cartoon__stamp {
-  position: absolute; inset-block-start: var(--sp-3); inset-inline-end: var(--sp-3); z-index: 2;
-  font-size: var(--fs-xs); font-weight: 700; line-height: 1.5; text-align: center;
-  color: var(--c-ink-3); background: var(--c-bg);
-  border: 1.5px dashed var(--c-line-strong); border-radius: var(--r-sm);
-  padding: var(--sp-1) var(--sp-3); transform: rotate(3deg);
+  position: absolute; inset-block-start: 0; inset-inline-start: 0; z-index: 2;
+  font-size: var(--fs-xs); font-weight: 800; line-height: 1.5; text-align: center;
+  color: var(--c-ink); background: var(--c-bg);
+  border-block-end: 1px solid var(--c-line-strong); border-inline-end: 1px solid var(--c-line-strong);
+  padding: var(--sp-1) var(--sp-3); font-variant-numeric: tabular-nums;
 }
 .sx-cartoon__title { font-size: var(--fs-xl); }
 .sx-cartoon__desc { color: var(--c-ink-2); max-inline-size: 42ch; }
@@ -1178,23 +1179,44 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
   .sx-cartoon__archive { grid-template-columns: 1fr; }
 }
 
-/* v1 — جدار المعرض: أعمال معلّقة بإطارات وممرّ أرشيف */
+/* v1 — «لوحة اليوم»: وحدة واحدة مضغوطة بلغة الجريدة — الرسمة بإطار حبر
+   (المسطرة السميكة فوقه، قرابة sx-brief)، والأعداد السابقة شريط مصغرات
+   مؤرَّخ داخل عمود التوقيع بدل ثلاث بطاقات ضخمة. display:contents على
+   الـstage يعيد توزيع الماركب نفسه على شبكة واحدة. */
 .sx-cartoon--v1 { background: var(--c-surface); }
+.sx-cartoon--v1 .sx-section__body {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-areas: "art meta" "art arch";
+  gap: var(--sp-4) var(--sp-6); align-items: start;
+}
+.sx-cartoon--v1 .sx-cartoon__stage { display: contents; }
 .sx-cartoon--v1 .sx-cartoon__art {
-  background: var(--c-bg); padding: clamp(var(--sp-4), 3vw, var(--sp-6));
-  border: 1px solid var(--c-line); box-shadow: var(--shadow-2);
+  grid-area: art;
+  background: var(--c-bg); padding: var(--sp-3);
+  border: 1px solid var(--c-line); border-block-start: 4px solid var(--c-ink);
+  box-shadow: var(--shadow-1);
 }
-.sx-cartoon--v1 .sx-cartoon__art a { display: block; border: 1px solid var(--c-line-strong); }
-.sx-cartoon--v1 .sx-cartoon__item-art {
-  background: var(--c-bg); padding: var(--sp-2); border: 1px solid var(--c-line); box-shadow: var(--shadow-1);
-  position: relative;
+.sx-cartoon--v1 .sx-cartoon__art a { display: block; border: 1px solid var(--c-line); }
+.sx-cartoon--v1 .sx-cartoon__meta { grid-area: meta; align-content: start; gap: var(--sp-3); padding-block-start: var(--sp-2); }
+.sx-cartoon--v1 .sx-cartoon__desc { -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+.sx-cartoon--v1 .sx-author__name { font-family: var(--font-display); }
+/* شريط الأعداد السابقة */
+.sx-cartoon--v1 .sx-cartoon__archive {
+  grid-area: arch; margin-block-start: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-3);
+  padding-block-start: var(--sp-3); border-block-start: 1px solid var(--c-line); position: relative;
 }
-.sx-cartoon--v1 .sx-cartoon__item-art::before {
-  content: ""; position: absolute; inset-inline-start: 50%; inset-block-start: -1.4rem;
-  inline-size: 1px; block-size: 1.4rem; background: var(--c-line-strong);
+.sx-cartoon--v1 .sx-cartoon__archive::before {
+  content: "الأعداد السابقة"; position: absolute; inset-block-start: -0.7em; inset-inline-start: 0;
+  background: var(--c-surface); padding-inline-end: var(--sp-2);
+  font-size: var(--fs-xs); font-weight: 700; color: var(--c-ink-3);
 }
-.sx-cartoon--v1 .sx-cartoon__archive { padding-block-start: var(--sp-5); border-block-start: 1px solid var(--c-line); position: relative; margin-block-start: var(--sp-7); }
-.sx-cartoon--v1 .sx-cartoon__item { justify-items: center; text-align: center; }
+.sx-cartoon--v1 .sx-cartoon__item { justify-items: start; text-align: start; gap: 2px; }
+.sx-cartoon--v1 .sx-cartoon__item-art { background: var(--c-bg); padding: var(--sp-1); border: 1px solid var(--c-line); }
+.sx-cartoon--v1 .sx-cartoon__item-title { font-size: var(--fs-xs); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
+@media (max-width: 48rem) {
+  .sx-cartoon--v1 .sx-section__body { grid-template-columns: 1fr; grid-template-areas: "art" "meta" "arch"; }
+}
 
 /* v2 — طاولة الرسام: ورق مثبّت بشريط لاصق على مكتب داكن */
 .sx-cartoon--v2 { background: var(--c-band); color: var(--c-band-ink); }
