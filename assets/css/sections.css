@@ -152,18 +152,28 @@
 /* v1 — «صدر الصفحة» (broadsheet lead): العنوان سيد المشهد — خارج الصورة على
    أبيض، بجواره الصورة بزوايا حادة، والقائمة الجانبية بأرقام معلّقة (عدّاد CSS —
    لا تغيير في الماركب). اللوحة كلها تفتح على مسطرة مزدوجة — بداية العدد. */
-.sx-hero--v1 { padding-block: var(--sp-4) var(--sp-6); }
+.sx-hero--v1 { padding-block: var(--sp-4) var(--sp-5); }
 .sx-hero--v1 .sx-section__body {
   display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: var(--sp-6);
   padding-block-start: var(--sp-5);
   background: linear-gradient(var(--c-rule) 0 2px, transparent 2px 5px, var(--c-rule) 5px 6px) top / 100% 6px no-repeat;
 }
-.sx-hero--v1 .sx-card--lead {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  gap: var(--sp-5); align-items: start; min-block-size: 0;
+/* تركيبة المانشيت: العنوان يفرد بعرض مساحة الصدارة كاملة (سطران–ثلاثة مهما طال)،
+   تحته المقدمة فالميتا فالصورة السينمائية العريضة — ترتيب الصفحة الأولى الكلاسيكي،
+   بلا فراغات جانبية ولا قص للعناوين الواقعية. */
+.sx-hero--v1 .sx-card--lead { display: flex; flex-direction: column; gap: var(--sp-4); min-block-size: 0; }
+.sx-hero--v1 .sx-card--lead .sx-card__media {
+  order: 2; aspect-ratio: 21 / 9; flex: 1; min-block-size: 15rem;
+  border-radius: var(--r-media);
 }
-.sx-hero--v1 .sx-card--lead .sx-card__media { aspect-ratio: 16 / 10; border-radius: var(--r-media); order: 2; }
-.sx-hero--v1 .sx-card--lead .sx-card__body { order: 1; gap: var(--sp-3); }
+/* علامة الفيديو على صورة الصدارة: أوضح وأبعد عن الحافة، بحلقة تفصلها عن الزحام */
+.sx-hero--v1 .sx-card--lead .sx-card__flag {
+  inline-size: 2.75rem; block-size: 2.75rem;
+  inset-inline-start: var(--sp-3); inset-block-end: var(--sp-3);
+  background: var(--c-scrim-strong); box-shadow: 0 0 0 2px var(--c-glass-strong);
+}
+.sx-hero--v1 .sx-card--lead .sx-card__flag svg { inline-size: 1.1rem; block-size: 1.1rem; }
+.sx-hero--v1 .sx-card--lead .sx-card__body { order: 1; display: flex; flex-direction: column; gap: var(--sp-3); }
 /* سطر البرقية: مربع نابض + نص أحمر — الأحمر هنا حيٌ فعلاً (تغطية مستمرة) */
 .sx-hero--v1 .sx-card--lead .sx-card__kicker {
   display: inline-flex; align-items: center; gap: 0.5em;
@@ -175,13 +185,13 @@
 }
 .sx-hero--v1 .sx-card--lead .sx-card__cat { display: none; }
 .sx-hero--v1 .sx-card--lead .sx-card__title {
-  font-size: clamp(var(--fs-2xl), 1.1rem + 2.4vw, var(--fs-4xl));
-  line-height: 1.35; text-wrap: balance;
+  font-size: clamp(var(--fs-xl), 1rem + 1.9vw, var(--fs-3xl));
+  line-height: 1.4; text-wrap: balance;
 }
+/* بعرض كامل، أطول عنوان واقعي سطران–ثلاثة — السقف 4 للشواذ فقط */
 .sx-hero--v1 .sx-card--lead .sx-card__title a { -webkit-line-clamp: 4; }
-.sx-hero--v1 .sx-card--lead .sx-card__excerpt {
-  font-size: var(--fs-md); color: var(--c-ink-2); -webkit-line-clamp: 3; max-inline-size: 58ch;
-}
+/* لا وصف تحت مانشيت الصدارة — العنوان والصورة هما الحدث */
+.sx-hero--v1 .sx-card--lead .sx-card__excerpt { display: none; }
 .sx-hero--v1 .sx-card--lead .sx-card__meta {
   border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-3);
   font-variant-numeric: tabular-nums;
@@ -215,8 +225,7 @@
 .sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__meta { color: var(--c-ink-3); }
 @media (max-width: 64rem) {
   .sx-hero--v1 .sx-section__body { grid-template-columns: 1fr; }
-  .sx-hero--v1 .sx-card--lead { grid-template-columns: 1fr; }
-  .sx-hero--v1 .sx-card--lead .sx-card__media { order: 0; }
+  .sx-hero--v1 .sx-card--lead .sx-card__media { order: 0; aspect-ratio: 16 / 9; flex: none; min-block-size: 0; }
   .sx-hero--v1 .sx-card--lead .sx-card__title { font-size: clamp(var(--fs-xl), 4.5vw, var(--fs-3xl)); }
   .sx-hero--v1 .sx-hero__side { border-inline-start: 0; padding-inline-start: 0; border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-4); }
 }
@@ -1961,7 +1970,6 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
    already light, hover goes lighter instead, never darker.
    ============================================================= */
 .sx-card--overlay a:hover,
-.sx-hero--v1 .sx-card--lead a:hover,
 .sx-hero--v2 .sx-card a:hover,
 .sx-hero--v3 .sx-card a:hover,
 .sx-hero--v4 .sx-card a:hover,
