@@ -165,10 +165,10 @@
 .sx-hero--v1 .sx-section__body::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(circle at 50% -46rem, transparent 0 51.75rem, color-mix(in srgb, var(--c-primary) 55%, transparent) 51.75rem calc(51.75rem + 2.5px), transparent calc(51.75rem + 2.5px)),
-    repeating-radial-gradient(circle at 50% -46rem, transparent 0 3.4rem, color-mix(in srgb, var(--c-rule) 9%, transparent) 3.4rem calc(3.4rem + 1.5px));
-  -webkit-mask-image: linear-gradient(to bottom, #000 25%, transparent 88%);
-          mask-image: linear-gradient(to bottom, #000 25%, transparent 88%);
+    radial-gradient(circle at 50% -46rem, transparent 0 48.9rem, color-mix(in srgb, var(--c-primary) 26%, transparent) 48.9rem calc(48.9rem + 2px), transparent calc(48.9rem + 2px)),
+    repeating-radial-gradient(circle at 50% -46rem, transparent 0 3.4rem, color-mix(in srgb, var(--c-rule) 4%, transparent) 3.4rem calc(3.4rem + 1px));
+  -webkit-mask-image: linear-gradient(to bottom, #000 18%, transparent 62%);
+          mask-image: linear-gradient(to bottom, #000 18%, transparent 62%);
 }
 /* تركيبة المانشيت: العنوان يفرد بعرض مساحة الصدارة كاملة (سطران–ثلاثة مهما طال)،
    تحته المقدمة فالميتا فالصورة السينمائية العريضة — ترتيب الصفحة الأولى الكلاسيكي،
@@ -264,8 +264,8 @@
   .sx-hero--v1 .sx-card--lead .sx-card__flag svg { inline-size: 0.95rem; block-size: 0.95rem; }
   .sx-hero--v1 .sx-section__body::before {
     background:
-      radial-gradient(circle at 50% -18rem, transparent 0 21.5rem, color-mix(in srgb, var(--c-primary) 55%, transparent) 21.5rem calc(21.5rem + 2px), transparent calc(21.5rem + 2px)),
-      repeating-radial-gradient(circle at 50% -18rem, transparent 0 2.6rem, color-mix(in srgb, var(--c-rule) 9%, transparent) 2.6rem calc(2.6rem + 1px));
+      radial-gradient(circle at 50% -18rem, transparent 0 19.6rem, color-mix(in srgb, var(--c-primary) 26%, transparent) 19.6rem calc(19.6rem + 2px), transparent calc(19.6rem + 2px)),
+      repeating-radial-gradient(circle at 50% -18rem, transparent 0 2.6rem, color-mix(in srgb, var(--c-rule) 4%, transparent) 2.6rem calc(2.6rem + 1px));
   }
   .sx-hero--v1 .sx-card--lead .sx-card__title { font-size: clamp(var(--fs-xl), 4.5vw, var(--fs-3xl)); }
   .sx-hero--v1 .sx-hero__side { border-inline-start: 0; padding-inline-start: 0; border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-4); }
@@ -1791,8 +1791,24 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 /* =============================================================
    17 ▸ LIVE PULSE RAIL  (sx-pulse) — optional
    ============================================================= */
-.sx-pulse { background: var(--c-band-2); color: var(--c-band-ink); padding-block: var(--sp-5); }
+/* نبض التغطية = نقطة سقوط الشهاب: أقواس تشع خلف العنوان، وأحدث خبر هو
+   نقطة الارتطام — حلقات تتوسع منه ورأس الخط يحمرّ عنده. */
+.sx-pulse {
+  background:
+    repeating-radial-gradient(circle at calc(100% - 8rem) -11rem, transparent 0 2.8rem, rgba(255, 255, 255, 0.05) 2.8rem calc(2.8rem + 1px)),
+    var(--c-band-2);
+  color: var(--c-band-ink); padding-block: var(--sp-5); overflow: hidden;
+}
+[dir="ltr"] .sx-pulse {
+  background:
+    repeating-radial-gradient(circle at 8rem -11rem, transparent 0 2.8rem, rgba(255, 255, 255, 0.05) 2.8rem calc(2.8rem + 1px)),
+    var(--c-band-2);
+}
 .sx-pulse .sx-section__head { margin-block-end: var(--sp-4); align-items: center; }
+.sx-pulse .sx-section__title::before {
+  content: ""; inline-size: 0.5em; block-size: 0.5em; flex: none;
+  background: var(--c-alert); animation: sx-pulse 1.4s ease-in-out infinite;
+}
 .sx-pulse .sx-section__title { font-size: var(--fs-lg); }
 .sx-pulse a:hover { color: var(--c-pale); }
 .sx-pulse .sx-section__more { color: var(--c-band-ink); }
@@ -1809,7 +1825,16 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
   inline-size: 9px; block-size: 9px; border-radius: var(--r-full);
   background: var(--c-band-line); border: 2px solid var(--c-band-2);
 }
-.sx-pulse__item.is-latest::before { background: var(--c-alert); animation: sx-pulse 1.4s ease-in-out infinite; }
+.sx-pulse__item.is-latest::before {
+  background: var(--c-alert);
+  animation: sx-pulse 1.4s ease-in-out infinite, sx-impact 2.4s ease-out infinite;
+}
+@keyframes sx-impact {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c-alert) 45%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 1.1rem transparent; }
+}
+/* رأس الخط يحمرّ عند أحدث توقيت (وضع Swiper: الحد على الشرائح) */
+.sx-pulse .swiper-slide.sx-pulse__item.is-latest { border-block-start-color: var(--c-alert); }
 .sx-pulse__time { display: inline-block; font-size: var(--fs-xs); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--c-band-ink-2); margin-block-end: var(--sp-1); }
 .sx-pulse__item.is-latest .sx-pulse__time { background: var(--c-alert); color: var(--c-on-alert); padding: 0.05em 0.6em; border-radius: var(--r-sm); }
 .sx-pulse__item p { font-size: var(--fs-sm); font-weight: 600; line-height: 1.7; }
