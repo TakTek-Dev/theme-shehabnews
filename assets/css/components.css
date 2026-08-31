@@ -201,8 +201,9 @@
 /* ▸ ARTICLE PAGE --------------------------------------------------- */
 .sx-article { max-inline-size: 46rem; }
 .sx-article__head { display: grid; gap: var(--sp-4); padding-block: var(--sp-4) var(--sp-5); }
-.sx-article__kicker { color: var(--c-primary); font-weight: 700; font-size: var(--fs-sm); }
-.sx-article__head h1 { font-size: clamp(var(--fs-xl), 3.4vw, var(--fs-3xl)); }
+.sx-article__kicker { display: inline-flex; align-items: center; gap: 0.5em; justify-self: start; color: var(--c-primary); font-weight: 700; font-size: var(--fs-sm); }
+.sx-article__kicker::before { content: ""; inline-size: 0.5em; block-size: 0.5em; background: currentColor; flex: none; }
+.sx-article__head h1 { font-size: clamp(var(--fs-xl), 3.4vw, var(--fs-4xl)); line-height: 1.35; text-wrap: balance; }
 .sx-article__standfirst { font-size: var(--fs-md); color: var(--c-ink-2); line-height: 1.8; }
 .sx-article__byline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-4); padding-block: var(--sp-3); border-block: 1px solid var(--c-line); }
 .sx-article__byline .sx-author { flex: 1 1 auto; }
@@ -222,10 +223,11 @@
 /* decimal, not arabic-indic: the agency writes numerals in Latin digits */
 .sx-prose ol { list-style: decimal; }
 [dir="ltr"] .sx-prose ol { list-style: decimal; }
+/* pull-quote, newspaper-set: framed by rules above and below, not a side tab */
 .sx-prose blockquote {
-  margin: 0; padding: var(--sp-4) var(--sp-5); background: var(--c-surface);
-  border-inline-start: 3px solid var(--c-primary); border-radius: var(--r-md);
-  font-size: var(--fs-lg); font-weight: 600; line-height: 1.7;
+  margin: 0; padding: var(--sp-4) var(--sp-2);
+  border-block-start: 2px solid var(--c-rule); border-block-end: 1px solid var(--c-line);
+  font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 600; line-height: 1.7;
 }
 .sx-prose blockquote cite { display: block; font-size: var(--fs-sm); font-weight: 400; font-style: normal; color: var(--c-ink-3); margin-block-start: var(--sp-2); }
 .sx-prose figure { display: grid; gap: var(--sp-2); }
@@ -257,11 +259,24 @@
 .sx-404__actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; justify-content: center; }
 
 /* ▸ DOSSIER / SPECIAL FILE (special-file.html) --------------------- */
+/* الملف الخاص = عدد خاص: طابع أبيض حاد بدل البادج، أقواس الوكالة كعلامة مائية
+   فوق الصورة (توقيع الكروم نفسه)، ومسطرة مزدوجة تفتتح جسد الملف تحته. */
 .sx-dossier-hero { position: relative; min-block-size: clamp(24rem, 52vw, 30rem); display: flex; align-items: flex-end; overflow: hidden; color: var(--c-overlay-ink); }
+.sx-dossier-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: repeating-radial-gradient(circle at 6% 140%, transparent 0 4.2rem, rgba(255, 255, 255, 0.12) 4.2rem calc(4.2rem + 1.5px));
+  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 70%);
+          mask-image: linear-gradient(to top, #000 0%, transparent 70%);
+}
+[dir="ltr"] .sx-dossier-hero::before { transform: scaleX(-1); }
 .sx-dossier-hero__bg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
 .sx-dossier-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--c-media-shade-2) 10%, rgba(7, 16, 28, 0.35) 60%, rgba(7, 16, 28, 0.55) 100%); }
 .sx-dossier-hero__in { position: relative; z-index: 1; display: grid; gap: var(--sp-3); padding-block: var(--sp-7) var(--sp-6); max-inline-size: 46rem; }
-.sx-dossier-hero__in > .sx-badge { justify-self: start; }
+.sx-dossier-hero__in > .sx-badge {
+  justify-self: start; border-radius: 0;
+  background: var(--c-bg); color: var(--c-ink); font-weight: 800; padding: 0.35em 1em;
+}
+.sx-dossier-hero__in > .sx-badge.sx-badge--alert { background: var(--c-alert); color: var(--c-on-alert); }
 .sx-dossier-hero__in h1 { font-size: clamp(var(--fs-2xl), 4.5vw, var(--fs-3xl)); text-shadow: 0 2px 6px rgba(7, 16, 28, 0.5); }
 .sx-dossier-hero__in p { color: var(--c-overlay-ink-2); font-size: var(--fs-base); max-inline-size: 60ch; }
 .sx-dossier-hero__stats { display: flex; gap: var(--sp-5); flex-wrap: wrap; margin-block: var(--sp-2); font-size: var(--fs-sm); color: var(--c-overlay-ink-2); }
@@ -278,8 +293,8 @@
   position: relative; z-index: 1; flex: 1 0 10rem; display: grid; justify-items: center; gap: var(--sp-2);
   text-align: center; padding-inline: var(--sp-3); scroll-snap-align: start;
 }
-.sx-dossier-tl__year { font-size: var(--fs-sm); font-weight: 800; line-height: 1; color: var(--c-ink-3); font-variant-numeric: tabular-nums; }
-.sx-dossier-tl__dot { inline-size: 0.85rem; block-size: 0.85rem; border-radius: var(--r-full); background: var(--c-bg); border: 3px solid var(--c-line-strong); transition: border-color 0.15s ease, background 0.15s ease; }
+.sx-dossier-tl__year { font-family: var(--font-display); font-size: var(--fs-sm); font-weight: 800; line-height: 1; color: var(--c-ink-3); font-variant-numeric: tabular-nums; }
+.sx-dossier-tl__dot { inline-size: 0.8rem; block-size: 0.8rem; border-radius: 0; background: var(--c-bg); border: 3px solid var(--c-line-strong); transition: border-color 0.15s ease, background 0.15s ease; }
 .sx-dossier-tl__node:hover .sx-dossier-tl__dot { border-color: var(--c-primary); }
 .sx-dossier-tl__node.is-current .sx-dossier-tl__year { color: var(--c-primary-ink); }
 .sx-dossier-tl__node.is-current .sx-dossier-tl__dot { background: var(--c-primary); border-color: var(--c-primary); box-shadow: 0 0 0 4px var(--c-pale); }
@@ -351,7 +366,7 @@
 @media (min-width: 40.0625rem) and (max-width: 64rem) {
   .sx-value-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.sx-value-card { background: var(--c-surface); border-radius: var(--r-lg); padding: var(--sp-5); border-inline-start: 3px solid var(--c-primary); }
+.sx-value-card { background: var(--c-surface); border-radius: var(--r-media); padding: var(--sp-5); border-block-start: 2px solid var(--c-rule); }
 .sx-value-card h3 { font-size: var(--fs-base); margin-block-end: var(--sp-2); }
 .sx-value-card p { font-size: var(--fs-sm); color: var(--c-ink-2); }
 .sx-about-timeline { padding-block-end: var(--sp-6); }

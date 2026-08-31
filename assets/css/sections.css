@@ -18,36 +18,63 @@
   .sx-section { padding-block: var(--sp-6); }
   .sx-section__head { margin-block-end: var(--sp-4); }
 }
-/* wrap so the title + meta + "more" CTA stack instead of overflowing on
-   narrow phones (the row is title | optional meta | CTA pushed to the end) */
+/* ▸ RULED MASTHEADS — the edition's signature.
+   A wire agency's front page is organised by RULES, not by repeated accent
+   bars: desk sections open on a double rule, standard sections on a solid
+   one, quiet rails on a hairline. Importance is read from rule weight the
+   way it is on a broadsheet. The rule is a ::before (not a border) so it
+   can draw itself in on scroll where the browser supports it (see the
+   motion block at the end of this file).
+   The row still wraps: title | optional meta | "more" pushed to the end. */
 .sx-section__head {
+  position: relative;
   display: flex; align-items: baseline; gap: var(--sp-2) var(--sp-4); flex-wrap: wrap;
-  margin-block-end: var(--sp-5);
+  margin-block-end: var(--sp-5); padding-block-start: var(--sp-3);
 }
+.sx-section__head::before {
+  content: ""; position: absolute; inset-inline: 0; inset-block-start: 0;
+  block-size: 2px; background: var(--c-rule);
+}
+/* desk tier — double rule (the section is an editorial department) */
+.sx-news .sx-section__head::before, .sx-tabs .sx-section__head::before,
+.sx-files .sx-section__head::before, .sx-video .sx-section__head::before,
+.sx-videowall .sx-section__head::before, .sx-opinion .sx-section__head::before,
+.sx-quotes .sx-section__head::before, .sx-gallery .sx-section__head::before,
+.sx-cartoon .sx-section__head::before {
+  block-size: 6px;
+  background: linear-gradient(var(--c-rule) 0 2px, transparent 2px 5px, var(--c-rule) 5px 6px);
+}
+/* quiet tier — hairline (rails and platform furniture, not desks) */
+.sx-programs .sx-section__head::before, .sx-social .sx-section__head::before,
+.sx-reels .sx-section__head::before, .sx-push .sx-section__head::before {
+  block-size: 1px; background: var(--c-line-strong);
+}
+/* dark surfaces re-ink their rules */
+.sx-section--band, .sx-pulse, .sx-quotes--v3, .sx-video--v1, .sx-video--v3,
+.sx-cartoon--v2, .sx-reels--v2 { --c-rule: var(--c-band-ink); }
+.sx-pulse .sx-section__head::before { background: var(--c-band-line); }
+/* news v6 carries its own navy tab head — no rule on top of it */
+.sx-news--v6 .sx-section__head::before { content: none; }
 .sx-section__title { font-size: clamp(var(--fs-xl), 1rem + 1.6vw, var(--fs-2xl)); display: flex; align-items: center; gap: var(--sp-3); }
-.sx-section__title::before {
-  content: ""; inline-size: 4px; block-size: 1.15em; border-radius: var(--r-full);
-  background: var(--c-primary); flex: none;
-}
 .sx-section__title a:hover { color: var(--c-primary); }
-/* Design-review pass: the "more" link is now a visible outlined-pill CTA
-   (every section head carries one clear action) instead of a quiet text link. */
+/* "more" — a quiet editorial link: underline grows in from the reading side */
 .sx-section__more {
   margin-inline-start: auto; font-size: var(--fs-sm); font-weight: 700; color: var(--c-primary-ink);
   display: inline-flex; align-items: center; gap: var(--sp-1); white-space: nowrap;
-  border: 1.5px solid var(--c-line-strong); border-radius: var(--r-full); padding: 0.35em 1.1em;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  position: relative; padding-block: 0.35em;
+  transition: color 0.15s ease;
 }
-.sx-section__more:hover { background: var(--c-primary); border-color: var(--c-primary); color: var(--c-on-primary); }
+.sx-section__more::after {
+  content: ""; position: absolute; inset-inline: 0; inset-block-end: 0;
+  block-size: 2px; background: currentColor;
+  transform: scaleX(0); transform-origin: 100% 50%; transition: transform 0.18s ease;
+}
+[dir="ltr"] .sx-section__more::after { transform-origin: 0 50%; }
+.sx-section__more:hover { color: var(--c-primary); }
+.sx-section__more:hover::after { transform: scaleX(1); }
 /* dark band sections */
 .sx-section--band { background: var(--c-band); color: var(--c-band-ink); }
-.sx-section--band .sx-section__title::before { background: var(--c-band-ink); }
 .sx-section--band a:hover, .sx-section--band .sx-section__more { color: var(--c-band-ink); }
-.sx-section--band .sx-section__more:hover { color: var(--c-on-primary); }
-/* CTA pill border on dark surfaces uses the band hairline, not the light one */
-.sx-section--band .sx-section__more, .sx-pulse .sx-section__more, .sx-news--v6 .sx-section__more,
-.sx-video--v1 .sx-section__more, .sx-video--v3 .sx-section__more, .sx-quotes--v3 .sx-section__more,
-.sx-cartoon--v2 .sx-section__more { border-color: var(--c-band-line); }
 
 .sx-card__kicker { color: var(--c-alert); font-weight: 700; font-size: var(--fs-xs); }
 [dir="ltr"] .sx-flip-ltr { transform: scaleX(-1); }
@@ -55,7 +82,7 @@
 /* ▸ CARD SYSTEM ------------------------------------------------ */
 .sx-card { position: relative; display: flex; flex-direction: column; gap: var(--sp-3); min-inline-size: 0; }
 .sx-card__media {
-  position: relative; display: block; overflow: hidden; border-radius: var(--r-md);
+  position: relative; display: block; overflow: hidden; border-radius: var(--r-media);
   aspect-ratio: 16 / 9; background: var(--c-surface-2);
 }
 .sx-card__media img {
@@ -70,13 +97,15 @@
   background: var(--c-media-shade); color: var(--c-overlay-ink); font-size: var(--fs-xs);
 }
 .sx-card__body { display: flex; flex-direction: column; gap: var(--sp-2); min-inline-size: 0; }
-.sx-card__cat { font-size: var(--fs-xs); font-weight: 700; color: var(--c-primary); align-self: flex-start; }
+/* desk slug — a drawn square marker, the ▪ of the wire idiom */
+.sx-card__cat { display: inline-flex; align-items: center; gap: 0.5em; font-size: var(--fs-xs); font-weight: 700; color: var(--c-primary); align-self: flex-start; }
+.sx-card__cat::before { content: ""; inline-size: 0.5em; block-size: 0.5em; background: currentColor; flex: none; }
 .sx-card__cat:hover { color: var(--c-primary-deep); }
 .sx-card__title { font-size: var(--fs-md); font-weight: 700; }
 .sx-card__title a {
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
 }
-.sx-card__title a:hover { color: var(--c-primary); }
+.sx-card__title a:hover { color: var(--c-primary); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.3em; }
 .sx-card__excerpt {
   font-size: var(--fs-sm); color: var(--c-ink-2);
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
@@ -106,7 +135,8 @@
   font-size: var(--fs-2xl); font-weight: 700; line-height: 1; color: var(--c-line-strong);
   min-inline-size: 1.6ch; text-align: center; flex: none; font-variant-numeric: tabular-nums;
 }
-.sx-card--rank .sx-card__num { display: block; }
+.sx-card--rank .sx-card__num { display: block; font-family: var(--font-display); }
+.sx-card--rank:hover .sx-card__num { color: var(--c-primary); }
 .sx-card--rank .sx-card__title { font-size: var(--fs-base); }
 .sx-card--rank .sx-card__title a { -webkit-line-clamp: 2; }
 
@@ -119,38 +149,76 @@
 /* side-list header ("الأبرز الآن") — v1 only */
 .sx-hero__side-head { display: none; }
 
-/* v1 — لوحة فاتحة: صورة مهيمنة بأوفرلاي + قائمة جانبية هادئة — الهرمية بالحجم والصورة لا بالخلفية */
-.sx-hero--v1 { padding-block: var(--sp-5) var(--sp-6); }
-.sx-hero--v1 .sx-section__body { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: var(--sp-6); }
-.sx-hero--v1 .sx-card--lead { border-radius: var(--r-lg); overflow: hidden; justify-content: flex-end; min-block-size: clamp(20rem, 42vw, 27rem); }
-.sx-hero--v1 .sx-card--lead .sx-card__media { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; }
-.sx-hero--v1 .sx-card--lead .sx-card__media::after { content: ""; position: absolute; inset: 0; background: var(--overlay-grad); }
-.sx-hero--v1 .sx-card--lead .sx-card__body { position: relative; z-index: 1; padding: var(--sp-6); gap: var(--sp-3); color: var(--c-overlay-ink); }
-.sx-hero--v1 .sx-card--lead .sx-card__kicker { background: var(--c-alert); color: var(--c-on-alert); align-self: flex-start; padding: 0.25em 0.85em; border-radius: var(--r-sm); }
+/* v1 — «صدر الصفحة» (broadsheet lead): العنوان سيد المشهد — خارج الصورة على
+   أبيض، بجواره الصورة بزوايا حادة، والقائمة الجانبية بأرقام معلّقة (عدّاد CSS —
+   لا تغيير في الماركب). اللوحة كلها تفتح على مسطرة مزدوجة — بداية العدد. */
+.sx-hero--v1 { padding-block: var(--sp-4) var(--sp-6); }
+.sx-hero--v1 .sx-section__body {
+  display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: var(--sp-6);
+  padding-block-start: var(--sp-5);
+  background: linear-gradient(var(--c-rule) 0 2px, transparent 2px 5px, var(--c-rule) 5px 6px) top / 100% 6px no-repeat;
+}
+.sx-hero--v1 .sx-card--lead {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--sp-5); align-items: start; min-block-size: 0;
+}
+.sx-hero--v1 .sx-card--lead .sx-card__media { aspect-ratio: 16 / 10; border-radius: var(--r-media); order: 2; }
+.sx-hero--v1 .sx-card--lead .sx-card__body { order: 1; gap: var(--sp-3); }
+/* سطر البرقية: مربع نابض + نص أحمر — الأحمر هنا حيٌ فعلاً (تغطية مستمرة) */
+.sx-hero--v1 .sx-card--lead .sx-card__kicker {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  color: var(--c-alert); font-size: var(--fs-sm);
+}
+.sx-hero--v1 .sx-card--lead .sx-card__kicker::before {
+  content: ""; inline-size: 0.55em; block-size: 0.55em; background: currentColor;
+  animation: sx-pulse 1.4s ease-in-out infinite;
+}
 .sx-hero--v1 .sx-card--lead .sx-card__cat { display: none; }
-.sx-hero--v1 .sx-card--lead .sx-card__title { font-size: clamp(var(--fs-xl), 2.6vw, var(--fs-3xl)); max-inline-size: 26ch; }
-.sx-hero--v1 .sx-card--lead .sx-card__title a { -webkit-line-clamp: 3; }
-.sx-hero--v1 .sx-card--lead .sx-card__excerpt { color: var(--c-overlay-ink-2); max-inline-size: 60ch; -webkit-line-clamp: 2; }
-.sx-hero--v1 .sx-card--lead .sx-card__meta { color: var(--c-overlay-ink-3); }
-.sx-hero--v1 .sx-hero__side { display: flex; flex-direction: column; border-inline-start: 1px solid var(--c-line); padding-inline-start: var(--sp-6); min-inline-size: 0; }
+.sx-hero--v1 .sx-card--lead .sx-card__title {
+  font-size: clamp(var(--fs-2xl), 1.1rem + 2.4vw, var(--fs-4xl));
+  line-height: 1.35; text-wrap: balance;
+}
+.sx-hero--v1 .sx-card--lead .sx-card__title a { -webkit-line-clamp: 4; }
+.sx-hero--v1 .sx-card--lead .sx-card__excerpt {
+  font-size: var(--fs-md); color: var(--c-ink-2); -webkit-line-clamp: 3; max-inline-size: 58ch;
+}
+.sx-hero--v1 .sx-card--lead .sx-card__meta {
+  border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-3);
+  font-variant-numeric: tabular-nums;
+}
+/* القائمة الجانبية — أرقام معلّقة بدل المصغرات المكررة */
+.sx-hero--v1 .sx-hero__side {
+  display: flex; flex-direction: column; border-inline-start: 1px solid var(--c-line);
+  padding-inline-start: var(--sp-6); min-inline-size: 0; counter-reset: sx-top;
+}
 .sx-hero--v1 .sx-hero__side-head { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); font-weight: 700; margin-block-end: var(--sp-1); }
 .sx-hero--v1 .sx-hero__side-head .sx-live-dot { background: var(--c-alert); inline-size: 0.55rem; block-size: 0.55rem; }
-.sx-hero--v1 .sx-card:not(.sx-card--lead) { flex-direction: row; align-items: center; gap: var(--sp-3); padding-block: var(--sp-3); border-block-end: 1px solid var(--c-line); flex: 1; }
+.sx-hero--v1 .sx-card:not(.sx-card--lead) {
+  counter-increment: sx-top;
+  flex-direction: row; align-items: flex-start; gap: var(--sp-3);
+  padding-block: var(--sp-3); border-block-end: 1px solid var(--c-line); flex: 1;
+}
+.sx-hero--v1 .sx-card:not(.sx-card--lead)::before {
+  content: counter(sx-top, decimal-leading-zero);
+  font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; line-height: 1.2;
+  color: var(--c-line-strong); font-variant-numeric: tabular-nums;
+  min-inline-size: 2.1ch; text-align: center; flex: none;
+  transition: color 0.15s ease;
+}
+.sx-hero--v1 .sx-card:not(.sx-card--lead):hover::before { color: var(--c-primary); }
 .sx-hero--v1 .sx-card:not(.sx-card--lead):last-child { border-block-end: 0; padding-block-end: 0; }
-.sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__media { inline-size: 5.5rem; flex: none; aspect-ratio: 1; border-radius: var(--r-md); }
+.sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__media { display: none; }
 .sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__title { font-size: var(--fs-base); }
 .sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__title a { -webkit-line-clamp: 2; }
 .sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__excerpt { display: none; }
 .sx-hero--v1 .sx-card:not(.sx-card--lead) .sx-card__meta { color: var(--c-ink-3); }
 @media (max-width: 64rem) {
   .sx-hero--v1 .sx-section__body { grid-template-columns: 1fr; }
+  .sx-hero--v1 .sx-card--lead { grid-template-columns: 1fr; }
+  .sx-hero--v1 .sx-card--lead .sx-card__media { order: 0; }
+  .sx-hero--v1 .sx-card--lead .sx-card__title { font-size: clamp(var(--fs-xl), 4.5vw, var(--fs-3xl)); }
   .sx-hero--v1 .sx-hero__side { border-inline-start: 0; padding-inline-start: 0; border-block-start: 1px solid var(--c-line); padding-block-start: var(--sp-4); }
 }
-@media (max-width: 48rem) {
-  .sx-hero--v1 { padding-block: var(--sp-5); }
-  .sx-hero--v1 .sx-card--lead .sx-card__body { padding: var(--sp-4); }
-}
-
 /* v2 — full-bleed overlay lead + overlay strip */
 .sx-hero--v2 .sx-section__body { display: grid; gap: var(--sp-4); }
 .sx-hero--v2 .sx-card { min-block-size: 13rem; }
@@ -471,7 +539,6 @@
 }
 [dir="ltr"] .sx-news--v6 .sx-section__head { clip-path: polygon(0 0, calc(100% - 2.5rem) 0, 100% 100%, 0 100%); }
 .sx-news--v6 .sx-section__title { color: var(--c-band-ink); }
-.sx-news--v6 .sx-section__title::before { background: var(--c-band-ink); }
 .sx-news--v6 .sx-section__more { color: var(--c-band-ink-2); }
 .sx-news--v6 .sx-section__more:hover { color: var(--c-band-ink); }
 .sx-news--v6 .sx-section__body {
@@ -565,7 +632,7 @@
 
 /* v2 — quote-led cards */
 .sx-opinion--v2 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); gap: var(--sp-5); }
-.sx-opinion--v2 .sx-card { border-block-start: 3px solid var(--c-primary); padding-block-start: var(--sp-4); gap: var(--sp-4); }
+.sx-opinion--v2 .sx-card { border-block-start: 2px solid var(--c-rule); padding-block-start: var(--sp-4); gap: var(--sp-4); }
 .sx-opinion--v2 .sx-card__media { display: none; }
 .sx-opinion--v2 .sx-card__title { font-size: var(--fs-lg); font-weight: 600; }
 .sx-opinion--v2 .sx-card__title a::before { content: "”"; display: block; font-size: 2.2em; line-height: 0.6; color: var(--c-primary); margin-block-end: 0.15em; }
@@ -608,10 +675,9 @@
 
 /* v3 — dark band */
 .sx-quotes--v3 { background: var(--c-band); color: var(--c-band-ink); }
-.sx-quotes--v3 .sx-section__title::before { background: var(--c-band-ink); }
 .sx-quotes--v3 .sx-section__more { color: var(--c-band-ink); }
 .sx-quotes--v3 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); gap: var(--sp-5); }
-.sx-quotes--v3 .sx-card { border-inline-start: 2px solid var(--c-primary); padding-inline-start: var(--sp-4); gap: var(--sp-4); }
+.sx-quotes--v3 .sx-card { border-block-start: 2px solid var(--c-band-ink); padding-block-start: var(--sp-4); gap: var(--sp-4); }
 .sx-quotes--v3 .sx-card__media { display: none; }
 .sx-quotes--v3 .sx-card__quote a:hover { color: var(--c-pale); }
 .sx-quotes--v3 .sx-author__role { color: var(--c-band-ink-2); }
@@ -622,9 +688,17 @@
    ============================================================= */
 .sx-files .sx-card__media { aspect-ratio: 3 / 4; }
 
-/* v1 — poster grid */
-.sx-files--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); gap: var(--sp-5); }
-.sx-files--v1 .sx-card { min-block-size: 19rem; }
+/* v1 — جاكيتات الملفات: طابع أبيض مرقّم فوق كل بوستر — الرقم معلومة أرشيفية،
+   واللغة لغة ملف وثائقي لا بطاقة عرض */
+.sx-files--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); gap: var(--sp-5); counter-reset: sx-file; }
+.sx-files--v1 .sx-card { min-block-size: 19rem; counter-increment: sx-file; }
+.sx-files--v1 .sx-card::before {
+  content: "ملف " counter(sx-file, decimal-leading-zero);
+  position: absolute; inset-block-start: 0; inset-inline-start: 0; z-index: 2;
+  background: var(--c-bg); color: var(--c-ink);
+  font-size: var(--fs-xs); font-weight: 800; padding: 0.35em 0.9em;
+  border-end-end-radius: var(--r-media);
+}
 
 /* v2 — horizontal scroller */
 .sx-files--v2 .sx-section__body {
@@ -771,7 +845,6 @@
               repeating-linear-gradient(90deg, transparent 0 47px, var(--c-band-line) 47px 48px);
 }
 .sx-video--v1 .sx-container { position: relative; }
-.sx-video--v1 .sx-section__title::before { background: var(--c-alert); animation: sx-pulse 1.4s ease-in-out infinite; }
 .sx-video--v1 .sx-section__more { color: var(--c-band-ink); }
 .sx-video--v1 .sx-section__body { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
 .sx-video--v1 .sx-video__glow { opacity: 0.45; }
@@ -907,7 +980,6 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 
 /* v3 — player + side playlist (classic) */
 .sx-video--v3 { background: var(--c-band); color: var(--c-band-ink); }
-.sx-video--v3 .sx-section__title::before { background: var(--c-band-ink); }
 .sx-video--v3 .sx-section__more { color: var(--c-band-ink); }
 .sx-video--v3 .sx-section__body { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: var(--sp-5); }
 .sx-video--v3 .sx-video__playlist { display: flex; flex-direction: column; gap: var(--sp-2); overflow-y: auto; max-block-size: 34rem; scrollbar-width: thin; }
@@ -1074,7 +1146,6 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 
 /* v2 — طاولة الرسام: ورق مثبّت بشريط لاصق على مكتب داكن */
 .sx-cartoon--v2 { background: var(--c-band); color: var(--c-band-ink); }
-.sx-cartoon--v2 .sx-section__title::before { background: var(--c-band-ink); }
 .sx-cartoon--v2 .sx-section__more { color: var(--c-band-ink-2); }
 .sx-cartoon--v2 .sx-section__more:hover { color: var(--c-band-ink); }
 .sx-cartoon--v2 .sx-cartoon__art { background: var(--c-bg); padding: var(--sp-3); transform: rotate(-1.2deg); box-shadow: var(--shadow-2); }
@@ -1469,7 +1540,6 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 /* v2 — هواتف العرض: إطارات جوال على باند داكن */
 .sx-reels--v2 { background: var(--c-band); }
 .sx-reels--v2 .sx-section__title { color: var(--c-band-ink); }
-.sx-reels--v2 .sx-section__title::before { background: var(--c-alert); animation: sx-pulse 1.4s ease-in-out infinite; }
 .sx-reels--v2 .sx-section__more { color: var(--c-band-ink-2); }
 .sx-reels--v2 .sx-section__more:hover { color: var(--c-band-ink); }
 .sx-reels--v2 .sx-section__body {
@@ -1592,6 +1662,19 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-files--v3 .sx-card--lead .sx-card__body,
 .sx-programs--v3 .sx-card .sx-card__body,
 .sx-reels .sx-card .sx-card__body { position: relative; z-index: 1; padding: var(--sp-4); color: var(--c-overlay-ink); align-items: flex-start; text-align: start; }
+/* filled category chips keep their fill — the drawn marker is for text slugs */
+.sx-card--overlay .sx-card__cat::before,
+.sx-hero--v2 .sx-card .sx-card__cat::before,
+.sx-hero--v3 .sx-card .sx-card__cat::before,
+.sx-hero--v4 .sx-card .sx-card__cat::before,
+.sx-files--v1 .sx-card .sx-card__cat::before,
+.sx-files--v2 .sx-card .sx-card__cat::before,
+.sx-files--v3 .sx-card--lead .sx-card__cat::before,
+.sx-programs--v3 .sx-card .sx-card__cat::before,
+.sx-reels .sx-card .sx-card__cat::before,
+.sx-news--v5 .sx-card--lead .sx-card__cat::before,
+.sx-news--v6 .sx-card .sx-card__cat::before { content: none; }
+
 /* readable kicker + crisper text on imagery */
 .sx-card--overlay .sx-card__kicker,
 .sx-hero--v2 .sx-card .sx-card__kicker,
@@ -1659,7 +1742,6 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-pulse { background: var(--c-band-2); color: var(--c-band-ink); padding-block: var(--sp-5); }
 .sx-pulse .sx-section__head { margin-block-end: var(--sp-4); align-items: center; }
 .sx-pulse .sx-section__title { font-size: var(--fs-lg); }
-.sx-pulse .sx-section__title::before { background: var(--c-alert); animation: sx-pulse 1.4s ease-in-out infinite; }
 .sx-pulse a:hover { color: var(--c-pale); }
 .sx-pulse .sx-section__more { color: var(--c-band-ink); }
 .sx-pulse__updated { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-xs); color: var(--c-band-ink-2); }
@@ -1741,8 +1823,8 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 @media (max-width: 48rem) {
   .sx-gallery--v3 .sx-gallery__slides > :last-child:nth-child(even) { grid-column: 1 / -1; }
 }
-.sx-numbers__item { border-inline-start: 3px solid var(--c-pale); padding-inline-start: var(--sp-4); display: grid; gap: var(--sp-1); align-content: start; }
-.sx-numbers__item--alert { border-inline-start-color: var(--c-alert); }
+.sx-numbers__item { border-block-start: 2px solid var(--c-rule); padding-block-start: var(--sp-3); display: grid; gap: var(--sp-1); align-content: start; }
+.sx-numbers__item--alert { border-block-start-color: var(--c-alert); }
 .sx-numbers__ico { inline-size: 1.75rem; block-size: 1.75rem; color: var(--c-primary); margin-block-end: var(--sp-1); }
 .sx-numbers__ico .sx-icon { inline-size: 100%; block-size: 100%; }
 .sx-numbers__item--alert .sx-numbers__ico { color: var(--c-alert); }
@@ -2063,3 +2145,22 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
   .sx-brief__take { grid-template-columns: 2rem minmax(0, 1fr); gap: var(--sp-2); }
   .sx-brief__seek { font-size: var(--fs-xl); }
 }
+
+/* =============================================================
+   MOTION — المسطرة تُرسم عند دخولها المشهد (scroll-driven، بلا JS).
+   اللحظة الحركية الوحيدة المُضافة: مسطرة القسم تمتد من جهة القراءة —
+   تؤكد الهرمية ولا تزاحم المحتوى. محمية بـ reduce وبـ @supports،
+   والمتصفح غير الداعم يرى المسطرة ثابتة.
+   ============================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sx-section__head::before {
+      transform-origin: 100% 50%;
+      animation: sx-rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+    [dir="ltr"] .sx-section__head::before { transform-origin: 0 50%; }
+  }
+}
+@keyframes sx-rule-draw { from { transform: scaleX(0); } }

@@ -79,6 +79,7 @@
   --fs-xl: 1.5rem;     /* 24 */
   --fs-2xl: 1.875rem;  /* 30 */
   --fs-3xl: 2.375rem;  /* 38 */
+  --fs-4xl: 2.875rem;  /* 46 — broadsheet lead only */
   --lh-tight: 1.45;    /* Arabic headlines need more than Latin */
   --lh-body: 1.9;
 
@@ -86,6 +87,9 @@
   --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
   --sp-5: 1.5rem;  --sp-6: 2rem;  --sp-7: 3rem;   --sp-8: 4rem;
   --r-sm: 4px; --r-md: 8px; --r-lg: 14px; --r-full: 999px;
+  /* Editorial surfaces sit square-leaning; rounding is UI chrome only */
+  --r-media: 3px;
+  --c-rule: var(--c-ink);           /* newspaper rules — weight = importance */
   --shadow-1: 0 1px 2px rgba(16, 35, 58, 0.06);
   --shadow-2: 0 8px 28px rgba(16, 35, 58, 0.12);
   --container: 76.25rem; /* 1220px */
@@ -174,7 +178,8 @@ time { color: inherit; }
 /* ▸ Utility strip */
 .sx-topbar { background: var(--c-band); color: var(--c-band-ink-2); font-size: var(--fs-sm); }
 .sx-topbar__in { display: flex; align-items: center; gap: var(--sp-4); min-block-size: 2.25rem; }
-.sx-topbar__date { display: flex; align-items: center; gap: var(--sp-2); }
+/* dateline — the edition stamp: display face + tabular figures */
+.sx-topbar__date { display: flex; align-items: center; gap: var(--sp-2); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--c-band-ink); }
 .sx-topbar__spacer { flex: 1; }
 .sx-topbar__links { display: flex; align-items: center; gap: var(--sp-4); }
 .sx-topbar a:hover, .sx-topbar button:hover { color: var(--c-band-ink); }
