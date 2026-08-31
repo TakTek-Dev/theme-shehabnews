@@ -14,7 +14,8 @@
     ['.sx-pulse__rail', 0],
     ['.sx-files--v2 .sx-section__body', 16],
     ['.sx-programs--v1 .sx-section__body', 24],
-    ['.sx-reels--v1 .sx-section__body', 16]
+    ['.sx-reels--v1 .sx-section__body', 16],
+    ['.sx-gallery--v1 .sx-gallery__slides', 16]
   ];
 
   function enhance(el, gap) {

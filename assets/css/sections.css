@@ -1123,22 +1123,26 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-gallery__bar { display: none; align-items: center; gap: var(--sp-3); margin-block-start: var(--sp-3); }
 
 /* v1 — masonry */
-/* v1 — «مسرح العدسة»: إطار رئيسي بقضمة القوس والكاميرا ساكنة فيها
-   (حركة الهيرو نفسها)، وحوله شبكة إطارات طباعة مرقّمة بطوابع — محاذاة
-   صارمة بلا قص ولا تلاشٍ. 6 ألبومات = شبكة 3×3 والرئيسي 2×2. */
+/* v1 — «شريط العدسة»: سلايدر صف واحد موحّد العرض — يوفر المساحة، وSwiper
+   يركّب أسهمه في رأس القسم (نفس مسلك نبض التغطية) ويتولى تلاشي الحواف
+   عند التمرير فقط — لا قص ساكن. كل إطار مرقّم بطابع، والأول يحمل
+   قضمة القوس والكاميرا ساكنة فيها (حركة الهيرو نفسها). */
 .sx-gallery--v1 .sx-gallery__slides {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-5) var(--sp-4); counter-reset: sx-frame;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 19rem;
+  gap: var(--sp-4); counter-reset: sx-frame;
+  overflow-x: auto; scroll-snap-type: inline mandatory; scrollbar-width: none;
+  border-block-start: 2px solid var(--c-rule); padding-block-start: var(--sp-4);
 }
-.sx-gallery--v1 .sx-card { position: relative; counter-increment: sx-frame; gap: var(--sp-2); }
+.sx-gallery--v1 .sx-gallery__slides::-webkit-scrollbar { display: none; }
+.sx-gallery--v1 .swiper-slide { inline-size: 19rem; }
+.sx-gallery--v1 .sx-card { position: relative; counter-increment: sx-frame; gap: var(--sp-2); scroll-snap-align: start; }
 /* طابع الرقم على ركن الإطار — عائلة طوابع «ملف 01» */
 .sx-gallery--v1 .sx-card::before {
   content: counter(sx-frame, decimal-leading-zero);
   position: absolute; inset-block-start: 1px; inset-inline-end: 1px; z-index: 2;
   background: var(--c-bg); color: var(--c-ink-3);
   font-family: var(--font-display); font-size: var(--fs-xs); font-weight: 700;
-  font-variant-numeric: tabular-nums; line-height: 1;
-  padding: 0.45em 0.7em;
+  font-variant-numeric: tabular-nums; line-height: 1; padding: 0.45em 0.7em;
   border-block-end: 1px solid var(--c-line-strong); border-inline-start: 1px solid var(--c-line-strong);
   transition: color 0.15s ease;
 }
@@ -1151,28 +1155,23 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-gallery--v1 .sx-card__media img { border-radius: 0; }
 .sx-gallery--v1 .sx-card__title { font-size: var(--fs-sm); font-weight: 600; }
 .sx-gallery--v1 .sx-card__title a { -webkit-line-clamp: 2; }
-/* الإطار الرئيسي — 2×2، قضمة + كاميرا، بلا طابع (هو الواجهة) */
-.sx-gallery--v1 .sx-card--lead { grid-column: span 2; grid-row: span 2; }
-.sx-gallery--v1 .sx-card--lead::before { content: none; }
-.sx-gallery--v1 .sx-card--lead .sx-card__media { aspect-ratio: auto; flex: 1; min-block-size: 20rem; }
-.sx-gallery--v1 .sx-card--lead .sx-card__title { font-size: var(--fs-lg); font-weight: 700; }
+/* الإطار الأول: قضمة + كاميرا — نفس مقاس الباقي، التميز بالتوقيع لا بالحجم */
 .sx-gallery--v1 .sx-card--lead .sx-card__media {
-  -webkit-mask-image: radial-gradient(circle 3.4rem at 100% 0, transparent 3.3rem, #000 calc(3.3rem + 1px));
-          mask-image: radial-gradient(circle 3.4rem at 100% 0, transparent 3.3rem, #000 calc(3.3rem + 1px));
+  -webkit-mask-image: radial-gradient(circle 3rem at 100% 0, transparent 2.9rem, #000 calc(2.9rem + 1px));
+          mask-image: radial-gradient(circle 3rem at 100% 0, transparent 2.9rem, #000 calc(2.9rem + 1px));
 }
 [dir="ltr"] .sx-gallery--v1 .sx-card--lead .sx-card__media {
-  -webkit-mask-image: radial-gradient(circle 3.4rem at 0 0, transparent 3.3rem, #000 calc(3.3rem + 1px));
-          mask-image: radial-gradient(circle 3.4rem at 0 0, transparent 3.3rem, #000 calc(3.3rem + 1px));
+  -webkit-mask-image: radial-gradient(circle 3rem at 0 0, transparent 2.9rem, #000 calc(2.9rem + 1px));
+          mask-image: radial-gradient(circle 3rem at 0 0, transparent 2.9rem, #000 calc(2.9rem + 1px));
 }
 .sx-gallery--v1 .sx-card--lead .sx-card__flag {
-  inset-inline-start: 0.35rem; inset-block-start: 0.35rem; inset-block-end: auto; inset-inline-end: auto;
-  inline-size: 2.2rem; block-size: 2.2rem;
+  inset-inline-start: 0.3rem; inset-block-start: 0.3rem; inset-block-end: auto; inset-inline-end: auto;
+  inline-size: 2rem; block-size: 2rem;
   background: var(--c-primary); color: var(--c-on-primary);
 }
-@media (max-width: 64rem) {
-  .sx-gallery--v1 .sx-gallery__slides { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .sx-gallery--v1 .sx-card--lead { grid-column: span 2; grid-row: auto; }
-  .sx-gallery--v1 .sx-card--lead .sx-card__media { aspect-ratio: 16 / 9; flex: none; min-block-size: 0; }
+@media (max-width: 40rem) {
+  .sx-gallery--v1 .sx-gallery__slides { grid-auto-columns: 14rem; }
+  .sx-gallery--v1 .swiper-slide { inline-size: 14rem; }
 }
 
 /* v2 — slider with counter */
