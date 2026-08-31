@@ -1250,24 +1250,43 @@ html.sx-has-float [data-sx-drawer], html.sx-has-float .sx-search { z-index: 301;
 .sx-social .sx-social__count { font-weight: 700; font-variant-numeric: tabular-nums; }
 .sx-social .sx-social__name { font-size: var(--fs-sm); }
 
-/* v1 — colored tiles */
-.sx-social--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(9.5rem, 100%), 1fr)); gap: var(--sp-4); }
-/* Tablet: 6 platform tiles in auto-fit's 4 columns leave a 4+2 hole. Force 3×2. */
+/* v1 — «محطات الشبكة»: خط سير واحد والمنصات عقد عليه — قرابة نبض التغطية
+   (محطات الزمن) لكن على محور التوزيع. لون كل منصة محصور في عقدتها وخاتم
+   الـhover — لا تعبئات صارخة: الأرقام هي الحدث، بخط العناوين وأرقام tabular.
+   gap:0 + border على كل محطة ⇒ الخط متصل عبر الصف ويلتف مع الصفوف. */
+.sx-social--v1 .sx-section__body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(8.5rem, 100%), 1fr)); gap: 0; }
 @media (min-width: 40.0625rem) and (max-width: 64rem) {
+  .sx-social--v1 .sx-section__body { grid-template-columns: repeat(3, 1fr); } /* 6 ⇒ 3×2 بلا ثقوب */
+}
+@media (max-width: 40rem) {
   .sx-social--v1 .sx-section__body { grid-template-columns: repeat(3, 1fr); }
 }
 .sx-social--v1 a {
-  display: flex; flex-direction: column; align-items: center; gap: var(--sp-1);
-  padding: var(--sp-4); border-radius: var(--r-md); color: var(--c-overlay-ink); text-align: center;
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--sp-1);
+  padding: var(--sp-5) var(--sp-2) var(--sp-2); text-align: center;
+  border-block-start: 2px solid var(--c-rule); color: var(--c-ink-2);
 }
-.sx-social--v1 a:hover { color: var(--c-overlay-ink); filter: brightness(1.08); }
-.sx-social--v1 .sx-icon { inline-size: 1.5rem; block-size: 1.5rem; margin-block-end: var(--sp-1); }
-.sx-social--v1 [data-net="facebook"] { background: var(--c-facebook); }
-.sx-social--v1 [data-net="x"] { background: var(--c-x); }
-.sx-social--v1 [data-net="instagram"] { background: var(--c-instagram); }
-.sx-social--v1 [data-net="telegram"] { background: var(--c-telegram); }
-.sx-social--v1 [data-net="youtube"] { background: var(--c-youtube); }
-.sx-social--v1 [data-net="whatsapp"] { background: var(--c-whatsapp); }
+/* العقدة: مربع بلون المنصة جالس على الخط — الـ▪ نفسه، ملوّنًا هذه المرة */
+.sx-social--v1 a::before {
+  content: ""; position: absolute; inset-block-start: -5px; inset-inline-start: calc(50% - 4px);
+  inline-size: 8px; block-size: 8px; background: var(--net, var(--c-primary));
+  transition: box-shadow 0.25s ease;
+}
+.sx-social--v1 .sx-icon { inline-size: 1.35rem; block-size: 1.35rem; margin-block-end: var(--sp-1); color: var(--c-ink-2); transition: color 0.18s ease; }
+.sx-social--v1 .sx-social__count {
+  font-family: var(--font-display); font-size: clamp(1.55rem, 1rem + 1.4vw, 2.25rem);
+  line-height: 1.15; color: var(--c-ink); transition: color 0.18s ease;
+}
+.sx-social--v1 .sx-social__name { font-size: var(--fs-xs); color: var(--c-ink-3); }
+.sx-social--v1 a:hover { color: var(--c-ink-2); }
+.sx-social--v1 a:hover::before { box-shadow: 0 0 0 6px color-mix(in srgb, var(--net, var(--c-primary)) 22%, transparent); }
+.sx-social--v1 a:hover .sx-social__count, .sx-social--v1 a:hover .sx-icon { color: var(--net, var(--c-primary)); }
+.sx-social--v1 [data-net="facebook"] { --net: var(--c-facebook); }
+.sx-social--v1 [data-net="x"] { --net: var(--c-x); }
+.sx-social--v1 [data-net="instagram"] { --net: var(--c-instagram); }
+.sx-social--v1 [data-net="telegram"] { --net: var(--c-telegram); }
+.sx-social--v1 [data-net="youtube"] { --net: var(--c-youtube); }
+.sx-social--v1 [data-net="whatsapp"] { --net: var(--c-whatsapp); }
 
 /* v2 — minimal inline counters */
 .sx-social--v2 .sx-section__body {
